@@ -10,6 +10,12 @@ export type ExperiencePosition = {
     start: string
     /** End date; leave undefined for "Present". */
     end?: string
+    /** Optional custom display string (e.g., "06.2024 & 06.2025"). */
+    display?: string
+    /** Set false for completed single-date roles so it doesn't show "- Present". */
+    isOngoing?: boolean
+    /** Set true to hide the calculated duration tag for awkward/short time stamps. */
+    hideDuration?: boolean
   }
   /** Full-time | Part-time | Contract | Internship, etc. */
   employmentType?: string

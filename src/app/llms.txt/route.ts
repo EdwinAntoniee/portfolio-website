@@ -9,50 +9,48 @@ function buildLlmsTxt(): string {
   const email = decodeEmail(USER.email)
   const baseUrl = SITE_INFO.url
 
-  return `# Firdaus Khotibul Zickrian
+  return `# Edwin Antonie
 
-> Firdaus Khotibul Zickrian is an AI & Machine Learning Engineer and Computer Science scholar at Universitas Dian Nuswantoro (GPA 3.88/4.00) based in Indonesia. He specializes in practical machine learning systems, business process automation, ERP integrations, predictive analytics, and modern full-stack web applications.
+> Edwin Antonie is an undergraduate Computer Science student at Bina Nusantara University (Binus) specializing in Intelligent Systems (GPA 3.97/4.00) based in Jakarta, Indonesia. He builds practical machine learning systems, computer vision frameworks, and modern full-stack web applications designed for real-world impact.
 
 ## Core Projects & Systems
-- [LeadsUp](${baseUrl}/projects/leadsup): Predictive banking lead-scoring intelligence platform built with Scikit-learn, REST API, and data pipeline (presented to Accenture).
-- [Narratio AI](${baseUrl}/projects/naratioai): AI business consultant deck generator combining web scraping, sentiment analysis, semantic embeddings, and LLM orchestration.
-- [Custora AI](${baseUrl}/projects/custora): Customer intelligence platform with churn prediction and sentiment analysis deployed on Azure ML (Best Capstone Project, Top 5 of 120+ teams).
-- [Base Realms](${baseUrl}/projects/base-realms): Onchain 16-bit RPG battle game on Base network with QRIS onboarding (Coinbase Hackathon Indonesia 2025 Top 5 National Finalist).
-- [Production MLOps System](${baseUrl}/projects/machine-learning-system): End-to-end ML lifecycle with MLflow, DagsHub, CI/CD automated retraining, Prometheus, Grafana, and Docker).
-- [Polsek Rembang](${baseUrl}/projects/polsekrembang): Public police administration and LangChain RAG AI assistant service platform.
-- [Campus Lost & Found System](${baseUrl}/projects/lostandfound): Geolocation-integrated web platform evaluated with Mean Opinion Score (MOS), published in JUTISI journal.
+- [Moofy](${baseUrl}/projects/moofy): Emotion-aware cinema recommendation platform interpreting natural language user stories via DistilBERT and Sentence-BERT on ChromaDB.
+- [InForm](${baseUrl}/projects/inform): Multimodal fitness & nutrition intelligence platform extracting InBody scan sheets via Donut OCR with deterministic medical validation and LLM synthesis.
+- [Online Shoppers Prediction Engine](${baseUrl}/projects/users-behaviour-analyzer): E-commerce purchase intention forecasting engine using XGBoost and SMOTE with a Streamlit interface.
+- [Maintain](${baseUrl}/projects/maintain): Dual-AI industrial predictive maintenance platform combining LightGBM telemetry gatekeeping with a local Qwen2.5-7B SOP copilot (COMPFEST 18 Top 50).
+- [Repeat Order Prediction](${baseUrl}/projects/repeat-order-prediction): Cost-sensitive automotive retention machine learning pipeline on 319K+ records (SPARC 2026 National Finalist).
+- [En Garde](${baseUrl}/projects/en-garde): Unsupervised public procurement fraud detection with Isolation Forest and SHAP explanations (Find IT! 2026 UGM 11th Place).
+- [Robust FAS](${baseUrl}/projects/robust-fas): Two-stage biometric verification coupling MobileNetV2 presentation attack detection with ArcFace on OULU-NPU datasets.
 
-## Professional Experience & Career Roles
-- [PT Custompedia Creative Group](${baseUrl}/#experience): ERP & AI Engineer Intern (Reduced production error rate from 88% to 2% via async processing and Cloudflare R2).
-- [Pijak by Dicoding & IBM](${baseUrl}/#experience): AI Engineer Cohort & Team Lead (Graduated with Distinction, top 10% of 670+ participants).
-- [Asah by Dicoding & Accenture](${baseUrl}/#experience): Machine Learning Lead (Selected top participants from 2,000 nationwide).
-- [Blockvizo Research](${baseUrl}/#experience): Research & Data Analyst (Analyzed 50,000+ blockchain records; 85% accuracy ML models; generated Rp50M+ profit).
-- [Universitas Dian Nuswantoro](${baseUrl}/#experience): Computer Science Laboratory Assistant (Mentored 140+ students in programming & database logic).
+## Professional & Campus Experience
+- [Bina Nusantara University](${baseUrl}/#experience): Promotion and Event Part Time (Campus tours, presentations, event planning).
+- [Bina Nusantara Computer Club (BNCC)](${baseUrl}/#experience): Learning and Training Staff (Weekly classes, curriculum design, mentorship for 25+ members).
+- [Bina Nusantara University](${baseUrl}/#experience): Freshmen Partner (Mentoring freshmen through university transition and community service).
+- [Phinla Earth Day 2026](${baseUrl}/#experience): Paid Educator Volunteer (Environmental education and interactive community outreach).
+- [The Lion Youth Tournament](${baseUrl}/#experience): Liaison Officer (Team coordination and on-the-spot event operations).
+- [Fun n Smart Course](${baseUrl}/#experience): Math Tutor (Junior High math and physics tutoring).
 
-## Research Publications
-- [JUTISI Journal (2026)](https://ojs.stmik-banjarbaru.ac.id/index.php/jutisi/article/view/3476/1658): "Implementasi Sistem Lost and Found Kampus Berbasis Web Terintegrasi Geolocation dan Evaluasi MOS".
+## Competitions & Honors
+- **SPARC 2026 Data Science Competition**: National Finalist 🏆 (Universitas Ciputra).
+- **Find IT! 2026 Hackathon**: 11th Place Nationwide 🏅 (Universitas Gadjah Mada).
+- **COMPFEST 18 AI Innovation Challenge**: Top 50 🌟 (Universitas Indonesia).
 
 ## Core Technical Stack
-- **AI & Machine Learning**: Python, PyTorch, TensorFlow, Scikit-learn, Hugging Face, OpenCV, LangChain, Groq API, Azure ML.
-- **Web & Full-Stack**: TypeScript, React, Next.js, Tailwind CSS, Node.js, Fastify, Express.
-- **Databases & DevOps**: PostgreSQL, Supabase, Redis, Docker, Cloudflare R2, MLflow, Git.
+- **AI & Machine Learning**: Python, PyTorch, Scikit-Learn, LightGBM, XGBoost, DistilBERT, Sentence-Transformers, ChromaDB, OpenCV, ArcFace, Ollama, SHAP.
+- **Web & Full-Stack**: TypeScript, React, Next.js, FastAPI, Tailwind CSS, Vite, Streamlit.
+- **Tools & DevOps**: Git, GitHub, Docker, Docker Compose, Microsoft Azure, n8n, Claude Code, Antigravity.
 
 ## Site Navigation & Resources
 - [Home](${baseUrl}/): Main portfolio, profile summary, experiences, and technical overview.
-- [All Projects](${baseUrl}/projects): Comprehensive archive of AI/ML, data, and web engineering projects.
-- [Technical Blog](${baseUrl}/blog): Technical articles on Machine Learning, AI engineering, and software development.
+- [All Projects](${baseUrl}/projects): Comprehensive archive of AI/ML, computer vision, and web engineering projects.
 - [Visual Gallery](${baseUrl}/gallery): Visual documentation of hackathons, research activities, and project milestones.
 
 ## Contact & Profiles
 - [Portfolio Website](${baseUrl}): ${baseUrl}
-- [GitHub](https://github.com/zickrian): @zickrian
-- [LinkedIn](https://linkedin.com/in/firdauskhotibulzickrian/): Firdaus Khotibul Zickrian
-- [Medium](https://medium.com/@zickriann): @zickriann
-- [Hugging Face](https://huggingface.co/zickrian): @zickrian
+- [GitHub](https://github.com/EdwinAntoniee): @EdwinAntoniee
+- [LinkedIn](https://www.linkedin.com/in/edwin-antonie-171016326): Edwin Antonie
+- [Instagram](https://www.instagram.com/edwin_.a/): @edwin_.a
 - [Email](mailto:${email}): ${email}
-
-## Optional
-- [Full Comprehensive Knowledge Base](${baseUrl}/llms-full.txt): Complete, unabridged dossiers including case study architectures, technical workflows, complete certification credentials, and quantified impact.
 `
 }
 

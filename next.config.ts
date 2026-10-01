@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     // under /image, /projects, /logos and /icons is already served
     // `immutable`, so the derived files can be cached just as long. The
     // default (4h) had browsers re-validating every image on a repeat visit.
-    minimumCacheTTL: 31536000,
+    minimumCacheTTL: process.env.NODE_ENV === "production" ? 31536000 : 0,
     // No source in /public is wider than 1920, so 2048 and 3840 only ever
     // produced srcset entries that resolve back to the same file; 1440 is
     // added so a 2x desktop banner can request its exact width.
@@ -37,10 +37,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "github-contributions-api.jogruber.de",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn-images-1.medium.com",
       },
     ],
   },
@@ -79,29 +75,14 @@ const nextConfig: NextConfig = {
 
     return [
       {
-        source: "/bannerfield.webp",
+        source: "/:path((?:icons|projects|logos|image|banners)/.*)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/:path(ascii-footer.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/:path((?:fonts|icons|projects|logos|image)/.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
+            value:
+              process.env.NODE_ENV === "production"
+                ? "public, max-age=31536000, immutable"
+                : "no-store, must-revalidate",
           },
         ],
       },

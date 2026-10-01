@@ -4,7 +4,6 @@ import { ArrowUpRightIcon } from "lucide-react"
 import Link from "next/link"
 
 import { CollapsibleList } from "@/components/collapsible-list"
-import { SectionCallout } from "@/components/section-callout"
 import { useIntentPrefetch } from "@/hooks/use-intent-prefetch"
 import { useTranslation } from "@/lib/i18n/use-translation"
 
@@ -18,12 +17,8 @@ export function Projects() {
 
   return (
     <Panel id="projects">
-      <SectionCallout side="left" className="top-14">
-        {t.projects.callout}
-      </SectionCallout>
-
       <PanelHeader>
-        <div className="flex items-center justify-between gap-3">
+        <div className="relative flex items-center justify-center">
           <PanelTitle>
             {t.projects.title}
             <PanelTitleSup>({PROJECTS.length})</PanelTitleSup>
@@ -33,7 +28,7 @@ export function Projects() {
             href="/projects"
             prefetch={false}
             {...intentPrefetch}
-            className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="absolute right-0 inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {t.projects.viewAll}
             <ArrowUpRightIcon className="size-4" />

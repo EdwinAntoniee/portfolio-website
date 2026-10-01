@@ -1,46 +1,5 @@
 @import "tailwindcss";
-
-@font-face {
-  font-family: "GeistSans";
-  src: url("/fonts/geist-sans-latin.woff2") format("woff2");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 900;
-}
-
-@font-face {
-  font-family: "GeistSans Fallback";
-  src: local("Arial");
-  ascent-override: 94.56%;
-  descent-override: 27.76%;
-  line-gap-override: 0%;
-  size-adjust: 106.28%;
-}
-
-@font-face {
-  font-family: "GeistMono";
-  src: url("/fonts/geist-mono-latin.woff2") format("woff2");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 900;
-}
-
-@font-face {
-  font-family: "Caveat";
-  src: url("/fonts/caveat-latin.woff2") format("woff2");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400 500;
-}
-
-@font-face {
-  font-family: "Caveat Fallback";
-  src: local("Arial");
-  ascent-override: 124.77%;
-  descent-override: 38.99%;
-  line-gap-override: 0%;
-  size-adjust: 76.94%;
-}
+@import "tw-animate-css";
 
 /* Inlined from scroll-fade-effect.css - eliminates one render-blocking CSS request */
 @layer base {
@@ -166,7 +125,6 @@
 }
 
 @custom-variant data-open {
-
   &:where([data-state="open"]),
   &:where([data-open]:not([data-open="false"])) {
     @slot;
@@ -174,7 +132,6 @@
 }
 
 @custom-variant data-closed {
-
   &:where([data-state="closed"]),
   &:where([data-closed]:not([data-closed="false"])) {
     @slot;
@@ -182,7 +139,6 @@
 }
 
 @custom-variant data-checked {
-
   &:where([data-state="checked"]),
   &:where([data-checked]:not([data-checked="false"])) {
     @slot;
@@ -190,7 +146,6 @@
 }
 
 @custom-variant data-unchecked {
-
   &:where([data-state="unchecked"]),
   &:where([data-unchecked]:not([data-unchecked="false"])) {
     @slot;
@@ -204,7 +159,6 @@
 }
 
 @custom-variant data-disabled {
-
   &:where([data-disabled="true"]),
   &:where([data-disabled]:not([data-disabled="false"])) {
     @slot;
@@ -212,7 +166,6 @@
 }
 
 @custom-variant data-active {
-
   &:where([data-state="active"]),
   &:where([data-active]:not([data-active="false"])) {
     @slot;
@@ -232,9 +185,7 @@
 }
 
 @custom-variant retina {
-
-  @media (-webkit-min-device-pixel-ratio: 2),
-  (min-resolution: 2x) {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2x) {
     @slot;
   }
 }
@@ -328,8 +279,8 @@
   @apply prose-a:font-normal prose-a:wrap-break-word prose-a:text-foreground prose-a:link-underline;
   @apply prose-code:rounded-md prose-code:border prose-code:bg-muted/50 prose-code:px-1 prose-code:py-px prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none retina:prose-code:border-[0.5px];
   @apply prose-strong:font-medium;
-  @apply prose-hr:border-line;
-  @apply prose-blockquote:border-l prose-blockquote:border-line prose-blockquote:font-normal prose-blockquote:text-muted-foreground prose-blockquote:not-italic prose-blockquote:[&_p:first-of-type]:before:content-none prose-blockquote:[&_p:last-of-type]:after:content-none;
+  @apply prose-hr:border-dashed prose-hr:border-line;
+  @apply prose-blockquote:border-l prose-blockquote:border-dashed prose-blockquote:border-line prose-blockquote:font-normal prose-blockquote:text-muted-foreground prose-blockquote:not-italic prose-blockquote:[&_p:first-of-type]:before:content-none prose-blockquote:[&_p:last-of-type]:after:content-none;
 }
 
 @utility code-inline {
@@ -337,11 +288,11 @@
 }
 
 @utility prose-no-margin {
-  &> :first-child {
+  & > :first-child {
     @apply mt-0;
   }
 
-  &> :last-child {
+  & > :last-child {
     @apply mb-0;
   }
 
@@ -468,38 +419,54 @@
   @apply relative block h-37 overflow-hidden;
   color: var(--paper-ink);
   /* Faint dot texture, the tooth of the paper stock. */
-  background: radial-gradient(circle at 18% 24%,
-    color-mix(in oklab, var(--paper-ink) 4%, transparent) 0 0.5px,
-    transparent 0.75px),
-  var(--paper);
-  background-size: 13px 11px,
-  auto;
+  background:
+    radial-gradient(
+      circle at 18% 24%,
+      color-mix(in oklab, var(--paper-ink) 4%, transparent) 0 0.5px,
+      transparent 0.75px
+    ),
+    var(--paper);
+  background-size:
+    13px 11px,
+    auto;
 
   /* Airmail border: red/blue barber stripe on all four edges. */
   &::before {
     content: "";
     @apply pointer-events-none absolute inset-0 z-4;
     background:
-      repeating-linear-gradient(135deg,
-        var(--mail-red) 0 7px,
-        transparent 7px 14px,
-        var(--mail-blue) 14px 21px,
-        transparent 21px 28px) top / 100% 3px no-repeat,
-      repeating-linear-gradient(135deg,
-        var(--mail-red) 0 7px,
-        transparent 7px 14px,
-        var(--mail-blue) 14px 21px,
-        transparent 21px 28px) bottom / 100% 3px no-repeat,
-      repeating-linear-gradient(45deg,
-        var(--mail-red) 0 7px,
-        transparent 7px 14px,
-        var(--mail-blue) 14px 21px,
-        transparent 21px 28px) left / 3px 100% no-repeat,
-      repeating-linear-gradient(45deg,
-        var(--mail-red) 0 7px,
-        transparent 7px 14px,
-        var(--mail-blue) 14px 21px,
-        transparent 21px 28px) right / 3px 100% no-repeat;
+      repeating-linear-gradient(
+          135deg,
+          var(--mail-red) 0 7px,
+          transparent 7px 14px,
+          var(--mail-blue) 14px 21px,
+          transparent 21px 28px
+        )
+        top / 100% 3px no-repeat,
+      repeating-linear-gradient(
+          135deg,
+          var(--mail-red) 0 7px,
+          transparent 7px 14px,
+          var(--mail-blue) 14px 21px,
+          transparent 21px 28px
+        )
+        bottom / 100% 3px no-repeat,
+      repeating-linear-gradient(
+          45deg,
+          var(--mail-red) 0 7px,
+          transparent 7px 14px,
+          var(--mail-blue) 14px 21px,
+          transparent 21px 28px
+        )
+        left / 3px 100% no-repeat,
+      repeating-linear-gradient(
+          45deg,
+          var(--mail-red) 0 7px,
+          transparent 7px 14px,
+          var(--mail-blue) 14px 21px,
+          transparent 21px 28px
+        )
+        right / 3px 100% no-repeat;
     opacity: 0.45;
   }
 
@@ -507,7 +474,9 @@
     @apply absolute inset-x-0 bottom-0 h-2/3;
     clip-path: polygon(0 100%, 0 75%, 50% 25%, 100% 75%, 100% 100%);
     background: color-mix(in oklab, var(--paper-ink) 3%, var(--paper));
-    filter: drop-shadow(0 -1px 0 color-mix(in oklab, var(--paper-ink) 34%, transparent));
+    filter: drop-shadow(
+      0 -1px 0 color-mix(in oklab, var(--paper-ink) 34%, transparent)
+    );
   }
 
   /* Capped so a long sender name wraps inside the paper instead of sliding
@@ -516,7 +485,7 @@
     @apply absolute top-4 left-4 z-1 max-w-32 font-mono text-[7px] leading-[1.45] tracking-[0.08em];
     color: color-mix(in oklab, var(--paper-ink) 78%, transparent);
 
-    &>span {
+    & > span {
       @apply mb-px block text-[6px] tracking-[0.16em] opacity-72;
     }
   }
@@ -569,9 +538,11 @@
     &::after {
       content: "";
       @apply absolute top-2 left-[1.65rem] h-4 w-11;
-      background: repeating-linear-gradient(to bottom,
-          color-mix(in oklab, var(--paper-ink) 58%, transparent) 0 1px,
-          transparent 1px 5px);
+      background: repeating-linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--paper-ink) 58%, transparent) 0 1px,
+        transparent 1px 5px
+      );
     }
   }
 
@@ -583,7 +554,7 @@
     color: color-mix(in oklab, var(--paper-ink) 92%, transparent);
     word-break: break-all;
 
-    &>span {
+    & > span {
       @apply mb-1 text-[6px] tracking-[0.18em] break-normal opacity-68;
     }
   }
@@ -596,7 +567,7 @@
    Adapted from cali.so (MIT, © Cali Castle) onto this project's tokens. */
 
 @utility footer-tree {
-  &>ul {
+  & > ul {
     @apply flex flex-col;
   }
 
@@ -610,9 +581,11 @@
     content: "";
     position: absolute;
     left: 0;
-    background: color-mix(in oklab,
-        var(--color-muted-foreground) 22%,
-        transparent);
+    background: color-mix(
+      in oklab,
+      var(--color-muted-foreground) 22%,
+      transparent
+    );
   }
 
   & li::before {
@@ -628,7 +601,7 @@
     @apply top-1/2 h-px w-2.5;
   }
 
-  & li>* {
+  & li > * {
     @apply min-w-0 flex-1;
   }
 }
@@ -653,7 +626,7 @@
 @utility footer-stamp-lines {
   @apply flex flex-col gap-px font-handwritten text-[1.1rem] tracking-wide;
 
-  &>span {
+  & > span {
     @apply tracking-[0.08em];
     /* 72% landed on 4.45:1 against the dark card - just under WCAG AA. 78%
        clears it at 5.1:1 and is the same muted grey to the eye. */
@@ -661,7 +634,7 @@
   }
 
   & time,
-  &>span:last-child:not(:first-child) {
+  & > span:last-child:not(:first-child) {
     @apply block min-w-[8ch] tracking-[0.02em] whitespace-nowrap;
     color: color-mix(in oklab, var(--color-muted-foreground) 90%, transparent);
   }
@@ -752,12 +725,6 @@
 }
 
 :root {
-  --font-sans: "GeistSans", "GeistSans Fallback", Arial, sans-serif;
-  --font-mono: "GeistMono", ui-monospace, "SFMono-Regular", "Roboto Mono",
-    Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New",
-    monospace;
-  --font-handwritten: "Caveat", "Caveat Fallback", cursive;
-
   /* Height of the fixed fade/blur overlay at the bottom of the viewport */
   --fade-bottom-height: --spacing(24);
 
@@ -767,70 +734,74 @@
      the gutter exactly. Full-bleed under `sm`, applied on the element. */
   --chat-panel-width: 22rem;
 
-  --background: #eaedf0;
-  --foreground: #09090b;
-  --primary: #09090b;
-  --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #09090b;
-  --muted: #f4f4f5;
-  --muted-foreground: #6b7280;
-  --card: #ffffff;
-  --card-foreground: #09090b;
-  --popover: #ffffff;
-  --popover-foreground: #09090b;
-  --accent: #f4f4f5;
-  --accent-muted: #ffffff;
-  --accent-foreground: #09090b;
+  --background: #91c8e4;
+  --foreground: #152a38;
+  --primary: #4682a9;
+  --primary-foreground: #fffbde;
+  --secondary: #d7ecf7;
+  --secondary-foreground: #152a38;
+  --muted: #eef7fc;
+  --muted-foreground: #4682a9;
+  --card: #fffbde;
+  --card-foreground: #152a38;
+  --popover: #fffbde;
+  --popover-foreground: #152a38;
+  --accent: #749bc2;
+  --accent-muted: #e6f3fa;
+  --accent-foreground: #152a38;
 
-  --border: #e5e7eb;
-  --line: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #9ca3af;
+  --border: #749bc2;
+  --line: #749bc2;
+  --input: #749bc2;
+  --ring: #4682a9;
 
-  --info: #3b82f6;
+  --info: #4682a9;
   --success: #22c55e;
   --destructive: #ef4444;
-  --link: #2563eb;
+  --link: #4682a9;
 
-  --surface: #ffffff;
-  --surface-foreground: #09090b;
+  --surface: #fffbde;
+  --surface-foreground: #152a38;
 
-  --code: #f1f2f6;
-  --code-foreground: #09090b;
-  --code-number: #9ca3af;
-  --code-highlight: #e5e7eb;
+  --code: #e6f3fa;
+  --code-foreground: #152a38;
+  --code-number: #4682a9;
+  --code-highlight: #749bc2;
 
-  --selection: #09090b;
-  --selection-foreground: #ffffff;
+  --selection: #4682a9;
+  --selection-foreground: #fffbde;
 
-  --sidebar: #ffffff;
-  --sidebar-foreground: #09090b;
-  --sidebar-primary: #09090b;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f2f6;
-  --sidebar-accent-foreground: #09090b;
-  --sidebar-border: #e5e7eb;
-  --sidebar-ring: #9ca3af;
+  --sunlight: #fffbde;
 
-  --expo-out: linear(0 0%,
-      0.1684 2.66%,
-      0.3165 5.49%,
-      0.446 8.52%,
-      0.5581 11.78%,
-      0.6535 15.29%,
-      0.7341 19.11%,
-      0.8011 23.3%,
-      0.8557 27.93%,
-      0.8962 32.68%,
-      0.9283 38.01%,
-      0.9529 44.08%,
-      0.9711 51.14%,
-      0.9833 59.06%,
-      0.991 67.74%,
-      0.9955 77.11%,
-      0.9982 87.11%,
-      1 100%);
+  --sidebar: #fffbde;
+  --sidebar-foreground: #152a38;
+  --sidebar-primary: #4682a9;
+  --sidebar-primary-foreground: #fffbde;
+  --sidebar-accent: #e6f3fa;
+  --sidebar-accent-foreground: #152a38;
+  --sidebar-border: #749bc2;
+  --sidebar-ring: #4682a9;
+
+  --expo-out: linear(
+    0 0%,
+    0.1684 2.66%,
+    0.3165 5.49%,
+    0.446 8.52%,
+    0.5581 11.78%,
+    0.6535 15.29%,
+    0.7341 19.11%,
+    0.8011 23.3%,
+    0.8557 27.93%,
+    0.8962 32.68%,
+    0.9283 38.01%,
+    0.9529 44.08%,
+    0.9711 51.14%,
+    0.9833 59.06%,
+    0.991 67.74%,
+    0.9955 77.11%,
+    0.9982 87.11%,
+    1 100%
+  );
 }
 
 @media (width >=89rem) {
@@ -840,60 +811,244 @@
 }
 
 .dark {
-  --background: #000000;
-  --foreground: #ededed;
-  --primary: #ededed;
-  --primary-foreground: #000000;
-  --secondary: #121215;
-  --secondary-foreground: #ededed;
-  --muted: #121215;
-  --muted-foreground: #a1a1aa;
-  --card: #050505;
-  --card-foreground: #ededed;
-  --popover: #050505;
-  --popover-foreground: #ededed;
-  --accent: #121215;
-  --accent-muted: #0a0a0c;
-  --accent-foreground: #ededed;
+  --background: #0b131e;
+  --foreground: #f0f6fc;
+  --primary: #91c8e4;
+  --primary-foreground: #080e17;
+  --secondary: #1c2e42;
+  --secondary-foreground: #d7ecf7;
+  --muted: #162436;
+  --muted-foreground: #8dafc8;
+  --card: #0e1724;
+  --card-foreground: #f0f6fc;
+  --popover: #0e1724;
+  --popover-foreground: #f0f6fc;
+  --accent: #243b53;
+  --accent-muted: #162638;
+  --accent-foreground: #f0f6fc;
 
-  --border: #222226;
-  --line: #222226;
-  --input: #222226;
-  --ring: #52525b;
+  --border: #1e354d;
+  --line: #1e354d;
+  --input: #1e354d;
+  --ring: #91c8e4;
 
+  --info: #91c8e4;
   --success: #22c55e;
   --destructive: #ef4444;
-  --link: #38bdf8;
+  --link: #91c8e4;
 
-  --surface: #050505;
-  --surface-foreground: #ededed;
+  --surface: #0e1724;
+  --surface-foreground: #f0f6fc;
 
-  --code: #121215;
-  --code-foreground: var(--foreground);
-  --code-number: #71717a;
-  --code-highlight: #222226;
+  --code: #132030;
+  --code-foreground: #e2eef8;
+  --code-number: #749bc2;
+  --code-highlight: #1c334e;
 
-  --selection: #ededed;
-  --selection-foreground: #000000;
+  --selection: #4682a9;
+  --selection-foreground: #fffbde;
 
-  --sidebar: #050505;
-  --sidebar-foreground: #ededed;
-  --sidebar-primary: #ededed;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #121215;
-  --sidebar-accent-foreground: #ededed;
-  --sidebar-border: #222226;
-  --sidebar-ring: #52525b;
+  --sunlight: #fffbde;
+
+  --sidebar: #0e1724;
+  --sidebar-foreground: #f0f6fc;
+  --sidebar-primary: #91c8e4;
+  --sidebar-primary-foreground: #080e17;
+  --sidebar-accent: #1c2e42;
+  --sidebar-accent-foreground: #f0f6fc;
+  --sidebar-border: #1e354d;
+  --sidebar-ring: #91c8e4;
 }
 
 @layer base {
-
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
     @apply border-border outline-ring/50;
+  }
+
+  /* Playful blueprint/sketchbook dashed lines across all structural borders */
+  .border-line {
+    border-style: dashed !important;
+  }
+
+  /* ── 1. Horizontal Bottom Dashed Divider (10px line, 7px gap) ── */
+  .border-b.border-line:not(.border-b-straight),
+  [class*="border-b"][class*="border-line"]:not(.border-b-straight) {
+    border-bottom-style: none !important;
+    position: relative;
+  }
+
+  .border-b.border-line:not(.border-b-straight)::after,
+  [class*="border-b"][class*="border-line"]:not(.border-b-straight)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--line) 0,
+      var(--line) 10px,
+      transparent 10px,
+      transparent 17px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Exception: solid straight bottom line (e.g. below navbar) */
+  nav.sticky,
+  nav.border-b-straight,
+  .border-b-straight {
+    border-bottom: 1px solid var(--line) !important;
+    border-bottom-style: solid !important;
+  }
+  nav.sticky::after,
+  nav.border-b-straight::after,
+  .border-b-straight::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* When border-b-0 or last:border-none is active, hide the divider */
+  .border-b-0::after,
+  .last\:border-b-0:last-child::after,
+  .last\:border-none:last-child::after,
+  [class~="border-b-0"]::after,
+  [class~="last:border-b-0"]:last-child::after,
+  [class~="last:border-none"]:last-child::after {
+    display: none !important;
+  }
+
+  /* ── 2. Horizontal Top Dashed Divider (10px line, 7px gap) ── */
+  .border-t.border-line:not([class*="rotate-"]),
+  [class*="border-t"][class*="border-line"]:not([class*="rotate-"]) {
+    border-top-style: none !important;
+    position: relative;
+  }
+
+  .border-t.border-line:not([class*="rotate-"])::before,
+  [class*="border-t"][class*="border-line"]:not([class*="rotate-"])::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--line) 0,
+      var(--line) 10px,
+      transparent 10px,
+      transparent 17px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .border-t-0::before,
+  .first\:border-t-0:first-child::before,
+  [class~="border-t-0"]::before,
+  [class~="first:border-t-0"]:first-child::before {
+    display: none !important;
+  }
+
+  /* ── 3. Vertical Left Dashed Divider (10px line, 7px gap) ── */
+  .border-l.border-line:not([class~="border-l-0"]):not([class*="rotate-"]),
+  .border-l.border-dashed.border-line:not([class*="rotate-"]),
+  [class~="border-l"][class~="border-line"]:not([class*="rotate-"]) {
+    border-left-style: none !important;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--line) 0,
+      var(--line) 10px,
+      transparent 10px,
+      transparent 17px
+    ) !important;
+    background-size: 1px 100% !important;
+    background-position: top left !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* ── 4. Vertical Right Dashed Divider (10px line, 7px gap) ── */
+  .border-r.border-line:not([class~="border-r-0"]):not([class*="rotate-"]),
+  .border-r.border-dashed.border-line:not([class*="rotate-"]),
+  [class~="border-r"][class~="border-line"]:not([class*="rotate-"]) {
+    border-right-style: none !important;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--line) 0,
+      var(--line) 10px,
+      transparent 10px,
+      transparent 17px
+    ) !important;
+    background-size: 1px 100% !important;
+    background-position: top right !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* Responsive desktop left dividers (e.g. sm:border-l in project cards, gallery cards) */
+  @media (min-width: 640px) {
+    .sm\:border-l.sm\:border-line:not([class*="rotate-"]),
+    [class~="sm:border-l"][class~="sm:border-line"]:not([class*="rotate-"]) {
+      border-left-style: none !important;
+      position: relative;
+    }
+
+    .sm\:border-l.sm\:border-line:not([class*="rotate-"])::before,
+    [class~="sm:border-l"][class~="sm:border-line"]:not([class*="rotate-"])::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--line) 0,
+        var(--line) 10px,
+        transparent 10px,
+        transparent 17px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .md\:border-l.md\:border-line,
+    [class~="md:border-l"][class~="md:border-line"] {
+      border-left-style: none !important;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--line) 0,
+        var(--line) 10px,
+        transparent 10px,
+        transparent 17px
+      ) !important;
+      background-size: 1px 100% !important;
+      background-position: top left !important;
+      background-repeat: no-repeat !important;
+    }
+
+    .md\:border-r.md\:border-line,
+    [class~="md:border-r"][class~="md:border-line"] {
+      border-right-style: none !important;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--line) 0,
+        var(--line) 10px,
+        transparent 10px,
+        transparent 17px
+      ) !important;
+      background-size: 1px 100% !important;
+      background-position: top right !important;
+      background-repeat: no-repeat !important;
+    }
   }
 
   ::selection {
@@ -906,23 +1061,8 @@
     text-rendering: optimizeSpeed;
   }
 
-  /* Custom scrollbar styling. Thanks @shadcn-ui */
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 5px;
-  }
-
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+  html {
+    overflow-y: overlay;
   }
 
   [id] {
@@ -969,7 +1109,7 @@
     counter-reset: line;
   }
 
-  [data-line-numbers]>[data-line]::before {
+  [data-line-numbers] > [data-line]::before {
     counter-increment: line;
     content: counter(line);
     @apply sticky left-0 inline-block w-16 bg-code pe-6 text-right text-sm text-code-number;
@@ -986,19 +1126,29 @@
   [data-fade-overlay] {
     @apply pointer-events-none absolute top-0 right-0 z-1 rounded-tr-lg;
 
-    --fade-linear-gradient: linear-gradient(to right,
-        transparent 0,
-        color-mix(in oklab, var(--fade-color, var(--background)) 20%, transparent) 10px,
-        color-mix(in oklab, var(--fade-color, var(--background)) 50%, transparent) 25px,
-        color-mix(in oklab, var(--fade-color, var(--background)) 80%, transparent) 35px,
-        var(--fade-color, var(--background)) 45px);
+    --fade-linear-gradient: linear-gradient(
+      to right,
+      transparent 0,
+      color-mix(in oklab, var(--fade-color, var(--background)) 20%, transparent)
+        10px,
+      color-mix(in oklab, var(--fade-color, var(--background)) 50%, transparent)
+        25px,
+      color-mix(in oklab, var(--fade-color, var(--background)) 80%, transparent)
+        35px,
+      var(--fade-color, var(--background)) 45px
+    );
 
-    --fade-radial-gradient: radial-gradient(ellipse at top right,
-        var(--fade-color, var(--background)) 30%,
-        color-mix(in oklab, var(--fade-color, var(--background)) 80%, transparent) 40%,
-        color-mix(in oklab, var(--fade-color, var(--background)) 50%, transparent) 50%,
-        color-mix(in oklab, var(--fade-color, var(--background)) 20%, transparent) 60%,
-        transparent 70%);
+    --fade-radial-gradient: radial-gradient(
+      ellipse at top right,
+      var(--fade-color, var(--background)) 30%,
+      color-mix(in oklab, var(--fade-color, var(--background)) 80%, transparent)
+        40%,
+      color-mix(in oklab, var(--fade-color, var(--background)) 50%, transparent)
+        50%,
+      color-mix(in oklab, var(--fade-color, var(--background)) 20%, transparent)
+        60%,
+      transparent 70%
+    );
 
     width: var(--fade-width, 5rem);
     height: var(--fade-height, 2.25rem);
@@ -1007,7 +1157,6 @@
 }
 
 @keyframes wobble {
-
   0%,
   100% {
     rotate: 0deg;
@@ -1063,7 +1212,6 @@
 }
 
 @keyframes chat-dot-bounce {
-
   0%,
   100% {
     transform: translateY(0);
@@ -1078,14 +1226,16 @@
 
 @layer utilities {
   .bg-stripe-pattern {
-    background-image: linear-gradient(-45deg,
-        color-mix(in oklab, var(--foreground) 3%, transparent) 25%,
-        transparent 25%,
-        transparent 50%,
-        color-mix(in oklab, var(--foreground) 3%, transparent) 50%,
-        color-mix(in oklab, var(--foreground) 3%, transparent) 75%,
-        transparent 75%,
-        transparent);
+    background-image: linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--foreground) 3%, transparent) 25%,
+      transparent 25%,
+      transparent 50%,
+      color-mix(in oklab, var(--foreground) 3%, transparent) 50%,
+      color-mix(in oklab, var(--foreground) 3%, transparent) 75%,
+      transparent 75%,
+      transparent
+    );
     background-size: 8px 8px;
   }
 }
@@ -1152,4 +1302,621 @@
 
 @utility animate-stamp-pop {
   animation: stamp-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Section Separator Aviation & Cloud Contrail Animations ── */
+@keyframes contrail-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -22;
+  }
+}
+
+@keyframes plane-roll {
+  0% {
+    transform: rotate(-12deg) scale(1);
+  }
+  25% {
+    transform: translate(6px, -2px) rotate(80deg) scale(1.2);
+  }
+  50% {
+    transform: translate(12px, 0px) rotate(190deg) scale(1.25);
+  }
+  75% {
+    transform: translate(6px, -1px) rotate(300deg) scale(1.15);
+  }
+  100% {
+    transform: translate(0, 0) rotate(348deg) scale(1);
+  }
+}
+
+@keyframes plane-dash {
+  0% {
+    transform: translate(0, 0) rotate(-12deg) scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(150px, -4px) rotate(-6deg) scale(1.15);
+    opacity: 1;
+  }
+  48% {
+    transform: translate(320px, -8px) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  52% {
+    transform: translate(-320px, -8px) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  75% {
+    transform: translate(-60px, -2px) rotate(-16deg) scale(1.05);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0, 0) rotate(-12deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float-air {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@utility animate-contrail-flow {
+  animation: contrail-flow 1.2s linear infinite;
+}
+
+@utility animate-plane-roll {
+  animation: plane-roll 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@utility animate-plane-dash {
+  animation: plane-dash 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@utility animate-float-air {
+  animation: float-air 3s ease-in-out infinite;
+}
+
+/* ── Minimalist Glass Scrollbar (Always visible low-opacity white thumb) ── */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  background-color: transparent !important;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-corner {
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.35) !important;
+  border-radius: 9999px !important;
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ==========================================================================
+   Realistic Day & Night Celestial Toggle Switch
+   ========================================================================== */
+
+.switch-wrapper {
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.toggle-track {
+  position: relative;
+  width: 280px;
+  height: 120px;
+  border-radius: 9999px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow:
+    inset 0 10px 18px rgba(0, 0, 0, 0.38),
+    inset 0 -4px 8px rgba(255, 255, 255, 0.15),
+    0 14px 28px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition:
+    background-color var(--toggle-speed, 0.65s) cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow var(--toggle-speed, 0.65s) ease;
+}
+
+/* Day / Night Track Background Colors */
+.theme-day .toggle-track,
+.toggle-track.theme-day,
+[data-state="day"] .toggle-track,
+.toggle-track[data-state="day"] {
+  background: #4784b6;
+  box-shadow:
+    inset 0 10px 16px rgba(18, 51, 80, 0.45),
+    inset 0 -3px 8px rgba(255, 255, 255, 0.35),
+    0 18px 32px rgba(45, 96, 140, 0.22);
+}
+
+.theme-night .toggle-track,
+.toggle-track.theme-night,
+[data-state="night"] .toggle-track,
+.toggle-track[data-state="night"] {
+  background: #232a39;
+  box-shadow:
+    inset 0 10px 20px rgba(0, 0, 0, 0.65),
+    inset 0 -2px 6px rgba(255, 255, 255, 0.08),
+    0 18px 36px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Concentric Aura Rings Effect */
+.ring-layer {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transition: all calc(var(--toggle-speed, 0.65s) * 1.15)
+    cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+/* Day Rings (radiating around Sun at center 60px, 60px) */
+.theme-day .ring-1,
+.toggle-track.theme-day .ring-1,
+.toggle-track[data-state="day"] .ring-1 {
+  width: 144px;
+  height: 144px;
+  left: -12px;
+  top: -12px;
+  background: rgba(255, 255, 255, 0.13);
+}
+.theme-day .ring-2,
+.toggle-track.theme-day .ring-2,
+.toggle-track[data-state="day"] .ring-2 {
+  width: 204px;
+  height: 204px;
+  left: -42px;
+  top: -42px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.theme-day .ring-3,
+.toggle-track.theme-day .ring-3,
+.toggle-track[data-state="day"] .ring-3 {
+  width: 264px;
+  height: 264px;
+  left: -72px;
+  top: -72px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Night Rings (radiating around Moon at center 220px, 60px) */
+.theme-night .ring-1,
+.toggle-track.theme-night .ring-1,
+.toggle-track[data-state="night"] .ring-1 {
+  width: 144px;
+  height: 144px;
+  left: 148px;
+  top: -12px;
+  background: rgba(255, 255, 255, 0.07);
+}
+.theme-night .ring-2,
+.toggle-track.theme-night .ring-2,
+.toggle-track[data-state="night"] .ring-2 {
+  width: 204px;
+  height: 204px;
+  left: 118px;
+  top: -42px;
+  background: rgba(255, 255, 255, 0.045);
+}
+.theme-night .ring-3,
+.toggle-track.theme-night .ring-3,
+.toggle-track[data-state="night"] .ring-3 {
+  width: 264px;
+  height: 264px;
+  left: 88px;
+  top: -72px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* The Main Celestial Knob (Sun / Moon) */
+.celestial-knob {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+  transition:
+    transform var(--toggle-speed, 0.65s) cubic-bezier(0.34, 1.35, 0.64, 1),
+    background var(--toggle-speed, 0.65s) ease,
+    box-shadow var(--toggle-speed, 0.65s) ease,
+    border-color var(--toggle-speed, 0.65s) ease;
+}
+
+/* Sun State */
+.theme-day .celestial-knob,
+.toggle-track.theme-day .celestial-knob,
+.toggle-track[data-state="day"] .celestial-knob {
+  transform: translateX(0px);
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffd943 0%,
+    #ebb222 75%,
+    #db9d13 100%
+  );
+  box-shadow:
+    inset 0 3px 6px rgba(255, 255, 255, 0.6),
+    inset 0 -4px 6px rgba(160, 105, 0, 0.35),
+    0 0 14px rgba(255, 215, 60, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 235, 140, 0.4);
+}
+
+/* Moon State */
+.theme-night .celestial-knob,
+.toggle-track.theme-night .celestial-knob,
+.toggle-track[data-state="night"] .celestial-knob {
+  transform: translateX(160px);
+  background: #c3ced9;
+  border: 2px solid #e1ce8c; /* characteristic golden rim in reference */
+  box-shadow:
+    inset 0 4px 6px rgba(255, 255, 255, 0.6),
+    inset 0 -4px 6px rgba(60, 75, 95, 0.4),
+    0 0 14px rgba(225, 206, 140, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+/* Moon Craters */
+.crater {
+  position: absolute;
+  border-radius: 50%;
+  background: #8e9fab;
+  box-shadow:
+    inset 0 2px 4px rgba(45, 55, 70, 0.55),
+    0 1px 2px rgba(255, 255, 255, 0.35);
+  opacity: 0;
+  transform: scale(0.4) rotate(-20deg);
+  transition:
+    opacity calc(var(--toggle-speed, 0.65s) * 0.77) ease 0.15s,
+    transform var(--toggle-speed, 0.65s) cubic-bezier(0.34, 1.4, 0.64, 1) 0.15s;
+}
+
+.theme-night .crater,
+.toggle-track.theme-night .crater,
+.toggle-track[data-state="night"] .crater {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.crater-1 {
+  width: 32px;
+  height: 32px;
+  top: 36px;
+  left: 12px;
+}
+
+.crater-2 {
+  width: 18px;
+  height: 18px;
+  top: 42px;
+  right: 14px;
+}
+
+.crater-3 {
+  width: 12px;
+  height: 12px;
+  top: 18px;
+  left: 36px;
+}
+
+/* Clouds Layer for Day */
+.clouds-container {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  width: 165px;
+  height: 90px;
+  pointer-events: none;
+  transition:
+    transform var(--toggle-speed, 0.65s) cubic-bezier(0.4, 0, 0.2, 1),
+    opacity calc(var(--toggle-speed, 0.65s) * 0.85) ease;
+  z-index: 10;
+}
+
+.theme-day .clouds-container,
+.toggle-track.theme-day .clouds-container,
+.toggle-track[data-state="day"] .clouds-container {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.theme-night .clouds-container,
+.toggle-track.theme-night .clouds-container,
+.toggle-track[data-state="night"] .clouds-container {
+  transform: translateY(60px);
+  opacity: 0;
+}
+
+/* Stars & Constellation Layer for Night */
+.stars-container {
+  position: absolute;
+  left: 18px;
+  top: 15px;
+  width: 145px;
+  height: 85px;
+  pointer-events: none;
+  transition:
+    transform var(--toggle-speed, 0.65s) cubic-bezier(0.4, 0, 0.2, 1),
+    opacity calc(var(--toggle-speed, 0.65s) * 0.85) ease;
+  z-index: 10;
+}
+
+.theme-day .stars-container,
+.toggle-track.theme-day .stars-container,
+.toggle-track[data-state="day"] .stars-container {
+  transform: translateY(-40px);
+  opacity: 0;
+}
+
+.theme-night .stars-container,
+.toggle-track.theme-night .stars-container,
+.toggle-track[data-state="night"] .stars-container {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Twinkling 4-point Star CSS */
+.star-sparkle {
+  position: absolute;
+  color: #ffffff;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
+  animation: star-twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Celestial Sun / Moon & Clouds Theme Switch (Original Uiverse Style)
+   ========================================================================== */
+.theme-switch {
+  --toggle-size: 15px;
+  /* the size is adjusted using font-size,
+     this is not transform scale,
+     so you can choose any size */
+  --container-width: 5.625em;
+  --container-height: 2.5em;
+  --container-radius: 6.25em;
+  /* radius 0 - minecraft mode :) */
+  --container-light-bg: #3D7EAE;
+  --container-night-bg: #1D1F2C;
+  --circle-container-diameter: 3.375em;
+  --sun-moon-diameter: 2.125em;
+  --sun-bg: #ECCA2F;
+  --moon-bg: #C4C9D1;
+  --spot-color: #959DB1;
+  --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+  --stars-color: #fff;
+  --clouds-color: #F3FDFF;
+  --back-clouds-color: #AACADF;
+  --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
+  --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: var(--toggle-size, 15px);
+}
+
+.theme-switch__container {
+  width: var(--container-width);
+  height: var(--container-height);
+  background-color: var(--container-light-bg);
+  border-radius: var(--container-radius);
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+  box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
+  transition: var(--transition);
+  position: relative;
+}
+
+.theme-switch__container::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  -webkit-box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
+  border-radius: var(--container-radius);
+}
+
+.theme-switch__checkbox {
+  display: none;
+}
+
+.theme-switch__circle-container {
+  width: var(--circle-container-diameter);
+  height: var(--circle-container-diameter);
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  left: var(--circle-container-offset);
+  top: var(--circle-container-offset);
+  border-radius: var(--container-radius);
+  -webkit-box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: var(--circle-transition);
+  -o-transition: var(--circle-transition);
+  transition: var(--circle-transition);
+  pointer-events: none;
+}
+
+.theme-switch__sun-moon-container {
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+  width: var(--sun-moon-diameter);
+  height: var(--sun-moon-diameter);
+  margin: auto;
+  border-radius: var(--container-radius);
+  background-color: var(--sun-bg);
+  -webkit-box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #a1872a inset;
+  box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #a1872a inset;
+  -webkit-filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
+  transition: var(--transition);
+}
+
+.theme-switch__moon {
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--moon-bg);
+  border-radius: inherit;
+  -webkit-box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #969696 inset;
+  box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #969696 inset;
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
+  transition: var(--transition);
+  position: relative;
+}
+
+.theme-switch__spot {
+  position: absolute;
+  top: 0.75em;
+  left: 0.312em;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: var(--container-radius);
+  background-color: var(--spot-color);
+  -webkit-box-shadow: 0em 0.0312em 0.062em rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0em 0.0312em 0.062em rgba(0, 0, 0, 0.25) inset;
+}
+
+.theme-switch__spot:nth-of-type(2) {
+  width: 0.375em;
+  height: 0.375em;
+  top: 0.937em;
+  left: 1.375em;
+}
+
+.theme-switch__spot:nth-last-of-type(3) {
+  width: 0.25em;
+  height: 0.25em;
+  top: 0.312em;
+  left: 0.812em;
+}
+
+.theme-switch__clouds {
+  width: 1.25em;
+  height: 1.25em;
+  background-color: var(--clouds-color);
+  border-radius: var(--container-radius);
+  position: absolute;
+  bottom: -0.625em;
+  left: 0.312em;
+  -webkit-box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--back-clouds-color);
+  box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--back-clouds-color);
+  -webkit-transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+  -o-transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+  transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+}
+
+.theme-switch__stars-container {
+  position: absolute;
+  color: var(--stars-color);
+  top: -100%;
+  left: 0.312em;
+  width: 2.75em;
+  height: auto;
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
+  transition: var(--transition);
+}
+
+/* Actions when checkbox is checked */
+.theme-switch__checkbox:checked + .theme-switch__container {
+  background-color: var(--container-night-bg);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
+  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em);
+}
+
+.theme-switch__circle-container:hover {
+  left: calc(var(--circle-container-offset) + 0.187em);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+  -webkit-transform: translate(0);
+  -ms-transform: translate(0);
+  transform: translate(0);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
+  bottom: -4.062em;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

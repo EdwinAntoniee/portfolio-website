@@ -32,9 +32,15 @@ export function ExperiencePositionItem({
   position: ExperiencePosition
 }) {
   const { t, l, language } = useTranslation()
-  const { start, end } = position.employmentPeriod
-  const isOngoing = !end
-  const duration = formatDuration(start, end)
+  const {
+    start,
+    end,
+    display,
+    isOngoing: isOngoingProp,
+    hideDuration,
+  } = position.employmentPeriod
+  const isOngoing = isOngoingProp !== undefined ? isOngoingProp : !end
+  const duration = hideDuration ? "" : formatDuration(start, end)
   const employmentType =
     language === "id" && position.employmentType
       ? (EMPLOYMENT_TYPE_ID[position.employmentType] ?? position.employmentType)
@@ -97,10 +103,24 @@ export function ExperiencePositionItem({
 
           <dl>
             <dt className="sr-only">{t.experiences.employmentPeriod}</dt>
-            <dd className="flex items-center gap-0.5 font-mono text-xs tabular-nums">
-              <span>{start}</span>
-              <span>-</span>
-              <span>{isOngoing ? t.experiences.present : end}</span>
+            <dd className="flex items-center gap-0.5 text-xs font-medium text-muted-foreground tabular-nums">
+              {display ? (
+                <span>{display}</span>
+              ) : isOngoing ? (
+                <>
+                  <span>{start}</span>
+                  <span>-</span>
+                  <span>{t.experiences.present}</span>
+                </>
+              ) : end && end !== start ? (
+                <>
+                  <span>{start}</span>
+                  <span>-</span>
+                  <span>{end}</span>
+                </>
+              ) : (
+                <span>{start}</span>
+              )}
             </dd>
           </dl>
 
@@ -114,7 +134,7 @@ export function ExperiencePositionItem({
                 <dt className="sr-only">{t.experiences.duration}</dt>
                 <dd
                   suppressHydrationWarning
-                  className="font-mono text-xs tabular-nums"
+                  className="text-xs font-medium text-muted-foreground tabular-nums"
                 >
                   {duration}
                 </dd>
@@ -127,7 +147,9 @@ export function ExperiencePositionItem({
       <CollapsibleContent className="overflow-hidden">
         {position.description && (
           <Prose className="pt-2 pl-9">
-            <Markdown>{l(position.description, position.descriptionId)}</Markdown>
+            <Markdown>
+              {l(position.description, position.descriptionId)}
+            </Markdown>
           </Prose>
         )}
       </CollapsibleContent>

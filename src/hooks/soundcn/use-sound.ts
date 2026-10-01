@@ -1,7 +1,12 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
+import {
+  decodeAudioData,
+  getAudioContext,
+  getCachedAudioBuffer,
+} from "@/lib/soundcn/sound-engine"
 import type {
   SoundAsset,
   UseSoundOptions,
@@ -30,19 +35,28 @@ export function useSound(
   const sourceRef = useRef<AudioBufferSourceNode | null>(null)
   const gainRef = useRef<GainNode | null>(null)
   const bufferRef = useRef<AudioBuffer | null>(null)
-  const decodingRef = useRef<Promise<AudioBuffer> | null>(null)
 
-  const ensureBuffer = useCallback(async () => {
-    if (bufferRef.current) return bufferRef.current
-    if (!decodingRef.current) {
-      decodingRef.current = import("@/lib/soundcn/sound-engine").then(
-        ({ decodeAudioData }) => decodeAudioData(sound.dataUri)
-      )
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    // Keep the synchronous cache hit so playback stays instant; the duration
+    // state update goes through the (already-resolved) promise instead of
+    // being set synchronously inside the effect.
+    const cached = getCachedAudioBuffer(sound.dataUri)
+    if (cached) bufferRef.current = cached
+
+    let cancelled = false
+    decodeAudioData(sound.dataUri)
+      .then((buf) => {
+        if (cancelled) return
+        bufferRef.current = buf
+        setDuration(buf.duration)
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
     }
-    const buffer = await decodingRef.current
-    bufferRef.current = buffer
-    setDuration(buffer.duration)
-    return buffer
   }, [sound.dataUri])
 
   const stop = useCallback(() => {
@@ -59,53 +73,89 @@ export function useSound(
   }, [onStop])
 
   const play = useCallback(
-    async (overrides?: { volume?: number; playbackRate?: number }) => {
-      if (!soundEnabled) return
+    (overrides?: { volume?: number; playbackRate?: number }) => {
+      if (!soundEnabled || typeof window === "undefined") return
 
-      const buffer = await ensureBuffer()
-      if (!buffer) return
+      const buffer = bufferRef.current || getCachedAudioBuffer(sound.dataUri)
 
-      const { getAudioContext } = await import("@/lib/soundcn/sound-engine")
-      const ctx = getAudioContext()
+      if (buffer) {
+        // Instant synchronous playback path
+        try {
+          const ctx = getAudioContext()
+          if (ctx.state === "suspended") {
+            ctx.resume().catch(() => {})
+          }
 
-      if (ctx.state === "suspended") {
-        ctx.resume()
+          if (interrupt && sourceRef.current) {
+            stop()
+          }
+
+          const source = ctx.createBufferSource()
+          const gain = ctx.createGain()
+
+          source.buffer = buffer
+          source.playbackRate.value = overrides?.playbackRate ?? playbackRate
+          gain.gain.value = overrides?.volume ?? volume
+
+          source.connect(gain)
+          gain.connect(ctx.destination)
+
+          source.onended = () => {
+            setIsPlaying(false)
+            onEnd?.()
+          }
+
+          source.start(0)
+          sourceRef.current = source
+          gainRef.current = gain
+          setIsPlaying(true)
+          onPlay?.()
+        } catch {
+          // Playback error fallback
+        }
+        return
       }
 
-      if (interrupt && sourceRef.current) {
-        stop()
-      }
-
-      const source = ctx.createBufferSource()
-      const gain = ctx.createGain()
-
-      source.buffer = buffer
-      source.playbackRate.value = overrides?.playbackRate ?? playbackRate
-      gain.gain.value = overrides?.volume ?? volume
-
-      source.connect(gain)
-      gain.connect(ctx.destination)
-
-      source.onended = () => {
-        setIsPlaying(false)
-        onEnd?.()
-      }
-
-      source.start(0)
-      sourceRef.current = source
-      gainRef.current = gain
-      setIsPlaying(true)
-      onPlay?.()
+      // Asynchronous decode fallback if not yet buffered
+      decodeAudioData(sound.dataUri)
+        .then((buf) => {
+          bufferRef.current = buf
+          setDuration(buf.duration)
+          const ctx = getAudioContext()
+          if (ctx.state === "suspended") {
+            ctx.resume().catch(() => {})
+          }
+          if (interrupt && sourceRef.current) {
+            stop()
+          }
+          const source = ctx.createBufferSource()
+          const gain = ctx.createGain()
+          source.buffer = buf
+          source.playbackRate.value = overrides?.playbackRate ?? playbackRate
+          gain.gain.value = overrides?.volume ?? volume
+          source.connect(gain)
+          gain.connect(ctx.destination)
+          source.onended = () => {
+            setIsPlaying(false)
+            onEnd?.()
+          }
+          source.start(0)
+          sourceRef.current = source
+          gainRef.current = gain
+          setIsPlaying(true)
+          onPlay?.()
+        })
+        .catch(() => {})
     },
     [
       soundEnabled,
+      sound.dataUri,
       playbackRate,
       volume,
       interrupt,
       stop,
       onPlay,
       onEnd,
-      ensureBuffer,
     ]
   )
 

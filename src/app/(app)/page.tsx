@@ -9,28 +9,6 @@ import { USER } from "@/features/portfolio/data/user"
 
 // Below-fold components dynamically imported with SSR enabled
 // to keep full SEO while code-splitting the initial JS payload
-const GitHubContributions = dynamic(
-  () =>
-    import("@/features/portfolio/components/github-contributions").then(
-      (m) => m.GitHubContributions
-    ),
-  { ssr: true }
-)
-
-const Awards = dynamic(
-  () =>
-    import("@/features/portfolio/components/awards").then((m) => m.Awards),
-  { ssr: true }
-)
-
-const Publications = dynamic(
-  () =>
-    import("@/features/portfolio/components/publications").then(
-      (m) => m.Publications
-    ),
-  { ssr: true }
-)
-
 const Certifications = dynamic(
   () =>
     import("@/features/portfolio/components/certifications").then(
@@ -56,24 +34,13 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
+      <Projects />
       <SectionSeparator />
 
       <Experiences />
       <SectionSeparator />
 
-      <Projects />
-      <SectionSeparator />
-
       <TechStack />
-      <SectionSeparator />
-
-      <GitHubContributions />
-      <SectionSeparator />
-
-      <Awards />
-      <SectionSeparator />
-
-      <Publications />
       <SectionSeparator />
 
       <Certifications />

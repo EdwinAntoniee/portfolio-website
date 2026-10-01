@@ -30,7 +30,7 @@ export function CertificationItem({
       target="_blank"
       rel="noopener noreferrer nofollow"
     >
-      <div className="flex w-15 shrink-0 items-center justify-center">
+      <div className="flex w-15 shrink-0 items-center justify-center self-stretch">
         {certification.issuerLogoURL ? (
           <span
             className={cn(
@@ -64,7 +64,7 @@ export function CertificationItem({
         )}
       </div>
 
-      <div className="flex-1 space-y-1 border-l border-dashed border-line p-4 pr-2">
+      <div className="flex-1 space-y-1 self-stretch border-l border-dashed border-line p-4 pr-2">
         <p className="leading-snug font-medium text-balance">
           {certification.title}
         </p>

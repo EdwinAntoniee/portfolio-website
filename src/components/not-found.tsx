@@ -12,7 +12,7 @@ export function NotFound({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative flex h-svh min-h-screen w-full select-none items-center justify-center overflow-hidden bg-[#101010] text-[#f4f4f5]",
+        "relative flex h-svh min-h-screen w-full items-center justify-center overflow-hidden bg-[#101010] text-[#f4f4f5] select-none",
         className
       )}
     >
@@ -28,7 +28,7 @@ export function NotFound({ className }: { className?: string }) {
               {t.notFound.message}{" "}
               <Link
                 href="/"
-                className="text-white underline underline-offset-3 decoration-white/40 transition-colors hover:decoration-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/50"
+                className="text-white underline decoration-white/40 underline-offset-3 transition-colors hover:decoration-white focus-visible:ring-1 focus-visible:ring-white/50 focus-visible:outline-none"
               >
                 {t.notFound.home}
               </Link>{" "}

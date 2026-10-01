@@ -15,6 +15,7 @@ export type ProjectCollaboration = {
 export type ProjectLinks = {
   live?: string
   repo?: string
+  prototype?: string
 }
 
 export type ProjectVideoEmbed = {
@@ -73,4 +74,8 @@ export type Project = {
   badgeId?: string
   /** Optional gallery images for carousel in detail page */
   gallery?: string[]
+  /** Optional project lifecycle status: "in-progress" or "completed" */
+  status?: "in-progress" | "completed"
+  /** Display layout style for project showcase frames: "desktop" (default) or "phone" (mobile app/web mockup) */
+  layout?: "desktop" | "phone"
 }

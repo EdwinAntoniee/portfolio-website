@@ -93,7 +93,10 @@ function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
 
     // Autolinks only start at a word boundary, matching GFM.
     if (cursor === 0 || /[\s(<*_~]/.test(text[cursor - 1] ?? "")) {
-      const url = URL_AUTOLINK.exec(rest)?.[0]?.replace(TRAILING_PUNCTUATION, "")
+      const url = URL_AUTOLINK.exec(rest)?.[0]?.replace(
+        TRAILING_PUNCTUATION,
+        ""
+      )
       if (url) {
         push(
           <a

@@ -25,24 +25,44 @@ function buildLlmsFullTxt(): string {
       `- **Period**: ${periodStr}`,
       `- **Role / Ownership**: ${project.collaboration.role} (${project.collaboration.ownership})`,
       `- **Tagline / Summary**: ${project.tagline}`,
-      project.description ? `- **Description**: ${project.description.replace(/\n+/g, " ")}` : null,
-      project.features?.length ? `- **Key Features**:\n${project.features.map((f) => `  * ${f}`).join("\n")}` : null,
-      project.impact?.length ? `- **Impact & Metrics**:\n${project.impact.map((m) => `  * ${m}`).join("\n")}` : null,
+      project.description
+        ? `- **Description**: ${project.description.replace(/\n+/g, " ")}`
+        : null,
+      project.features?.length
+        ? `- **Key Features**:\n${project.features.map((f) => `  * ${f}`).join("\n")}`
+        : null,
+      project.impact?.length
+        ? `- **Impact & Metrics**:\n${project.impact.map((m) => `  * ${m}`).join("\n")}`
+        : null,
       project.collaboration.contributions?.length
         ? `- **Detailed Contributions**:\n${project.collaboration.contributions.map((c) => `  * ${c}`).join("\n")}`
         : null,
       `- **Technologies / Skills**: ${project.skills.join(", ")}`,
-      project.coverSkills?.length ? `- **Core Stack**: ${project.coverSkills.join(" · ")}` : null,
+      project.coverSkills?.length
+        ? `- **Core Stack**: ${project.coverSkills.join(" · ")}`
+        : null,
     ].filter(Boolean)
 
     return lines.join("\n")
   }).join("\n\n")
 
   const experienceSections = EXPERIENCES.map((exp) => {
-    const posLines = exp.positions.map((pos) => {
-      const skillsStr = pos.skills?.length ? `\n- **Skills**: ${pos.skills.join(", ")}` : ""
-      return `#### ${pos.title} | ${pos.employmentType} (${pos.employmentPeriod.start} – ${pos.employmentPeriod.end ?? "Present"})\n${pos.description}${skillsStr}`
-    }).join("\n\n")
+    const posLines = exp.positions
+      .map((pos) => {
+        const skillsStr = pos.skills?.length
+          ? `\n- **Skills**: ${pos.skills.join(", ")}`
+          : ""
+        const periodStr =
+          pos.employmentPeriod.display ??
+          (pos.employmentPeriod.isOngoing === false
+            ? pos.employmentPeriod.end &&
+              pos.employmentPeriod.end !== pos.employmentPeriod.start
+              ? `${pos.employmentPeriod.start} – ${pos.employmentPeriod.end}`
+              : pos.employmentPeriod.start
+            : `${pos.employmentPeriod.start} – ${pos.employmentPeriod.end ?? "Present"}`)
+        return `#### ${pos.title} | ${pos.employmentType} (${periodStr})\n${pos.description}${skillsStr}`
+      })
+      .join("\n\n")
 
     return `### ${exp.companyName}\n${posLines}`
   }).join("\n\n")
@@ -52,12 +72,14 @@ function buildLlmsFullTxt(): string {
   }).join("\n\n")
 
   const awardSections = AWARDS.map((award) => {
-    return `- **${award.title}** (${award.grade})\n  * Prize: ${award.prize}\n  * Date: ${award.date}\n  * Details: ${(award.description ?? "").replace(/\n+/g, " ")}\n  * Reference: ${award.referenceLink}`
+    return `- **${award.title}** (${award.grade})\n  * Prize: ${award.prize}\n  * Date: ${award.date}\n  * Details: ${(award.description ?? "").replace(/\n+/g, " ")}`
   }).join("\n\n")
 
-  const publicationSections = PUBLICATIONS.map((pub) => {
-    return `- **${pub.title}**\n  * Journal: ${pub.journal}\n  * Date: ${pub.date}\n  * URL: ${pub.url}\n  * Summary: ${pub.description}`
-  }).join("\n\n")
+  const publicationSections = PUBLICATIONS.length
+    ? PUBLICATIONS.map((pub) => {
+        return `- **${pub.title}**\n  * Journal: ${pub.journal}\n  * Date: ${pub.date}\n  * URL: ${pub.url}\n  * Summary: ${pub.description}`
+      }).join("\n\n")
+    : "No standalone publications currently listed."
 
   const techCategories = Array.from(
     new Set(TECH_STACK.flatMap((item) => item.categories))
@@ -71,24 +93,22 @@ function buildLlmsFullTxt(): string {
     })
     .join("\n")
 
-  return `# Complete Knowledge Base — Firdaus Khotibul Zickrian
+  return `# Complete Knowledge Base — Edwin Antonie
 
-> Firdaus Khotibul Zickrian is an AI & Machine Learning Engineer and Computer Science scholar at Universitas Dian Nuswantoro (GPA 3.88/4.00) based in Indonesia. He specializes in practical machine learning systems, business process automation, ERP integrations, predictive analytics, and modern full-stack web applications.
+> Edwin Antonie is an undergraduate Computer Science student at Bina Nusantara University (Binus) specializing in Intelligent Systems (GPA 3.97/4.00) based in Jakarta, Indonesia. He builds practical machine learning systems, computer vision frameworks, and modern full-stack web applications designed for real-world impact.
 
 ---
 
 ## 1. Executive Summary & Profile
 
-- **Full Name**: Firdaus Khotibul Zickrian
-- **Role**: AI & Machine Learning Engineer / Full-Stack Developer / Data Scientist
-- **Location**: Semarang, Indonesia (Timezone: Asia/Jakarta, UTC+7)
+- **Full Name**: Edwin Antonie
+- **Role**: Intelligent Systems & Full-Stack AI Engineer
+- **Location**: Palmerah, Jakarta Barat, Indonesia (Timezone: Asia/Jakarta, UTC+7)
 - **Email**: ${email}
-- **Phone**: ${USER.phone}
 - **Website**: ${baseUrl}
-- **LinkedIn**: https://linkedin.com/in/firdauskhotibulzickrian/
-- **GitHub**: https://github.com/zickrian
-- **Hugging Face**: https://huggingface.co/zickrian
-- **Medium**: https://medium.com/@zickriann
+- **LinkedIn**: https://www.linkedin.com/in/edwin-antonie-171016326
+- **GitHub**: https://github.com/EdwinAntoniee
+- **Instagram**: https://www.instagram.com/edwin_.a/
 - **Bio**: ${USER.bio}
 - **About**: ${USER.about}
 
@@ -96,18 +116,17 @@ function buildLlmsFullTxt(): string {
 
 ## 2. Education & Academic Background
 
-- **Institution**: Universitas Dian Nuswantoro (UDINUS), Semarang, Indonesia
+- **Institution**: Bina Nusantara University (Binus), Jakarta, Indonesia
 - **Degree**: Bachelor of Computer Science (S.Kom)
-- **Period**: 2023 – Present (Expected Graduation: October 2027)
-- **Cumulative GPA**: **3.88 / 4.00**
-- **Academic Progress**: Completed **129 of 144 credits** with consistent high distinction.
-- **Key Coursework**:
+- **Specialization**: Intelligent Systems (Streaming)
+- **Period**: 2024 – Present (Expected Graduation: 2028)
+- **Cumulative GPA**: **3.97 / 4.00**
+- **Key Focus Areas**:
   - Machine Learning & Deep Learning
-  - Data Mining & Knowledge Discovery
-  - Natural Language Processing & Computer Vision
-  - Distributed Systems & Database Management Systems
-  - Algorithm Analysis & Design
-  - Software Engineering & Agile Methodologies
+  - Natural Language Processing (NLP)
+  - Computer Vision & Biometrics
+  - Explainable AI (XAI) & Anomaly Detection
+  - Full-Stack Web Development & API Architecture
 
 ---
 
@@ -129,37 +148,26 @@ ${techStackSections}
 
 ---
 
-## 6. Honors, Hackathon Awards & National Distinctions
+## 6. Honors & Competition Awards
 
 ${awardSections}
 
 ---
 
-## 7. Research Publications & Scientific Papers
-
-${publicationSections}
-
----
-
-## 8. Professional Certifications (30+ Verified Credentials)
+## 7. Verified Certifications & Credentials
 
 ${certSections}
 
 ---
 
-## 9. Contact Channels & Inquiries
+## 8. Academic Research & Publications
 
-- **Direct Inquiries**: Use the interactive contact modal at ${baseUrl}
-- **Email**: ${email}
-- **GitHub**: https://github.com/zickrian
-- **LinkedIn**: https://linkedin.com/in/firdauskhotibulzickrian/
+${publicationSections}
 `
 }
 
-export async function GET() {
-  const content = buildLlmsFullTxt()
-  return new Response(content, {
-    status: 200,
+export function GET(): Response {
+  return new Response(buildLlmsFullTxt(), {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
       "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",

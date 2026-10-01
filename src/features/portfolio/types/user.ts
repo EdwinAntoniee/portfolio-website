@@ -5,6 +5,10 @@ export type User = {
   displayName: string
   /** Handle/username used in links or mentions */
   username: string
+  /** Subtitle or headline shown directly below the name */
+  headline?: string
+  /** Indonesian translation of `headline` */
+  headlineId?: string
   gender: "male" | "female" | "non-binary"
   /** e.g. "he/him", "she/her", "they/them" */
   pronouns: string
@@ -42,6 +46,8 @@ export type User = {
   aboutId?: string
   /** Public URL to avatar image */
   avatar: string
+  /** Public URL to avatar image for night/dark mode */
+  avatarNight?: string
   /** Open Graph image URL for social sharing */
   ogImage: string
   /** Authoritative public profile URLs used for entity matching */

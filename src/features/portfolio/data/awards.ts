@@ -2,58 +2,48 @@ import type { Award } from "../types/awards"
 
 export const AWARDS: Award[] = [
   {
-    id: "pijak-ibm-skillsbuild-best-capstone-2026",
-    prize: "Best Capstone Project",
-    title:
-      "Best Capstone Project – Pijak in Collaboration with IBM Skillsbuild",
-    date: "2026-07-20",
+    id: "compfest-18-aic",
+    prize: "Top 50 🌟",
+    title: "AI Innovation Challenge — COMPFEST 18",
+    date: "2026-08",
     grade: "National",
-    referenceLink: "https://www.dicoding.com/",
-    description: `Awarded Best Capstone Project at the Pijak in collaboration with IBM Skillsbuild AI Engineer program, selected as one of only 5 winning teams out of 120+ capstone teams.
+    description: `Recognized as Top 50 nationwide at the COMPFEST 18 AI Innovation Challenge with Maintain, a prescriptive industrial maintenance copilot.
 
-- Project title: **Custora – Customer Intelligence for Retention Decisions** (Team PJK-GM015).
-- Built an AI-powered customer intelligence system focused on predicting and improving customer retention.
-- Certificate No: PIJAK/CAPS/XXVI-07/APC007D6Y0298.`,
-    descriptionId: `Meraih penghargaan Best Capstone Project pada program AI Engineer Pijak bekerja sama dengan IBM Skillsbuild, terpilih sebagai salah satu dari hanya 5 tim pemenang dari 120+ tim capstone.
+- As data lead, ran EDA on sensor telemetry and engineered physics-based features to flag early mechanical strain.
+- Became the on-screen presenter for our project trailer, writing the script and narrating the product vision.`,
+    descriptionId: `Meraih Top 50 nasional pada kompetisi AI Innovation Challenge COMPFEST 18 bersama proyek Maintain, copilot pemeliharaan preskriptif industri.
 
-- Judul proyek: **Custora – Customer Intelligence for Retention Decisions** (Tim PJK-GM015).
-- Membangun sistem customer intelligence berbasis AI yang berfokus pada prediksi dan peningkatan retensi pelanggan.
-- No. Sertifikat: PIJAK/CAPS/XXVI-07/APC007D6Y0298.`,
+- Sebagai data lead, melakukan EDA pada telemetri sensor dan merekayasa fitur berbasis fisika untuk mendeteksi beban mekanis sejak dini.
+- Menjadi presenter di layar untuk trailer proyek, menulis naskah, dan menarasikan visi produk.`,
   },
   {
-    id: "pijak-ibm-skillsbuild-lulusan-terbaik-2026",
-    prize: "Lulusan Terbaik (Best Graduate)",
-    title:
-      "Best Graduate – AI Engineer, Pijak in Collaboration with IBM Skillsbuild",
-    date: "2026-07-20",
+    id: "find-it-2026-hackathon",
+    prize: "11th Place 🏅",
+    title: "Find IT! 2026 Hackathon — Universitas Gadjah Mada (UGM)",
+    date: "2026-05",
     grade: "National",
-    referenceLink: "https://www.dicoding.com/",
-    description: `Graduated as Lulusan Terbaik (Best Graduate) from the Pijak in collaboration with IBM Skillsbuild AI Engineer program, ranking in the top 10% out of more than 670 participants.
+    description: `Awarded 11th Place Nationwide at the Find IT! 2026 UGM National Hackathon with En Garde, an unsupervised public tender anomaly detection platform.
 
-- Completed comprehensive AI Engineer training covering machine learning, deep learning, and AI application development.
-- Certificate No: PIJAK/DIST/XXVI-07/APC007D6Y0298.`,
-    descriptionId: `Lulus sebagai Lulusan Terbaik (Best Graduate) dari program AI Engineer Pijak bekerja sama dengan IBM Skillsbuild, menempati 10% teratas dari lebih dari 670 peserta.
+- Audited thousands of procurement records to resolve data anomalies and engineer fraud-risk signals for an Isolation Forest model.
+- Applied TreeSHAP to translate black-box predictions into top fraud indicators for government audit teams.`,
+    descriptionId: `Meraih Peringkat 11 Nasional pada Hackathon Nasional Find IT! 2026 UGM bersama proyek En Garde, platform deteksi anomali tender pengadaan publik tanpa supervisi.
 
-- Menyelesaikan pelatihan AI Engineer yang komprehensif meliputi machine learning, deep learning, dan pengembangan aplikasi AI.
-- No. Sertifikat: PIJAK/DIST/XXVI-07/APC007D6Y0298.`,
+- Mengaudit ribuan data pengadaan untuk mengatasi anomali data dan merekayasa sinyal risiko kecurangan untuk model Isolation Forest.
+- Menerapkan TreeSHAP untuk menerjemahkan prediksi black-box menjadi indikator kecurangan teratas bagi tim auditor pemerintah.`,
   },
   {
-    id: "coinbase-hackathon-indonesia-2025-base-track",
-    prize: "Top 5 National Finalist",
-    title:
-      "Top 5 National Finalist of Base Track at Coinbase Hackathon Indonesia 2025",
-    date: "2026-01-01",
+    id: "sparc-2026-data-science",
+    prize: "Finalist 🏆",
+    title: "SPARC 2026 Data Science Competition — Universitas Ciputra",
+    date: "2026-02",
     grade: "National",
-    referenceLink: "https://baserealms.app/",
-    description: `Recognized as a Top 5 National Finalist in the Base Track at Coinbase Hackathon Indonesia 2025 with Base Realms, a 16-bit RPG battle game focused on Web3 onboarding through familiar Indonesian QRIS payments.
+    description: `Recognized as a National Finalist at the SPARC 2026 Data Science Competition with Team Strive, predicting automotive repeat financing retention.
 
-- Built with team Terra Bit (Firdaus Khotibul Zickrian & Gagah Athallah Fatha).
-- Implemented blockchain game mechanics using Base, Solidity, ERC-721, and ERC-1155 standards.
-- Designed QRIS-based onboarding to make crypto entry more accessible for non-crypto users.`,
-    descriptionId: `Meraih pengakuan sebagai Top 5 National Finalist pada Base Track di Coinbase Hackathon Indonesia 2025 bersama Base Realms, sebuah game battle RPG 16-bit yang berfokus pada onboarding Web3 melalui pembayaran QRIS yang familiar bagi masyarakat Indonesia.
+- Cleaned and engineered features on 319K+ automotive financing records, tackling 87.5% class imbalance with cost-sensitive LightGBM to reach 0.70 ROC-AUC.
+- Co-presented the team's modeling framework to a judge panel, defending threshold tuning and trade-off decisions in live technical Q&A.`,
+    descriptionId: `Lolos sebagai Finalis Nasional pada Kompetisi Sains Data SPARC 2026 bersama Tim Strive, memprediksi retensi pembiayaan kembali kendaraan bermotor.
 
-- Dibangun bersama tim Terra Bit (Firdaus Khotibul Zickrian & Gagah Athallah Fatha).
-- Mengimplementasikan mekanisme game blockchain menggunakan standar Base, Solidity, ERC-721, dan ERC-1155.
-- Merancang onboarding berbasis QRIS agar entri ke dunia crypto lebih mudah diakses oleh pengguna non-crypto.`,
+- Membersihkan dan merekayasa fitur pada 319K+ data pembiayaan otomotif, mengatasi ketimpangan kelas 87.5% dengan LightGBM cost-sensitive hingga mencapai 0.70 ROC-AUC.
+- Mempresentasikan kerangka pemodelan tim di hadapan dewan juri, mempertahankan penyesuaian threshold dan keputusan kompromi dalam sesi tanya jawab teknis.`,
   },
 ]

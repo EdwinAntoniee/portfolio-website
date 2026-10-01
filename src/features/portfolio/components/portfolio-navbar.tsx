@@ -3,19 +3,16 @@
 import {
   CaretDown,
   GearSix,
-  Monitor,
-  Moon,
   SpeakerHigh,
   SpeakerX,
-  Sun,
 } from "@phosphor-icons/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useTheme } from "next-themes"
 import { type MouseEvent, useEffect, useRef, useState } from "react"
 
 import { useChat } from "@/components/chat-provider"
 import { preloadChatPanel } from "@/components/chat-widget"
+import { ThemeSwitch } from "@/components/theme-switch"
 import { useNavigationSound } from "@/hooks/soundcn/use-navigation-sound"
 import { useSoundPreference } from "@/hooks/soundcn/use-sound-preference"
 import { useLanguagePreference } from "@/hooks/use-language-preference"
@@ -91,53 +88,6 @@ function IconProjects({ className, active = false }: IconProps) {
         r="1.1"
         fill="currentColor"
         className="origin-[14px_15px] transition-transform duration-300 ease-out group-hover:scale-125"
-      />
-    </svg>
-  )
-}
-
-function IconBlog({ className, active = false }: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={cn(
-        "transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:rotate-[-2deg]",
-        className
-      )}
-    >
-      <path
-        d="M6 2h14v20H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"
-        fill="currentColor"
-        opacity={active ? 0.16 : 0.06}
-      />
-      <path
-        d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8 7h8"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        className="transition-transform duration-300 ease-out group-hover:translate-x-0.5"
-      />
-      <path
-        d="M8 11h8"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        className="transition-transform duration-300 ease-out group-hover:translate-x-1"
-      />
-      <path
-        d="M8 15h5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        className="transition-transform duration-300 ease-out group-hover:translate-x-0.5"
       />
     </svg>
   )
@@ -248,7 +198,6 @@ function IconChat({ className, active = false }: IconProps) {
 export function PortfolioNavbar({ className }: { className?: string }) {
   const pathname = usePathname()
   const { setIsChatOpen } = useChat()
-  const { theme, setTheme } = useTheme()
   const { enabled, setEnabled } = useSoundPreference()
   const { language, setLanguage } = useLanguagePreference()
   const { t } = useTranslation()
@@ -314,13 +263,6 @@ export function PortfolioNavbar({ className }: { className?: string }) {
       type: "link" as const,
     },
     {
-      id: "blog",
-      label: t.nav.blog,
-      href: "/blog",
-      icon: IconBlog,
-      type: "link" as const,
-    },
-    {
       id: "gallery",
       label: t.nav.gallery,
       href: "/gallery",
@@ -356,12 +298,13 @@ export function PortfolioNavbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        "relative sticky top-0 z-40 -mt-px border border-line bg-card/95 backdrop-blur-md max-md:border-x-0",
+        "border-b-straight relative sticky top-0 z-40 -mt-px border-b bg-card/95 backdrop-blur-md",
         className
       )}
+      style={{ borderBottom: "1px solid var(--line)" }}
       aria-label="Main Navigation"
     >
-      <div className="relative grid h-full w-full grid-cols-6">
+      <div className="relative grid h-full w-full grid-cols-5">
         {items.map((item) => {
           const isActive =
             item.type === "link" &&
@@ -452,7 +395,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
         })}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-1/6 transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="pointer-events-none absolute inset-y-0 left-0 w-1/5 transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             opacity: activeItemIndex >= 0 ? 1 : 0,
             transform: `translate3d(${Math.max(activeItemIndex, 0) * 100}%, 0, 0)`,
@@ -481,55 +424,50 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               <SettingsOption
                 label={t.settings.english}
                 pressed={language === "en"}
-                onClick={() => setLanguage("en")}
+                onClick={() => {
+                  playNavigation()
+                  setLanguage("en")
+                }}
               >
                 <span className="text-[10px] font-semibold">EN</span>
               </SettingsOption>
               <SettingsOption
                 label={t.settings.indonesian}
                 pressed={language === "id"}
-                onClick={() => setLanguage("id")}
+                onClick={() => {
+                  playNavigation()
+                  setLanguage("id")
+                }}
               >
                 <span className="text-[10px] font-semibold">ID</span>
               </SettingsOption>
             </SettingsRow>
 
-            <SettingsRow label={t.settings.theme}>
-              <SettingsOption
-                label={t.settings.light}
-                pressed={theme === "light"}
-                onClick={() => setTheme("light")}
-              >
-                <Sun size={16} weight="duotone" aria-hidden />
-              </SettingsOption>
-              <SettingsOption
-                label={t.settings.system}
-                pressed={theme === "system"}
-                onClick={() => setTheme("system")}
-              >
-                <Monitor size={16} weight="duotone" aria-hidden />
-              </SettingsOption>
-              <SettingsOption
-                label={t.settings.dark}
-                pressed={theme === "dark"}
-                onClick={() => setTheme("dark")}
-              >
-                <Moon size={16} weight="duotone" aria-hidden />
-              </SettingsOption>
-            </SettingsRow>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-xs font-medium text-foreground">
+                {t.settings.theme}
+              </span>
+              <ThemeSwitch size="sm" />
+            </div>
 
             <SettingsRow label={t.settings.sound}>
               <SettingsOption
                 label={t.settings.soundOn}
                 pressed={enabled}
-                onClick={() => setEnabled(true)}
+                onClick={() => {
+                  setEnabled(true)
+                  playNavigation(true)
+                }}
               >
                 <SpeakerHigh size={16} weight="duotone" aria-hidden />
               </SettingsOption>
               <SettingsOption
                 label={t.settings.soundOff}
                 pressed={!enabled}
-                onClick={() => setEnabled(false)}
+                onClick={() => {
+                  playNavigation()
+                  setEnabled(false)
+                }}
               >
                 <SpeakerX size={16} weight="duotone" aria-hidden />
               </SettingsOption>

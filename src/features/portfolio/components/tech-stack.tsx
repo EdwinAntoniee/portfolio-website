@@ -2,74 +2,120 @@
 
 import { useTranslation } from "@/lib/i18n/use-translation"
 
-import { STACK_CATEGORIES, TECH_STACK } from "../data/tech-stack"
+import { TECH_STACK } from "../data/tech-stack"
 import type { TechStack as TechStackType } from "../types/tech-stack"
-import { Panel, PanelHeader, PanelTitle } from "./panel"
+import { Panel, PanelHeader, PanelTitle, PanelTitleSup } from "./panel"
 
 export function TechStack() {
   const { t } = useTranslation()
-  const grouped = groupByCategory(TECH_STACK)
+
+  const aiMlItems = TECH_STACK.filter((item) =>
+    item.categories.includes("AI & ML")
+  )
+  const webDevItems = TECH_STACK.filter((item) =>
+    item.categories.includes("Web Development")
+  )
+  const toolsItems = TECH_STACK.filter((item) =>
+    item.categories.includes("Tools & Technologies")
+  )
 
   return (
     <Panel id="stack">
       <PanelHeader>
-        <PanelTitle>{t.techStack.title}</PanelTitle>
+        <PanelTitle>
+          {t.techStack.title}
+          <PanelTitleSup>({TECH_STACK.length})</PanelTitleSup>
+        </PanelTitle>
       </PanelHeader>
 
-      <div className="relative [--badge-height:--spacing(6)] [--col-left-width:--spacing(48)]">
-        <div
-          className="pointer-events-none absolute inset-y-0 left-(--col-left-width) -z-1 w-px bg-[linear-gradient(to_bottom,var(--line)_4px,transparent_2px)] bg-size-[1px_6px] bg-repeat-y max-sm:hidden"
-          aria-hidden
-        />
-
-        {STACK_CATEGORIES.map((category, index) => {
-          const items = grouped[category]
-          if (!items || items.length === 0) return null
-
-          return (
-            <div
-              key={category}
-              className="grid items-start gap-y-2 border-b border-line py-4 last:border-none sm:grid-cols-[var(--col-left-width)_1fr]"
-            >
-              <div className="pl-4 text-sm/[--badge-height] text-muted-foreground">
-                <span className="mr-1.5 font-mono text-muted-foreground select-none">
-                  {(index + 1).toString().padStart(2, "0")}
-                </span>
-                {category}
-              </div>
-
-              <ul className="flex flex-wrap gap-1.5 px-4">
-                {items.map((tech) => (
-                  <li key={tech.key} className="flex">
-                    <a
-                      href={tech.href}
-                      target="_blank"
-                      rel="noopener"
-                      className="flex h-(--badge-height) items-center justify-center gap-1.5 rounded-lg bg-muted/60 px-1.75 font-mono text-xs text-foreground inset-ring-1 inset-ring-border transition-colors hover:bg-muted/90 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0 [&_svg]:text-muted-foreground/80"
-                    >
-                      <svg viewBox="0 0 24 24" aria-hidden>
-                        <use href={`/icons/tech-stack-v1.svg#${tech.iconId}`} />
-                      </svg>
-                      {tech.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+      <div className="grid grid-cols-1 gap-2.5 p-3.5 sm:grid-cols-2 sm:gap-3 sm:p-4">
+        {/* Card 1: 01 AI & ML */}
+        <div className="flex flex-col rounded-xl border border-line bg-card/60">
+          <div className="flex items-center justify-between border-b border-line px-3.5 py-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-muted-foreground select-none">
+                01
+              </span>
+              <h3 className="text-xs font-semibold text-foreground sm:text-sm">
+                AI & ML
+              </h3>
             </div>
-          )
-        })}
+            <span className="text-[11px] font-medium text-muted-foreground tabular-nums">
+              ({aiMlItems.length})
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 p-3">
+            {aiMlItems.map((tech) => (
+              <TechBadge key={tech.key} tech={tech} />
+            ))}
+          </div>
+        </div>
+
+        {/* Card 2: 02 Web Development */}
+        <div className="flex flex-col rounded-xl border border-line bg-card/60">
+          <div className="flex items-center justify-between border-b border-line px-3.5 py-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-muted-foreground select-none">
+                02
+              </span>
+              <h3 className="text-xs font-semibold text-foreground sm:text-sm">
+                Web Development
+              </h3>
+            </div>
+            <span className="text-[11px] font-medium text-muted-foreground tabular-nums">
+              ({webDevItems.length})
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 p-3">
+            {webDevItems.map((tech) => (
+              <TechBadge key={tech.key} tech={tech} />
+            ))}
+          </div>
+        </div>
+
+        {/* Card 3: 03 Tools & Technologies (Spans full width in Bento) */}
+        <div className="flex flex-col rounded-xl border border-line bg-card/60 sm:col-span-2">
+          <div className="flex items-center justify-between border-b border-line px-3.5 py-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-muted-foreground select-none">
+                03
+              </span>
+              <h3 className="text-xs font-semibold text-foreground sm:text-sm">
+                Tools & Technologies
+              </h3>
+            </div>
+            <span className="text-[11px] font-medium text-muted-foreground tabular-nums">
+              ({toolsItems.length})
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 p-3">
+            {toolsItems.map((tech) => (
+              <TechBadge key={tech.key} tech={tech} />
+            ))}
+          </div>
+        </div>
       </div>
     </Panel>
   )
 }
 
-function groupByCategory(
-  items: TechStackType[]
-): Record<string, TechStackType[]> {
-  return items.reduce<Record<string, TechStackType[]>>((acc, item) => {
-    for (const category of item.categories) {
-      ;(acc[category] ??= []).push(item)
-    }
-    return acc
-  }, {})
+function TechBadge({ tech }: { tech: TechStackType }) {
+  return (
+    <a
+      href={tech.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex h-6 items-center justify-center gap-1.5 rounded-lg bg-muted/60 px-2 text-xs font-medium text-foreground inset-ring-1 inset-ring-border transition-colors hover:bg-muted/90 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0 [&_svg]:text-muted-foreground/80"
+    >
+      {tech.iconId ? (
+        <svg viewBox="0 0 24 24" aria-hidden>
+          <use href={`/icons/tech-stack-v2.svg#${tech.iconId}`} />
+        </svg>
+      ) : null}
+      {tech.title}
+    </a>
+  )
 }

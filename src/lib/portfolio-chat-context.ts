@@ -1,3 +1,4 @@
+import { GITHUB_USERNAME } from "@/config/site"
 import { AWARDS } from "@/features/portfolio/data/awards"
 import { CERTIFICATIONS } from "@/features/portfolio/data/certifications"
 import { EXPERIENCES } from "@/features/portfolio/data/experiences"
@@ -127,7 +128,18 @@ function compactText(value: string | undefined, maxLength = 1500) {
   return `${normalized.slice(0, maxLength - 1).trim()}...`
 }
 
-function formatPeriod(period: { start: string; end?: string }) {
+function formatPeriod(period: {
+  start: string
+  end?: string
+  display?: string
+  isOngoing?: boolean
+}) {
+  if (period.display) return period.display
+  if (period.isOngoing === false) {
+    return period.end && period.end !== period.start
+      ? `${period.start} - ${period.end}`
+      : period.start
+  }
   return `${period.start} - ${period.end || "Present"}`
 }
 
@@ -893,12 +905,12 @@ function createOtherDocuments(
         ? `GitHub contribution data is available with ${github.contributionDays} active contribution days tracked.`
         : "GitHub contribution data could not be loaded for this request.",
       details: joinLines([
-        `GitHub username: ${USER.username}.`,
-        `GitHub profile URL: https://github.com/${USER.username}.`,
+        `GitHub username: ${GITHUB_USERNAME}.`,
+        `GitHub profile URL: https://github.com/${GITHUB_USERNAME}.`,
         github.available
           ? `Active on GitHub with ${github.contributionDays} contribution days tracked - reflects consistent coding and project activity.`
           : "GitHub activity data temporarily unavailable; check the profile directly for up-to-date contribution history.",
-        `Explore open-source projects, repositories, and commit history at: https://github.com/${USER.username}.`,
+        `Explore open-source projects, repositories, and commit history at: https://github.com/${GITHUB_USERNAME}.`,
       ]),
       keywords: [
         "github",
@@ -907,9 +919,9 @@ function createOtherDocuments(
         "repo",
         "open source",
         "open-source",
-        USER.username,
+        GITHUB_USERNAME,
       ],
-      url: `https://github.com/${USER.username}`,
+      url: `https://github.com/${GITHUB_USERNAME}`,
       priority: 10,
     },
   ]

@@ -10,8 +10,8 @@ const title = "AI & Machine Learning Projects"
 const description =
   "A selection of projects I've built across AI, machine learning, data, and full-stack development."
 const keywords = [
-  "Firdaus Khotibul Zickrian projects",
-  "zickrian projects",
+  "Edwin Antonie projects",
+  "Edwin projects",
   "AI projects",
   "machine learning projects",
   "full-stack development projects",
@@ -64,14 +64,13 @@ export default function ProjectsPage() {
           __html: JSON.stringify(getProjectsJsonLd()).replace(/</g, "\\u003c"),
         }}
       />
-      <SectionSeparator />
-      <div className="relative z-1 -mt-px border-x border-t border-line bg-card max-md:border-x-0">
+      <div className="relative z-1 bg-card">
         <ProjectsPageContent projects={PROJECTS} />
 
         {/* Butts straight against the last row's rule, with no gap - that rule
             becomes the band's top edge and closes the box, which is what the
             home page's sections do. A spacer here left the band floating. */}
-        <SectionSeparator sides={false} />
+        <SectionSeparator />
       </div>
     </>
   )

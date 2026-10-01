@@ -76,8 +76,7 @@ async function fetchFromGitHubDirect(
     const html = await res.text()
 
     const tooltips = new Map<string, number>()
-    const tooltipRegex =
-      /<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/g
+    const tooltipRegex = /<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/g
     let match: RegExpExecArray | null
 
     while ((match = tooltipRegex.exec(html)) !== null) {

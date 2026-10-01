@@ -6,31 +6,21 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     icon: <Icons.github />,
     title: "GitHub",
-    href: "https://github.com/zickrian",
+    href: "https://github.com/EdwinAntoniee",
   },
   {
     icon: <Icons.linkedin />,
     title: "LinkedIn",
-    href: "https://linkedin.com/in/firdauskhotibulzickrian/",
+    href: "https://www.linkedin.com/in/edwin-antonie-171016326",
   },
   {
-    icon: <Icons.discord />,
-    title: "Discord",
-    href: "https://discord.com/users/zickrian",
-  },
-  {
-    icon: <Icons.medium />,
-    title: "Medium",
-    href: "https://medium.com/@zickriann",
+    icon: <Icons.instagram />,
+    title: "Instagram",
+    href: "https://www.instagram.com/edwin_.a/",
   },
   {
     icon: <Icons.email />,
     title: "Email",
-    href: "mailto:firdauskhotibulzickrian@gmail.com",
-  },
-  {
-    icon: <Icons.huggingface />,
-    title: "Hugging Face",
-    href: "https://huggingface.co/zickrian",
+    href: "mailto:edwin.xw23@gmail.com",
   },
 ]

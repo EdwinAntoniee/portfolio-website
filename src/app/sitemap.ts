@@ -13,7 +13,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = [
     { route: "", priority: 1 },
     { route: "/projects", priority: 0.9 },
-    { route: "/blog", priority: 0.8 },
     { route: "/gallery", priority: 0.6 },
     { route: "/llms.txt", priority: 0.7 },
     { route: "/llms-full.txt", priority: 0.5 },

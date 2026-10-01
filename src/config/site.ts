@@ -1,7 +1,6 @@
 import { USER } from "@/features/portfolio/data/user"
-import type { NavItem } from "@/types/nav"
 
-const DEFAULT_SITE_URL = "https://www.zickrian.dev"
+const DEFAULT_SITE_URL = "https://edwinantonie.vercel.app"
 
 function normalizeSiteUrl(value?: string) {
   if (!value) return DEFAULT_SITE_URL
@@ -19,30 +18,11 @@ export const SITE_INFO = {
 }
 
 export const META_THEME_COLORS = {
-  light: "#ffffff",
-  dark: "#000000",
+  light: "#91C8E4",
+  dark: "#91C8E4",
 }
 
-export const MAIN_NAV: NavItem[] = [
-  {
-    title: "Projects",
-    href: "/projects",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-  },
-  {
-    title: "Gallery",
-    href: "/gallery",
-  },
-]
-
-export const X_HANDLE = "@zickrian"
-export const GITHUB_USERNAME = "zickrian"
-export const GITHUB_REPO = "zickrian/zickriann"
-export const GITHUB_REPO_URL = `https://github.com/${GITHUB_REPO}`
+export const GITHUB_USERNAME = "EdwinAntoniee"
 export const UTM_PARAMS = {
-  utm_source: "zickrian",
+  utm_source: "edwinantonie",
 }
-

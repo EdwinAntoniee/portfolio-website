@@ -11,7 +11,6 @@ const dictionary = {
     nav: {
       home: "Home",
       projects: "Projects",
-      blog: "Blog",
       gallery: "Gallery",
       chat: "Chat",
       settings: "Settings",
@@ -68,7 +67,10 @@ const dictionary = {
         "Ideas become real when the model, interface, and product decisions move together.",
     },
     techStack: {
-      title: "Stack",
+      title: "Stacks",
+      searchPlaceholder: "Search technologies (e.g. Python, Docker, React)...",
+      skillsCount: "Skills",
+      matchCount: "Match",
     },
     awards: {
       title: "Awards",
@@ -96,6 +98,12 @@ const dictionary = {
     projectDetail: {
       backToProjects: "Projects",
       liveDemo: "Live Demo",
+      livePrototype: "Live Prototype",
+      inProgress: "Work in Progress",
+      watchVideo: "Watch Video",
+      images: "Images",
+      screenshots: "Screenshots",
+      videoDemo: "Video Demo",
       sourceCode: "Source Code",
       ownership: "Ownership",
       role: "Role",
@@ -117,12 +125,7 @@ const dictionary = {
       home: "home",
       suffix: "and rejoin the conversation.",
     },
-    blog: {
-      loadErrorTitle: "Couldn't load posts right now",
-      loadErrorVisit: "Visit",
-      loadErrorMedium: "Medium",
-      loadErrorSuffix: "to read the latest articles.",
-    },
+
     chat: {
       inputPlaceholder: "How can I help you?",
       sendMessage: "Send message",
@@ -137,7 +140,7 @@ const dictionary = {
       editEmail: "Edit Email",
       sendEmail: "Send Email",
       sending: "Sending...",
-      sendEmailToZickrian: "Send Email to Zickrian",
+      sendEmailToEdwin: "Send Email to Edwin",
       yourName: "Your name",
       yourEmail: "Your email",
       writeMessageHere: "Write your message here...",
@@ -171,14 +174,13 @@ const dictionary = {
       sendingLimitReached: (limit: number, wait: string) =>
         `⏳ **Sending limit reached.**\n\nYou've already sent ${limit} emails in the last hour. Try again in **${wait}**.`,
       emailSentSuccess: (name: string, email: string, remaining: number) =>
-        `✅ **Email sent successfully!**\n\nThe message from **${name}** has been sent to Zickrian. You will receive a confirmation at **${email}**.\n\nThanks for reaching out! 🙌${remaining > 0 ? `\n\n🚀 *Remaining email quota: **${remaining}x** in this hour.*` : ""}`,
+        `✅ **Email sent successfully!**\n\nThe message from **${name}** has been sent to Edwin. You will receive a confirmation at **${email}**.\n\nThanks for reaching out! 🙌${remaining > 0 ? `\n\n🚀 *Remaining email quota: **${remaining}x** in this hour.*` : ""}`,
     },
   },
   id: {
     nav: {
       home: "Beranda",
       projects: "Proyek",
-      blog: "Blog",
       gallery: "Galeri",
       chat: "Chat",
       settings: "Pengaturan",
@@ -236,7 +238,10 @@ const dictionary = {
         "Ide menjadi nyata ketika keputusan model, antarmuka, dan produk bergerak bersama.",
     },
     techStack: {
-      title: "Teknologi",
+      title: "Stacks",
+      searchPlaceholder: "Cari teknologi (misal: Python, Docker, React)...",
+      skillsCount: "Keahlian",
+      matchCount: "Cocok",
     },
     awards: {
       title: "Penghargaan",
@@ -264,6 +269,12 @@ const dictionary = {
     projectDetail: {
       backToProjects: "Proyek",
       liveDemo: "Demo Langsung",
+      livePrototype: "Live Prototype",
+      inProgress: "Sedang Berjalan",
+      watchVideo: "Tonton Video",
+      images: "Images",
+      screenshots: "Tangkapan Layar",
+      videoDemo: "Video Demo",
       sourceCode: "Kode Sumber",
       ownership: "Kepemilikan",
       role: "Peran",
@@ -285,12 +296,7 @@ const dictionary = {
       home: "beranda",
       suffix: "dan bergabung kembali ke percakapan.",
     },
-    blog: {
-      loadErrorTitle: "Gagal memuat tulisan saat ini",
-      loadErrorVisit: "Kunjungi",
-      loadErrorMedium: "Medium",
-      loadErrorSuffix: "untuk membaca artikel terbaru.",
-    },
+
     chat: {
       inputPlaceholder: "Ada yang bisa dibantu?",
       sendMessage: "Kirim pesan",
@@ -305,7 +311,7 @@ const dictionary = {
       editEmail: "Ubah Email",
       sendEmail: "Kirim Email",
       sending: "Mengirim...",
-      sendEmailToZickrian: "Kirim Email ke Zickrian",
+      sendEmailToEdwin: "Kirim Email ke Edwin",
       yourName: "Nama kamu",
       yourEmail: "Email kamu",
       writeMessageHere: "Tulis pesanmu di sini...",
@@ -339,7 +345,7 @@ const dictionary = {
       sendingLimitReached: (limit: number, wait: string) =>
         `⏳ **Batas pengiriman tercapai.**\n\nKamu sudah mengirim ${limit} email dalam satu jam terakhir. Coba lagi dalam **${wait}**.`,
       emailSentSuccess: (name: string, email: string, remaining: number) =>
-        `✅ **Email berhasil terkirim!**\n\nPesan dari **${name}** telah dikirim ke Zickrian. Kamu akan menerima konfirmasi di **${email}**.\n\nTerima kasih sudah menghubungi! 🙌${remaining > 0 ? `\n\n🚀 *Sisa kuota email: **${remaining}x** dalam satu jam ini.*` : ""}`,
+        `✅ **Email berhasil terkirim!**\n\nPesan dari **${name}** telah dikirim ke Edwin. Kamu akan menerima konfirmasi di **${email}**.\n\nTerima kasih sudah menghubungi! 🙌${remaining > 0 ? `\n\n🚀 *Sisa kuota email: **${remaining}x** dalam satu jam ini.*` : ""}`,
     },
   },
 } as const satisfies Record<Language, unknown>

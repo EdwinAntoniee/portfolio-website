@@ -7,10 +7,7 @@ function Panel({ className, ...props }: React.ComponentProps<"section">) {
   return (
     <section
       data-slot="panel"
-      className={cn(
-        "relative z-1 -mt-px border border-line bg-card max-md:border-x-0",
-        className
-      )}
+      className={cn("relative z-1 bg-card", className)}
       {...props}
     >
       {props.children}
@@ -23,7 +20,7 @@ function PanelHeader({ className, ...props }: React.ComponentProps<"header">) {
     <header
       data-slot="panel-header"
       className={cn(
-        "border-b border-line px-4 has-data-[slot=panel-description]:*:data-[slot=panel-title]:border-b has-data-[slot=panel-description]:*:data-[slot=panel-title]:border-line",
+        "border-b border-line px-4 py-2 text-center has-data-[slot=panel-description]:*:data-[slot=panel-title]:border-b has-data-[slot=panel-description]:*:data-[slot=panel-title]:border-line sm:py-2.5",
         className
       )}
       {...props}
@@ -42,7 +39,7 @@ function PanelTitle({
     <Comp
       data-slot="panel-title"
       className={cn(
-        "font-handwritten text-3xl font-semibold tracking-tight",
+        "text-center font-handwritten text-xl font-bold tracking-[0.15em] text-foreground uppercase sm:text-2xl md:text-[1.65rem]",
         className
       )}
       {...props}
@@ -54,7 +51,7 @@ function PanelTitleSup({ className, ...props }: React.ComponentProps<"sup">) {
   return (
     <sup
       className={cn(
-        "top-[-0.75em] ml-1 text-sm font-medium tracking-normal text-muted-foreground",
+        "top-[-0.6em] ml-1.5 font-sans text-xs font-semibold tracking-normal text-muted-foreground sm:text-sm",
         className
       )}
       {...props}

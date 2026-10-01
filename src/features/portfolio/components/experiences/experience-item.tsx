@@ -45,7 +45,7 @@ export function ExperienceItem({ experience }: { experience: Experience }) {
         </h3>
       </div>
 
-      <div className="relative space-y-4 before:absolute before:left-3 before:h-full before:w-px before:bg-border">
+      <div className="relative space-y-4 before:absolute before:left-3 before:h-full before:w-px before:bg-[repeating-linear-gradient(to_bottom,var(--line)_0,var(--line)_10px,transparent_10px,transparent_17px)]">
         {experience.positions.map((position) => (
           <ExperiencePositionItem key={position.id} position={position} />
         ))}

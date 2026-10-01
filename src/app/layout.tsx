@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
 import dynamic from "next/dynamic"
+import { Overpass_Mono, Plus_Jakarta_Sans, Schoolbell } from "next/font/google"
 import Script from "next/script"
 import type { Person, ProfilePage, WebSite, WithContext } from "schema-dts"
 
@@ -10,6 +11,25 @@ import { META_THEME_COLORS, SITE_INFO } from "@/config/site"
 import { USER } from "@/features/portfolio/data/user"
 import { SITE_OG_IMAGE } from "@/lib/seo"
 import { decodeEmail } from "@/utils/string"
+
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
+
+const fontMono = Overpass_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
+
+const fontHandwritten = Schoolbell({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-handwritten",
+  display: "swap",
+})
 
 const Analytics =
   process.env.VERCEL === "1"
@@ -63,8 +83,8 @@ function getProfilePageJsonLd(): WithContext<ProfilePage> {
     alumniOf: [
       {
         "@type": "CollegeOrUniversity",
-        name: "Universitas Dian Nuswantoro",
-        url: "https://dinus.ac.id",
+        name: "Bina Nusantara University",
+        url: "https://binus.ac.id",
       },
     ],
     worksFor: USER.jobs.map((job) => ({
@@ -132,6 +152,14 @@ export const metadata: Metadata = {
   applicationName: SITE_INFO.name,
   referrer: "origin-when-cross-origin",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", sizes: "64x64", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+  },
   authors: [
     {
       name: USER.displayName,
@@ -201,7 +229,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${fontSans.variable} ${fontMono.variable} ${fontHandwritten.variable}`}
+    >
       <head>
         {/* No preconnect/dns-prefetch here on purpose: the GitHub contributions
             API is only ever called server-side (see data/github-contributions),
@@ -220,32 +252,6 @@ export default function RootLayout({
           href="/llms.txt"
           title="LLMs.txt"
         />
-        <link
-          rel="preload"
-          href="/fonts/geist-sans-latin.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        {/* Decorative display face, used only by panel titles and the footer
-            colophon - all below the fold. Preloaded so it never swaps in late,
-            but at low priority so its 73 KB never competes with the LCP
-            banner on a mobile connection. */}
-        <link
-          rel="preload"
-          href="/fonts/caveat-latin.woff2"
-          as="font"
-          type="font/woff2"
-          fetchPriority="low"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/geist-mono-latin.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <Script
           id="root-jsonld"
           strategy="beforeInteractive"
@@ -256,7 +262,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="bg-background text-foreground antialiased">
+      <body className="bg-background font-sans text-foreground antialiased">
         <Providers>{children}</Providers>
         {Analytics ? <Analytics /> : null}
         {SpeedInsights ? <SpeedInsights /> : null}

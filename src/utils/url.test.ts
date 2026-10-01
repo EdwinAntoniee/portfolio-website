@@ -5,8 +5,8 @@ import { addQueryParams, urlToName } from "./url"
 describe("addQueryParams", () => {
   it("appends a single query param", () => {
     expect(
-      addQueryParams("https://example.com/path", { utm_source: "zickrian" })
-    ).toBe("https://example.com/path?utm_source=zickrian")
+      addQueryParams("https://example.com/path", { utm_source: "edwin" })
+    ).toBe("https://example.com/path?utm_source=edwin")
   })
 
   it("appends multiple params and merges with existing ones", () => {
@@ -18,20 +18,22 @@ describe("addQueryParams", () => {
   it("overwrites an existing param", () => {
     expect(
       addQueryParams("https://example.com/path?utm_source=old", {
-        utm_source: "zickrian",
+        utm_source: "edwin",
       })
-    ).toBe("https://example.com/path?utm_source=zickrian")
+    ).toBe("https://example.com/path?utm_source=edwin")
   })
 
   it("returns the input unchanged for an invalid URL", () => {
     const input = "not a url"
-    expect(addQueryParams(input, { utm_source: "zickrian" })).toBe(input)
+    expect(addQueryParams(input, { utm_source: "edwin" })).toBe(input)
   })
 })
 
 describe("urlToName", () => {
   it("strips the protocol and slashes", () => {
-    expect(urlToName("https://github.com/zickrian")).toBe("github.com/zickrian")
+    expect(urlToName("https://github.com/EdwinAntoniee")).toBe(
+      "github.com/EdwinAntoniee"
+    )
   })
 
   it("handles protocol-relative urls", () => {

@@ -1,103 +1,200 @@
-import { AsciiFooterBanner } from "@/components/ascii-footer-banner"
-import { FooterIndexList, FooterLabel } from "@/components/footer-chrome"
+"use client"
+
+import Image from "next/image"
+import Link from "next/link"
+import { useTheme } from "next-themes"
+
 import { FooterClock } from "@/components/footer-clock"
-import { FooterContactList } from "@/components/footer-contact-list"
-import { MAIN_NAV } from "@/config/site"
-import { getGitHubSocialCard } from "@/features/portfolio/data/github-social"
 import { USER } from "@/features/portfolio/data/user"
-import { brailleText } from "@/lib/braille"
+import { useMounted } from "@/hooks/use-mounted"
+import { cn } from "@/lib/utils"
 
-/**
- * Swiss editorial footer, after cali.so: each column is a directory listing
- * with box-drawing connectors, and the left cell is the colophon - copyright,
- * printer's mark, and the two location stamps.
- *
- * The ruled frame and container widths are this site's own, so the
- * footer still belongs to the page it sits under.
- */
+const CONTACT_LINKS = [
+  { title: "Email", href: "mailto:edwin.xw23@gmail.com" },
+  { title: "GitHub", href: "https://github.com/EdwinAntoniee" },
+  {
+    title: "LinkedIn",
+    href: "https://www.linkedin.com/in/edwin-antonie-171016326",
+  },
+  { title: "Instagram", href: "https://www.instagram.com/edwin_.a/" },
+]
 
-const INDEX_LINKS = [{ title: "Home", href: "/" }, ...MAIN_NAV]
+const INDEX_LINKS = [
+  { title: "Home", href: "/" },
+  { title: "Projects", href: "/projects" },
+  { title: "Gallery", href: "/gallery" },
+]
 
-export async function SiteFooter() {
-  // Baked at build time on the statically prerendered routes, which is why it
-  // is read here rather than in a client component: a year resolved in the
-  // browser would not match the prerendered HTML.
-  const year = new Date().getFullYear()
+export function SiteFooter() {
+  const { resolvedTheme } = useTheme()
+  const mounted = useMounted()
 
-  // Both calls behind it are cached for a day and swallow their own failures,
-  // so a slow or rate-limited GitHub degrades the card, never the page.
-  const github = await getGitHubSocialCard()
+  const isDark = mounted ? resolvedTheme === "dark" : false
 
   return (
-    <footer className="relative z-1 max-w-screen overflow-x-hidden sm:px-2">
-      <div className="relative mx-auto -mt-px border-x border-t border-b-0 border-line bg-card max-md:border-x-0 group-has-data-[slot=layout-wide]/layout:container md:max-w-[720px]">
-        {/* Video preview banner first */}
-        <AsciiFooterBanner />
+    <footer className="relative aspect-[16/11] min-h-[380px] w-full overflow-hidden border-t-0 bg-[#EFE7D8] select-none sm:aspect-[16/9] sm:min-h-0 dark:bg-[#343f49]">
+      {/* 1. Day Mode Postcard Background */}
+      <div
+        className={cn(
+          "absolute inset-0 size-full transition-opacity duration-500 ease-in-out",
+          mounted
+            ? isDark
+              ? "pointer-events-none opacity-0"
+              : "opacity-100"
+            : "opacity-100 dark:opacity-0"
+        )}
+      >
+        <Image
+          src="/image/postcard-footer-day.jpg"
+          alt="Vintage Postcard Footer (Day)"
+          fill
+          priority
+          quality={95}
+          sizes="(max-width: 768px) 100vw, 720px"
+          className="pointer-events-none object-cover object-right-top select-none sm:object-center"
+        />
+      </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-8 px-4 pt-8 pb-6 text-sm text-muted-foreground sm:grid-cols-3">
-          {/* Colophon. Last on mobile where it reads as a sign-off, first on
-              desktop where it anchors the row. */}
-          <div className="col-span-2 flex flex-col justify-between gap-6 sm:order-first sm:col-span-1">
-            <div>
-              <p className="font-handwritten tracking-tight">
-                © {year} {USER.displayName}
-              </p>
-              {/* The handle echoed in braille - a printer's mark on the sheet. */}
-              <p className="footer-braille" aria-hidden>
-                {brailleText(USER.username)}
-              </p>
+      {/* 2. Night Mode Postcard Background */}
+      <div
+        className={cn(
+          "absolute inset-0 size-full transition-opacity duration-500 ease-in-out",
+          mounted
+            ? isDark
+              ? "opacity-100"
+              : "pointer-events-none opacity-0"
+            : "opacity-0 dark:opacity-100"
+        )}
+      >
+        <Image
+          src="/image/postcard-footer-night.png"
+          alt="Vintage Postcard Footer (Night)"
+          fill
+          priority
+          quality={95}
+          sizes="(max-width: 768px) 100vw, 720px"
+          className="pointer-events-none object-cover object-right-top select-none sm:object-center"
+        />
+      </div>
+
+      {/* Postcard Surface Content Layer */}
+      <div className="relative z-10 grid h-full grid-cols-12 px-6 py-6 sm:px-9 sm:py-8 md:px-11 md:py-9">
+        {/* Left Side: Contact & Index at top, Shoutout at bottom left */}
+        <div className="col-span-7 flex flex-col justify-between pt-1 sm:pt-2">
+          {/* Top: Contact and Index Columns */}
+          <div className="flex flex-row gap-5 sm:gap-9 md:gap-12">
+            {/* Contact Column */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <h3 className="font-handwritten text-base font-bold tracking-[0.15em] text-black uppercase sm:text-lg md:text-[1.15rem] dark:text-[#f3ede2]">
+                Contact
+              </h3>
+              <ul className="space-y-1 border-l border-black/60 pl-2.5 sm:space-y-1.5 sm:pl-3.5 dark:border-[#f3ede2]/60">
+                {CONTACT_LINKS.map((link) => (
+                  <li key={link.title} className="relative flex items-center">
+                    <span className="absolute top-1/2 -left-2.5 w-2 border-b border-black/60 sm:-left-3.5 sm:w-2.5 dark:border-[#f3ede2]/60" />
+                    <a
+                      href={link.href}
+                      target={
+                        link.href.startsWith("mailto:") ? undefined : "_blank"
+                      }
+                      rel={
+                        link.href.startsWith("mailto:")
+                          ? undefined
+                          : "noopener noreferrer"
+                      }
+                      className="font-handwritten text-sm leading-snug text-black transition-colors hover:text-neutral-700 hover:underline sm:text-base md:text-[1.05rem] dark:text-[#f3ede2] dark:hover:text-white"
+                    >
+                      {link.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="flex flex-col gap-2.5">
-              <FooterClock timeZone={USER.timeZone} place={USER.address} />
-
-              {/* Location stamp: the colophon's place line, a decorative twin of
-                  the clock. Coordinates are deliberately absent - the data set
-                  records a country, not a point. */}
-              <div className="footer-stamp" aria-hidden>
-                <svg className="footer-globe" viewBox="0 0 20 20">
-                  <circle cx="10" cy="10" r="9" />
-                  <ellipse cx="10" cy="10" rx="4" ry="9" />
-                  <path d="M1 10h18M1.9 6h16.2M1.9 14h16.2" />
-                </svg>
-                <span className="footer-stamp-lines">
-                  <span>{USER.timeZone}</span>
-                  <span>{USER.address}</span>
-                </span>
-              </div>
+            {/* Index Column */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <h3 className="font-handwritten text-base font-bold tracking-[0.15em] text-black uppercase sm:text-lg md:text-[1.15rem] dark:text-[#f3ede2]">
+                Index
+              </h3>
+              <ul className="space-y-1 border-l border-black/60 pl-2.5 sm:space-y-1.5 sm:pl-3.5 dark:border-[#f3ede2]/60">
+                {INDEX_LINKS.map((link) => (
+                  <li key={link.href} className="relative flex items-center">
+                    <span className="absolute top-1/2 -left-2.5 w-2 border-b border-black/60 sm:-left-3.5 sm:w-2.5 dark:border-[#f3ede2]/60" />
+                    <Link
+                      href={link.href}
+                      className="font-handwritten text-sm leading-snug text-black transition-colors hover:text-neutral-700 hover:underline sm:text-base md:text-[1.05rem] dark:text-[#f3ede2] dark:hover:text-white"
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          {/* The list itself is a client component: it owns the hover cards,
-              so no element crosses into a Radix `Slot` from the server. */}
-          <FooterTree label={<FooterLabel k="contact" />}>
-            <FooterContactList github={github} />
-          </FooterTree>
-
-          <FooterTree label={<FooterLabel k="index" />}>
-            <FooterIndexList links={INDEX_LINKS} />
-          </FooterTree>
+          {/* Bottom Left: Shoutout to Zickrian */}
+          <div className="pt-3 pb-1 text-black dark:text-[#f3ede2]">
+            <p className="font-handwritten text-[11px] leading-tight font-medium sm:text-xs md:text-sm">
+              Huge Shoutout to Zickrian for the inspiration of the website!!
+            </p>
+            <p className="mt-0.5 font-handwritten text-[11px] leading-tight font-medium sm:text-xs md:text-sm">
+              Go check out his own portfolio at:{" "}
+              <a
+                href="https://www.zickrian.dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline underline-offset-2 transition-colors hover:text-neutral-700 dark:hover:text-white"
+              >
+                zickrian.dev
+              </a>
+            </p>
+          </div>
         </div>
 
-        <div className="flex h-6" />
+        {/* Right Corner: Name "Edwin Antonie", with single-line Time and Location underneath */}
+        <div className="col-span-5 flex flex-col items-start justify-end pb-1 pl-2 sm:pb-2 sm:pl-4">
+          {/* Signature Name: Edwin Antonie */}
+          <div>
+            <p className="font-handwritten text-xl leading-tight font-bold tracking-tight text-black sm:text-2xl md:text-[28px] dark:text-[#f3ede2]">
+              Edwin Antonie
+            </p>
+          </div>
+
+          {/* Time & Location Postal Stamps */}
+          <div className="mt-2 flex flex-col gap-1.5 text-black sm:mt-2.5 sm:gap-2 dark:text-[#f3ede2]">
+            {/* Single-line Clock / Time Stamp */}
+            <FooterClock
+              timeZone={USER.timeZone}
+              place={USER.address}
+              singleLine
+              className="text-black dark:text-[#f3ede2]"
+            />
+
+            {/* Single-line Location Stamp: "Asia/Jakarta, Indonesia" */}
+            <div
+              className="inline-flex items-center gap-2 text-black dark:text-[#f3ede2]"
+              aria-hidden
+            >
+              <svg
+                className="size-4 shrink-0 stroke-current"
+                viewBox="0 0 20 20"
+                stroke="currentColor"
+                fill="none"
+              >
+                <circle cx="10" cy="10" r="9" strokeWidth="1.25" />
+                <ellipse cx="10" cy="10" rx="4" ry="9" strokeWidth="1.25" />
+                <path d="M1 10h18M1.9 6h16.2M1.9 14h16.2" strokeWidth="1.25" />
+              </svg>
+              <span
+                className="font-handwritten text-xs whitespace-nowrap text-black sm:text-sm dark:text-[#f3ede2]"
+                suppressHydrationWarning
+              >
+                Asia/Jakarta, Indonesia
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
-  )
-}
-
-function FooterTree({
-  label,
-  children,
-}: {
-  label: React.ReactNode
-  children: React.ReactNode
-}) {
-  // The `<ul>` is supplied by each caller rather than wrapped here, because the
-  // contact column's list is rendered by a client component.
-  return (
-    <div className="footer-tree">
-      <h2 className="footer-label">{label}</h2>
-      {children}
-    </div>
   )
 }

@@ -6,6 +6,7 @@ import { getResendClient } from "@/lib/resend"
 export const runtime = "nodejs"
 
 const OWNER_EMAIL = Buffer.from(USER.email, "base64").toString("utf-8")
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev"
 const MAX_NAME_LENGTH = 100
 const MAX_EMAIL_LENGTH = 254
 const MAX_SUBJECT_LENGTH = 200
@@ -329,10 +330,10 @@ function buildSenderHtml(payload: ContactPayload) {
       <a href="${USER.website}" class="icon-link" title="Portfolio">
         <img src="https://img.icons8.com/ios-filled/100/71717a/domain.png" alt="Portfolio" width="24" height="24" />
       </a>
-      <a href="https://wa.me/6285155487647" class="icon-link" title="WhatsApp">
-        <img src="https://img.icons8.com/ios-filled/100/71717a/whatsapp--v1.png" alt="WhatsApp" width="24" height="24" />
+      <a href="https://github.com/EdwinAntoniee" class="icon-link" title="GitHub">
+        <img src="https://img.icons8.com/ios-filled/100/71717a/github.png" alt="GitHub" width="24" height="24" />
       </a>
-      <a href="https://linkedin.com/in/firdauskhotibulzickrian/" class="icon-link" title="LinkedIn">
+      <a href="https://www.linkedin.com/in/edwin-antonie/" class="icon-link" title="LinkedIn">
         <img src="https://img.icons8.com/ios-filled/100/71717a/linkedin.png" alt="LinkedIn" width="24" height="24" />
       </a>
     </div>
@@ -410,14 +411,14 @@ export async function POST(req: Request) {
     // Send both emails concurrently
     const [ownerResult, senderResult] = await Promise.allSettled([
       resend.emails.send({
-        from: `${USER.displayName} Portfolio <hello@zickrian.dev>`,
+        from: `${USER.displayName} Portfolio <${FROM_EMAIL}>`,
         to: [OWNER_EMAIL],
         replyTo: senderEmail,
         subject: `[Contact] ${subject} - from ${senderName}`,
         html: buildOwnerHtml(payload),
       }),
       resend.emails.send({
-        from: `${USER.displayName} <hello@zickrian.dev>`,
+        from: `${USER.displayName} <${FROM_EMAIL}>`,
         to: [senderEmail],
         subject: `Message received! – ${USER.displayName}`,
         html: buildSenderHtml(payload),

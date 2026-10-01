@@ -7,15 +7,12 @@ import { ChatProvider } from "@/components/chat-provider"
 import { WebMCPInitializer } from "@/components/webmcp-initializer"
 import { SoundPreferenceProvider } from "@/hooks/soundcn/use-sound-preference"
 import { LanguagePreferenceProvider } from "@/hooks/use-language-preference"
-
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
-      enableSystem
-      disableTransitionOnChange
-      enableColorScheme
-      storageKey="theme"
-      defaultTheme="dark"
+      enableSystem={false}
+      enableColorScheme={false}
+      defaultTheme="light"
       attribute="class"
     >
       <TooltipProvider delayDuration={150}>

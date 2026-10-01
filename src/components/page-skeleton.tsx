@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
  */
 export function PageSkeleton({ cards = 4 }: { cards?: number }) {
   return (
-    <div className="-mt-px min-h-[50svh] border-x border-line max-md:border-x-0">
+    <div className="-mt-px min-h-[50svh]">
       <div className="border-y border-line p-2">
         <Bar className="h-10 w-full rounded-lg" />
       </div>

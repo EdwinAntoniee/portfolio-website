@@ -96,12 +96,18 @@ function utcOffsetLabel(timeZone: string, at: Date) {
   return zonePart?.value.replace("GMT", "UTC") ?? "UTC"
 }
 
+import { cn } from "@/lib/utils"
+
 export function FooterClock({
   timeZone,
   place,
+  className,
+  singleLine = false,
 }: {
   timeZone: string
   place: string
+  className?: string
+  singleLine?: boolean
 }) {
   const { hour, minute, second, label, iso, offset } = useClockParts(timeZone)
 
@@ -110,16 +116,21 @@ export function FooterClock({
   const hourAngle = ((hour % 12) + minute / 60 + second / 3600) * 30
 
   return (
-    <div className="footer-stamp">
+    <div
+      className={cn(
+        singleLine ? "flex items-center gap-2" : "footer-stamp",
+        className
+      )}
+    >
       {/* Size, fill and stroke are attributes as well as CSS: an SVG with none of
           them falls back to its 300×150 intrinsic box filled solid black, so any
           moment without the stylesheet renders a black disc instead of a dial.
           The utility still owns the per-hand weights and opacities. */}
       <svg
-        className="footer-clock"
+        className="footer-clock shrink-0"
         viewBox="0 0 32 32"
-        width="22"
-        height="22"
+        width="20"
+        height="20"
         fill="none"
         stroke="currentColor"
         aria-hidden
@@ -157,16 +168,30 @@ export function FooterClock({
         <circle className="footer-clock-pin" cx="16" cy="16" r="1" />
       </svg>
 
-      <span className="footer-stamp-lines">
-        <span suppressHydrationWarning>{offset}</span>
-        <time
-          suppressHydrationWarning
-          dateTime={iso}
-          aria-label={`Current local time in ${place}: ${label}`}
-        >
-          {label}
-        </time>
-      </span>
+      {singleLine ? (
+        <span className="inline-flex items-center gap-1.5 font-handwritten text-xs whitespace-nowrap sm:text-sm">
+          <span suppressHydrationWarning>{offset}</span>
+          <span>•</span>
+          <time
+            suppressHydrationWarning
+            dateTime={iso}
+            aria-label={`Current local time in ${place}: ${label}`}
+          >
+            {label}
+          </time>
+        </span>
+      ) : (
+        <span className="footer-stamp-lines">
+          <span suppressHydrationWarning>{offset}</span>
+          <time
+            suppressHydrationWarning
+            dateTime={iso}
+            aria-label={`Current local time in ${place}: ${label}`}
+          >
+            {label}
+          </time>
+        </span>
+      )}
     </div>
   )
 }

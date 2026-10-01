@@ -63,7 +63,7 @@ const RECENT_MESSAGE_LIMIT = 4
 const STREAM_TOKEN_BATCH_SIZE = 2 // 1 word + 1 space
 const STREAM_BATCH_DELAY_MS = 12
 
-const BUDGET_KEY = "zickrian_ai_budget_data"
+const BUDGET_KEY = "edwin_ai_budget_data"
 const BUDGET_LIMIT = 6000
 const BUDGET_WINDOW_MS = 60 * 60 * 1000 // 1 hour
 const BUDGET_FLUSH_MS = 400
@@ -83,7 +83,7 @@ function isValidEmail(email: string) {
 
 // ─── Per-browser Rate Limit (localStorage) ───────────────────────────────────
 
-const RATE_LIMIT_KEY = "zickrian_email_rl"
+const RATE_LIMIT_KEY = "edwin_email_rl"
 const RATE_LIMIT_MAX = 3
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
 
@@ -414,7 +414,7 @@ const MarkdownRenderer = memo(({ content }: { content: string }) => {
 
             if (lang === "widget" && codeString === "contact-form") {
               return (
-                <div className="animate-in fade-in slide-in-from-bottom-2 my-1 duration-300">
+                <div className="my-1 animate-in duration-300 fade-in slide-in-from-bottom-2">
                   <div className="relative flex h-18 w-full items-center justify-between overflow-hidden rounded-xl border border-white/30 bg-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl transition-all hover:bg-white/30 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     <div className="absolute -bottom-16 left-4 h-30 w-14 -rotate-6 rounded-xl border border-black/10 bg-linear-to-br from-black/5 to-transparent shadow-sm dark:border-white/10 dark:from-white/5">
                       <div className="absolute top-8 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -792,7 +792,10 @@ export function ChatWidgetPanel() {
     if (!rl.allowed) {
       setIsChatActive(true)
       await injectAssistantMessage(
-        t.chat.sendingLimitReached(RATE_LIMIT_MAX, formatResetTime(rl.resetInMs))
+        t.chat.sendingLimitReached(
+          RATE_LIMIT_MAX,
+          formatResetTime(rl.resetInMs)
+        )
       )
       return
     }
@@ -870,9 +873,7 @@ export function ChatWidgetPanel() {
         formattedMessage: formatted.message,
       }))
 
-      await injectAssistantMessage(
-        t.chat.emailPreviewReady
-      )
+      await injectAssistantMessage(t.chat.emailPreviewReady)
     } catch (err) {
       const msg =
         err instanceof Error ? err.message : "Failed to format message."
@@ -888,7 +889,10 @@ export function ChatWidgetPanel() {
     if (!rl.allowed) {
       setEmailFlow((prev) => ({ ...prev, step: "idle" }))
       await injectAssistantMessage(
-        t.chat.sendingLimitReached(RATE_LIMIT_MAX, formatResetTime(rl.resetInMs))
+        t.chat.sendingLimitReached(
+          RATE_LIMIT_MAX,
+          formatResetTime(rl.resetInMs)
+        )
       )
       return
     }
@@ -964,7 +968,7 @@ export function ChatWidgetPanel() {
       await new Promise((resolve) => setTimeout(resolve, 600))
 
       await injectAssistantMessage(
-        "Waktu ngobrolku sudah habis nih! Kalau masih ada pertanyaan, yuk langsung DM Zickrian lewat tombol **Direct Message** di atas! 👆"
+        "Waktu ngobrolku sudah habis nih! Kalau masih ada pertanyaan, yuk langsung DM Edwin lewat tombol **Direct Message** di atas! 👆"
       )
       return
     }
@@ -1074,8 +1078,8 @@ export function ChatWidgetPanel() {
       }
       tooldescription={
         emailFlow.step === "filling_form"
-          ? "Send a direct contact email inquiry to Firdaus Khotibul Zickrian"
-          : "Ask questions about Firdaus Khotibul Zickrian's skills, projects, experience, or background"
+          ? "Send a direct contact email inquiry to Edwin Antonie"
+          : "Ask questions about Edwin Antonie's skills, projects, experience, or background"
       }
       onSubmit={(e) => {
         e.preventDefault()
@@ -1102,10 +1106,10 @@ export function ChatWidgetPanel() {
           )}
         >
           {emailFlow.step === "filling_form" && (
-            <div className="animate-in fade-in slide-in-from-bottom-2 flex w-full flex-col duration-200">
+            <div className="flex w-full animate-in flex-col duration-200 fade-in slide-in-from-bottom-2">
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="pl-1 text-[13px] font-semibold text-foreground/90">
-                  {t.chat.sendEmailToZickrian}
+                  {t.chat.sendEmailToEdwin}
                 </h3>
                 <button
                   type="button"
@@ -1144,7 +1148,7 @@ export function ChatWidgetPanel() {
               </div>
 
               {emailError && (
-                <p className="animate-in fade-in slide-in-from-top-1 -mt-1 mb-1 px-1.5 text-[12px] font-medium text-destructive">
+                <p className="-mt-1 mb-1 animate-in px-1.5 text-[12px] font-medium text-destructive fade-in slide-in-from-top-1">
                   {emailError}
                 </p>
               )}
@@ -1156,8 +1160,8 @@ export function ChatWidgetPanel() {
             name={emailFlow.step === "filling_form" ? "message" : "query"}
             toolparamdescription={
               emailFlow.step === "filling_form"
-                ? "Message body or inquiry to send to Firdaus"
-                : "Natural language question about Firdaus Khotibul Zickrian's portfolio or background"
+                ? "Message body or inquiry to send to Edwin"
+                : "Natural language question about Edwin Antonie's portfolio or background"
             }
             value={
               emailFlow.step === "filling_form" ? emailFlow.rawMessage : input
@@ -1204,7 +1208,7 @@ export function ChatWidgetPanel() {
             {/* Mode selector: 1 single seamless card that expands upward */}
             <div className="relative" ref={modeMenuRef}>
               {modeMenuOpen && (
-                <div className="animate-in fade-in slide-in-from-bottom-1 absolute right-0 bottom-full left-0 z-50 flex flex-col overflow-hidden rounded-t-[18px] border border-b-0 border-border/80 bg-muted/95 shadow-xl backdrop-blur-xl duration-150 dark:border-white/15 dark:bg-[#1e1e1e]">
+                <div className="absolute right-0 bottom-full left-0 z-50 flex animate-in flex-col overflow-hidden rounded-t-[18px] border border-b-0 border-border/80 bg-muted/95 shadow-xl backdrop-blur-xl duration-150 fade-in slide-in-from-bottom-1 dark:border-white/15 dark:bg-[#1e1e1e]">
                   {emailFlow.step === "filling_form" ? (
                     <button
                       type="button"
@@ -1336,7 +1340,7 @@ export function ChatWidgetPanel() {
               onClick={() => setBudgetOpen(!budgetOpen)}
             >
               <span className="flex items-center gap-1.5 font-handwritten text-[1.15rem] tracking-wide text-foreground select-none">
-                Zickrian
+                Edwin
                 <ChevronDownIcon
                   className={cn(
                     "size-4 text-muted-foreground transition-transform duration-200",
@@ -1349,7 +1353,7 @@ export function ChatWidgetPanel() {
 
           {/* Budget Popover */}
           {budgetOpen && (
-            <div className="animate-in fade-in zoom-in-95 absolute top-15 left-4 z-50 w-84 origin-top-left duration-200">
+            <div className="absolute top-15 left-4 z-50 w-84 origin-top-left animate-in duration-200 zoom-in-95 fade-in">
               <div className="relative overflow-hidden rounded-[1.25rem] border border-border bg-background p-5 text-foreground shadow-2xl">
                 <div className="relative z-10 flex flex-col gap-4 font-handwritten">
                   <h3 className="text-[1.75rem] leading-none tracking-widest uppercase">

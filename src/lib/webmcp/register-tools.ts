@@ -39,20 +39,23 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
   )
   const techSummary = techCategories.map((cat) => ({
     category: cat,
-    skills: TECH_STACK.filter((item) => item.categories.includes(cat)).map((i) => i.title),
+    skills: TECH_STACK.filter((item) => item.categories.includes(cat)).map(
+      (i) => i.title
+    ),
   }))
 
   return [
     {
       name: "search_projects",
       description:
-        "Search Firdaus Khotibul Zickrian's portfolio projects by keyword, technology, or category.",
+        "Search Edwin Antonie's portfolio projects by keyword, technology, or category.",
       inputSchema: {
         type: "object",
         properties: {
           query: {
             type: "string",
-            description: "Keyword to search across project title, tagline, or technologies (e.g., 'machine learning', 'leadsup', 'solidity').",
+            description:
+              "Keyword to search across project title, tagline, or technologies (e.g., 'machine learning', 'leadsup', 'solidity').",
           },
           category: {
             type: "string",
@@ -68,15 +71,19 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
       },
       readOnlyHint: true,
       execute: async (params: Record<string, unknown>) => {
-        const query = typeof params.query === "string" ? params.query : undefined
-        const category = typeof params.category === "string" ? params.category : undefined
+        const query =
+          typeof params.query === "string" ? params.query : undefined
+        const category =
+          typeof params.category === "string" ? params.category : undefined
         const limit = typeof params.limit === "number" ? params.limit : 10
 
         let results = PROJECTS
 
         if (category && category !== "all") {
           const lowerCat = category.toLowerCase()
-          results = results.filter((p) => p.category.toLowerCase().includes(lowerCat))
+          results = results.filter((p) =>
+            p.category.toLowerCase().includes(lowerCat)
+          )
         }
 
         if (query) {
@@ -87,7 +94,8 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
               p.tagline.toLowerCase().includes(q) ||
               (p.description && p.description.toLowerCase().includes(q)) ||
               p.skills.some((t) => t.toLowerCase().includes(q)) ||
-              (p.coverSkills && p.coverSkills.some((s) => s.toLowerCase().includes(q)))
+              (p.coverSkills &&
+                p.coverSkills.some((s) => s.toLowerCase().includes(q)))
           )
         }
 
@@ -122,7 +130,8 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
         properties: {
           slug: {
             type: "string",
-            description: "Project slug or ID (e.g., 'leadsup', 'naratioai', 'custora', 'base-realms', 'machine-learning-system', 'polsekrembang', 'lostandfound').",
+            description:
+              "Project slug or ID (e.g., 'leadsup', 'naratioai', 'custora', 'base-realms', 'machine-learning-system', 'polsekrembang', 'lostandfound').",
           },
         },
         required: ["slug"],
@@ -133,7 +142,9 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
         const slug = typeof params.slug === "string" ? params.slug : ""
         const normalized = slug.trim().toLowerCase()
         const project = PROJECTS.find(
-          (p) => p.id.toLowerCase() === normalized || p.title.toLowerCase().includes(normalized)
+          (p) =>
+            p.id.toLowerCase() === normalized ||
+            p.title.toLowerCase().includes(normalized)
         )
 
         if (!project) {
@@ -167,17 +178,19 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
     {
       name: "get_profile_overview",
       description:
-        "Retrieve Firdaus Khotibul Zickrian's professional bio, academic record (UDINUS GPA 3.88), core skillset, awards, publications, and contact channels.",
+        "Retrieve Edwin Antonie's professional bio, academic record (Binus University GPA 3.97), core skillset, awards, certifications, and contact channels.",
       inputSchema: {
         type: "object",
         properties: {
           includeCertifications: {
             type: "boolean",
-            description: "Whether to include the full list of 30+ professional certifications (default: true).",
+            description:
+              "Whether to include professional certifications (default: true).",
           },
           includeAwards: {
             type: "boolean",
-            description: "Whether to include honors and hackathon awards (default: true).",
+            description:
+              "Whether to include honors and competition awards (default: true).",
           },
         },
         additionalProperties: false,
@@ -189,7 +202,9 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
             ? params.includeCertifications
             : true
         const includeAwards =
-          typeof params.includeAwards === "boolean" ? params.includeAwards : true
+          typeof params.includeAwards === "boolean"
+            ? params.includeAwards
+            : true
 
         return {
           name: USER.displayName,
@@ -199,18 +214,21 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
           phone: USER.phone,
           website: baseUrl,
           socialProfiles: {
-            github: "https://github.com/zickrian",
-            linkedin: "https://linkedin.com/in/firdauskhotibulzickrian/",
-            huggingface: "https://huggingface.co/zickrian",
-            medium: "https://medium.com/@zickriann",
+            github: "https://github.com/EdwinAntoniee",
+            linkedin: "https://www.linkedin.com/in/edwin-antonie-171016326",
+            instagram: "https://www.instagram.com/edwin_.a/",
           },
           education: {
-            institution: "Universitas Dian Nuswantoro (UDINUS)",
+            institution: "Bina Nusantara University (Binus)",
             degree: "Bachelor of Computer Science (S.Kom)",
-            period: "2023 – Present (Expected Graduation: October 2027)",
-            gpa: "3.88 / 4.00",
-            creditsCompleted: "129 of 144 credits",
-            focusAreas: ["Machine Learning", "Data Analytics", "Predictive Analytics", "AI Systems"],
+            period: "2024 – Present (Expected Graduation: 2028)",
+            gpa: "3.97 / 4.00",
+            focusAreas: [
+              "Intelligent Systems",
+              "Machine Learning",
+              "Computer Vision",
+              "Natural Language Processing",
+            ],
           },
           bio: USER.bio,
           techStackSummary: techSummary,
@@ -272,7 +290,14 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
           isCurrentEmployer: exp.isCurrentEmployer ?? false,
           positions: exp.positions.map((pos) => ({
             title: pos.title,
-            period: `${pos.employmentPeriod.start} – ${pos.employmentPeriod.end ?? "Present"}`,
+            period:
+              pos.employmentPeriod.display ??
+              (pos.employmentPeriod.isOngoing === false
+                ? pos.employmentPeriod.end &&
+                  pos.employmentPeriod.end !== pos.employmentPeriod.start
+                  ? `${pos.employmentPeriod.start} – ${pos.employmentPeriod.end}`
+                  : pos.employmentPeriod.start
+                : `${pos.employmentPeriod.start} – ${pos.employmentPeriod.end ?? "Present"}`),
             type: pos.employmentType,
             description: pos.description,
             skills: pos.skills ?? [],
@@ -283,7 +308,7 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
     {
       name: "send_contact_message",
       description:
-        "Send an inquiry, collaboration proposal, or message directly to Firdaus Khotibul Zickrian via the verified portfolio mailer.",
+        "Send an inquiry, collaboration proposal, or message directly to Edwin Antonie via the verified portfolio mailer.",
       inputSchema: {
         type: "object",
         properties: {
@@ -309,8 +334,10 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
       },
       readOnlyHint: false,
       execute: async (params: Record<string, unknown>) => {
-        const senderName = typeof params.senderName === "string" ? params.senderName : ""
-        const senderEmail = typeof params.senderEmail === "string" ? params.senderEmail : ""
+        const senderName =
+          typeof params.senderName === "string" ? params.senderName : ""
+        const senderEmail =
+          typeof params.senderEmail === "string" ? params.senderEmail : ""
         const subject = typeof params.subject === "string" ? params.subject : ""
         const message = typeof params.message === "string" ? params.message : ""
 
@@ -331,10 +358,14 @@ export function getPortfolioWebMCPTools(): WebMCPToolDefinition[] {
 
           return {
             ok: true,
-            message: "Your message has been successfully sent to Firdaus Khotibul Zickrian.",
+            message:
+              "Your message has been successfully sent to Edwin Antonie.",
           }
         } catch (err: unknown) {
-          const errMsg = err instanceof Error ? err.message : "Network error while sending contact message."
+          const errMsg =
+            err instanceof Error
+              ? err.message
+              : "Network error while sending contact message."
           return {
             ok: false,
             error: errMsg,
@@ -356,8 +387,26 @@ export async function registerWebMCPTools(): Promise<void> {
 
   try {
     // Check document.modelContext or navigator.modelContext
-    const docModelContext = (document as unknown as { modelContext?: { registerTool?: (t: WebMCPToolDefinition) => Promise<void>; provideContext?: (c: { tools: WebMCPToolDefinition[] }) => Promise<void> } }).modelContext
-    const navModelContext = (navigator as unknown as { modelContext?: { registerTool?: (t: WebMCPToolDefinition) => Promise<void>; provideContext?: (c: { tools: WebMCPToolDefinition[] }) => Promise<void> } }).modelContext
+    const docModelContext = (
+      document as unknown as {
+        modelContext?: {
+          registerTool?: (t: WebMCPToolDefinition) => Promise<void>
+          provideContext?: (c: {
+            tools: WebMCPToolDefinition[]
+          }) => Promise<void>
+        }
+      }
+    ).modelContext
+    const navModelContext = (
+      navigator as unknown as {
+        modelContext?: {
+          registerTool?: (t: WebMCPToolDefinition) => Promise<void>
+          provideContext?: (c: {
+            tools: WebMCPToolDefinition[]
+          }) => Promise<void>
+        }
+      }
+    ).modelContext
 
     const context = docModelContext || navModelContext
 
@@ -372,7 +421,9 @@ export async function registerWebMCPTools(): Promise<void> {
     }
 
     // Expose window.__webmcp_tools__ for testing interfaces / agent inspectors
-    ;(window as unknown as { __webmcp_tools__?: WebMCPToolDefinition[] }).__webmcp_tools__ = tools
+    ;(
+      window as unknown as { __webmcp_tools__?: WebMCPToolDefinition[] }
+    ).__webmcp_tools__ = tools
   } catch (err) {
     // Non-blocking: fail silently if WebMCP experimental API is in a transition state
     console.debug("[WebMCP] Registration note:", err)

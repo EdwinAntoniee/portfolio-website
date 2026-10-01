@@ -2,7 +2,6 @@
 
 import React from "react"
 
-import { SectionCallout } from "@/components/section-callout"
 import { useTranslation } from "@/lib/i18n/use-translation"
 
 import { EXPERIENCES } from "../../data/experiences"
@@ -14,8 +13,6 @@ export function Experiences() {
 
   return (
     <Panel id="experience">
-      <SectionCallout side="left">{t.experiences.callout}</SectionCallout>
-
       <PanelHeader>
         <PanelTitle>
           {t.experiences.title}
