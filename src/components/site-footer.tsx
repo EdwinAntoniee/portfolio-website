@@ -17,7 +17,6 @@ const CONTACT_LINKS = [
     href: "https://www.linkedin.com/in/edwin-antonie-171016326",
   },
   { title: "Instagram", href: "https://www.instagram.com/edwin_.a/" },
-  { title: "X (Twitter)", href: "https://x.com/WinnieDePup" },
 ]
 
 const INDEX_LINKS = [

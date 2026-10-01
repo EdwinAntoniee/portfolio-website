@@ -19,11 +19,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: "https://www.instagram.com/edwin_.a/",
   },
   {
-    icon: <Icons.x />,
-    title: "X (Twitter)",
-    href: "https://x.com/WinnieDePup",
-  },
-  {
     icon: <Icons.email />,
     title: "Email",
     href: "mailto:edwin.xw23@gmail.com",

@@ -165,8 +165,8 @@ export function ProfileHeader() {
             </Button>
           </div>
 
-          {/* Secondary Social Action Icons (LinkedIn, Instagram, X, GitHub) on new line on mobile */}
-          <div className="grid w-full grid-cols-4 gap-2 sm:flex sm:w-auto sm:shrink-0 sm:gap-2">
+          {/* Secondary Social Action Icons (LinkedIn, Instagram, GitHub) on new line on mobile */}
+          <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:w-auto sm:shrink-0 sm:gap-2">
             <Button
               asChild
               variant="outline"
@@ -203,26 +203,6 @@ export function ProfileHeader() {
               >
                 <span className="size-[17px] [&>svg]:size-full">
                   <Icons.instagram />
-                </span>
-              </a>
-            </Button>
-
-            <Button
-              asChild
-              variant="outline"
-              size="icon"
-              className="h-9 w-full rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95 sm:size-10"
-            >
-              <a
-                href="https://x.com/WinnieDePup"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X (formerly Twitter)"
-                title="X (formerly Twitter)"
-                className="justify-center"
-              >
-                <span className="size-[17px] [&>svg]:size-full">
-                  <Icons.x />
                 </span>
               </a>
             </Button>

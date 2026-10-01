@@ -182,7 +182,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: profileTitle,
     description: profileDescription,
-    creator: `@${USER.username}`,
     images: [absoluteUrl(SITE_OG_IMAGE.url)],
   },
   alternates: {

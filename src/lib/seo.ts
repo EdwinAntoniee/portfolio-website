@@ -46,7 +46,6 @@ export function createPageMetadata({
       card: "summary_large_image",
       title,
       description,
-      creator: `@${USER.username}`,
       images: [SITE_OG_IMAGE.url],
     },
   }

@@ -4,7 +4,7 @@ export const USER: User = {
   firstName: "Edwin",
   lastName: "Antonie",
   displayName: "Edwin Antonie",
-  username: "WinnieDePup",
+  username: "EdwinAntoniee",
   headline: "Undergraduate Student @ Binus University",
   headlineId: "Mahasiswa S1 @ Universitas Bina Nusantara",
   gender: "male",

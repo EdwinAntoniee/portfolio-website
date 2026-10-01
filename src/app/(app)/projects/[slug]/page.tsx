@@ -63,7 +63,6 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: project.title,
       description,
-      creator: `@${USER.username}`,
       images: [project.image],
     },
   }
