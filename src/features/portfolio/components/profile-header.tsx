@@ -70,10 +70,10 @@ export function ProfileHeader() {
 
           {/* Identity Info: Display name & @handle sitting right at the transition area */}
           <div className="min-w-0 flex-1 pb-1 sm:pb-1.5">
-            <h1 className="text-xl leading-tight font-bold tracking-tight text-foreground sm:text-2xl md:text-[26px]">
+            <h1 className="text-lg leading-tight font-bold tracking-tight text-foreground sm:text-2xl md:text-[26px]">
               {USER.displayName}
             </h1>
-            <p className="mt-0.5 text-xs font-normal text-muted-foreground sm:text-sm">
+            <p className="mt-0.5 text-[11px] font-normal text-muted-foreground sm:text-sm">
               {USER.headline
                 ? l(USER.headline, USER.headlineId)
                 : `@${USER.username}`}
@@ -82,85 +82,90 @@ export function ProfileHeader() {
         </div>
 
         {/* 3-Column Stats/Metadata Section (Title on top, Content on bottom) */}
-        <div className="mt-4.5 grid grid-cols-3 divide-x divide-line rounded-xl border border-line bg-muted/20 px-1 py-2.5 shadow-2xs sm:mt-5 sm:px-2 sm:py-3">
+        <div className="mt-3.5 grid grid-cols-3 divide-x divide-line overflow-hidden rounded-xl border border-line bg-muted/20 px-1 py-2 shadow-2xs sm:mt-5 sm:px-2 sm:py-3">
           {/* Role */}
-          <div className="flex min-h-[46px] flex-col items-center justify-center px-1 text-center sm:px-2">
-            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground sm:text-xs">
-              <BriefcaseBusiness className="size-3.5 shrink-0" aria-hidden />
+          <div className="flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground sm:text-xs">
+              <BriefcaseBusiness
+                className="size-3 shrink-0 sm:size-3.5"
+                aria-hidden
+              />
               Role
             </span>
-            <span className="mt-1 line-clamp-2 text-xs leading-tight font-semibold text-foreground sm:text-[13px] md:text-sm">
+            <span className="mt-0.5 line-clamp-2 text-[11px] leading-tight font-semibold text-foreground sm:mt-1 sm:text-[13px] md:text-sm">
               {USER.jobTitle}
             </span>
           </div>
 
           {/* Location */}
-          <div className="flex min-h-[46px] flex-col items-center justify-center px-1 text-center sm:px-2">
-            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground sm:text-xs">
-              <MapPin className="size-3.5 shrink-0" aria-hidden />
+          <div className="flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground sm:text-xs">
+              <MapPin className="size-3 shrink-0 sm:size-3.5" aria-hidden />
               Location
             </span>
-            <span className="mt-1 line-clamp-2 text-xs leading-tight font-semibold text-foreground sm:text-[13px] md:text-sm">
+            <span className="mt-0.5 line-clamp-2 text-[11px] leading-tight font-semibold text-foreground sm:mt-1 sm:text-[13px] md:text-sm">
               {USER.address}
             </span>
           </div>
 
           {/* Website */}
-          <div className="flex min-h-[46px] flex-col items-center justify-center px-1 text-center sm:px-2">
-            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground sm:text-xs">
-              <Globe2 className="size-3.5 shrink-0" aria-hidden />
+          <div className="flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground sm:text-xs">
+              <Globe2 className="size-3 shrink-0 sm:size-3.5" aria-hidden />
               Website
             </span>
             <a
               href={USER.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-1 line-clamp-2 text-xs leading-tight font-semibold text-foreground transition-colors hover:text-primary sm:text-[13px] md:text-sm"
+              className="mt-0.5 block max-w-full truncate text-[11px] leading-tight font-semibold text-foreground transition-colors hover:text-primary sm:mt-1 sm:text-[13px] md:text-sm"
+              title="edwinantonie.vercel.app"
             >
               edwinantonie.vercel.app
             </a>
           </div>
         </div>
 
-        {/* Call-to-Action & Social Action Bar: Full-width container with paired Action Buttons */}
-        <div className="mt-4 flex w-full items-center gap-2 sm:mt-4.5 sm:gap-2.5">
-          {/* Primary Action Button (Get in Touch) */}
-          <Button
-            asChild
-            className="h-10 min-w-0 flex-1 rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-[0.98] sm:px-5 sm:text-sm"
-          >
-            <a href="mailto:edwin.xw23@gmail.com" className="justify-center">
-              <Mail className="mr-1.5 size-4 shrink-0 sm:mr-2" />
-              <span className="truncate">Get in Touch</span>
-            </a>
-          </Button>
-
-          {/* Secondary Action Button (My CV) */}
-          <Button
-            asChild
-            variant="secondary"
-            className="h-10 min-w-0 flex-1 rounded-lg px-3 text-xs font-semibold shadow-xs transition-all active:scale-[0.98] sm:px-5 sm:text-sm"
-          >
-            <a
-              href="https://drive.google.com/file/d/10aZdCQvhw1_KWDKIamThMpxvR5nYRCua/view"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="justify-center"
+        {/* Call-to-Action & Social Action Bar: Full-width on mobile with 2 rows, single row on desktop */}
+        <div className="mt-3.5 flex flex-col gap-2 sm:mt-4.5 sm:flex-row sm:items-center sm:gap-2.5">
+          {/* Primary Action Buttons (Get in Touch & My CV spanning full width on mobile) */}
+          <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:flex-1 sm:gap-2.5">
+            <Button
+              asChild
+              className="h-10 w-full min-w-0 rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-[0.98] sm:flex-1 sm:px-5 sm:text-sm"
             >
-              <span className="mr-1.5 size-4 shrink-0 sm:mr-2 [&>svg]:size-full">
-                <Icons.cv />
-              </span>
-              <span className="truncate">My CV</span>
-            </a>
-          </Button>
+              <a href="mailto:edwin.xw23@gmail.com" className="justify-center">
+                <Mail className="mr-1.5 size-4 shrink-0 sm:mr-2" />
+                <span className="truncate">Get in Touch</span>
+              </a>
+            </Button>
 
-          {/* Secondary Social Action Icons (LinkedIn, Instagram, GitHub) */}
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <Button
+              asChild
+              variant="secondary"
+              className="h-10 w-full min-w-0 rounded-lg px-3 text-xs font-semibold shadow-xs transition-all active:scale-[0.98] sm:flex-1 sm:px-5 sm:text-sm"
+            >
+              <a
+                href="https://drive.google.com/file/d/10aZdCQvhw1_KWDKIamThMpxvR5nYRCua/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="justify-center"
+              >
+                <span className="mr-1.5 size-4 shrink-0 sm:mr-2 [&>svg]:size-full">
+                  <Icons.cv />
+                </span>
+                <span className="truncate">My CV</span>
+              </a>
+            </Button>
+          </div>
+
+          {/* Secondary Social Action Icons (LinkedIn, Instagram, X, GitHub) on new line on mobile */}
+          <div className="grid w-full grid-cols-4 gap-2 sm:flex sm:w-auto sm:shrink-0 sm:gap-2">
             <Button
               asChild
               variant="outline"
               size="icon"
-              className="size-10 rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95"
+              className="h-9 w-full rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95 sm:size-10"
             >
               <a
                 href="https://www.linkedin.com/in/edwin-antonie-171016326"
@@ -168,6 +173,7 @@ export function ProfileHeader() {
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 title="LinkedIn"
+                className="justify-center"
               >
                 <span className="size-[17px] [&>svg]:size-full">
                   <Icons.linkedin />
@@ -179,7 +185,7 @@ export function ProfileHeader() {
               asChild
               variant="outline"
               size="icon"
-              className="size-10 rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95"
+              className="h-9 w-full rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95 sm:size-10"
             >
               <a
                 href="https://www.instagram.com/edwin_.a/"
@@ -187,6 +193,7 @@ export function ProfileHeader() {
                 rel="noopener noreferrer"
                 aria-label="Instagram"
                 title="Instagram"
+                className="justify-center"
               >
                 <span className="size-[17px] [&>svg]:size-full">
                   <Icons.instagram />
@@ -198,7 +205,7 @@ export function ProfileHeader() {
               asChild
               variant="outline"
               size="icon"
-              className="size-10 rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95"
+              className="h-9 w-full rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95 sm:size-10"
             >
               <a
                 href="https://x.com/WinnieDePup"
@@ -206,6 +213,7 @@ export function ProfileHeader() {
                 rel="noopener noreferrer"
                 aria-label="X (formerly Twitter)"
                 title="X (formerly Twitter)"
+                className="justify-center"
               >
                 <span className="size-[17px] [&>svg]:size-full">
                   <Icons.x />
@@ -217,7 +225,7 @@ export function ProfileHeader() {
               asChild
               variant="outline"
               size="icon"
-              className="size-10 rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95"
+              className="h-9 w-full rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95 sm:size-10"
             >
               <a
                 href="https://github.com/EdwinAntoniee"
@@ -225,6 +233,7 @@ export function ProfileHeader() {
                 rel="noopener noreferrer"
                 aria-label="GitHub"
                 title="GitHub"
+                className="justify-center"
               >
                 <span className="size-[17px] [&>svg]:size-full">
                   <Icons.github />
@@ -235,7 +244,7 @@ export function ProfileHeader() {
         </div>
 
         {/* Bio / Summary cleanly underneath the action button row */}
-        <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-foreground/90 sm:text-[15px]">
+        <p className="mt-3.5 max-w-2xl text-[13px] leading-relaxed text-foreground/90 sm:mt-4 sm:text-[15px]">
           {l(USER.about, USER.aboutId)}
         </p>
       </div>
