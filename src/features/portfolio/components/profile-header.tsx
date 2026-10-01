@@ -37,7 +37,7 @@ export function ProfileHeader() {
         />
       </div>
 
-      <div className="relative z-10 px-5 pb-6 sm:px-6 sm:pb-7">
+      <div className="relative z-10 px-4 pb-6 sm:px-6 sm:pb-7">
         {/* Identity Section: Left-aligned Avatar overlapping banner + Name & Handle in the blur transition area */}
         <div className="-mt-12 flex items-end gap-3.5 sm:-mt-16 sm:gap-4.5">
           {/* Avatar / Profile Picture */}
@@ -84,7 +84,7 @@ export function ProfileHeader() {
         {/* 3-Column Stats/Metadata Section (Title on top, Content on bottom) */}
         <div className="mt-3.5 grid grid-cols-3 divide-x divide-line overflow-hidden rounded-xl border border-line bg-muted/20 px-0.5 py-1.5 shadow-2xs sm:mt-5 sm:px-2 sm:py-3">
           {/* Role */}
-          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-0.5 text-center sm:min-h-[46px] sm:px-2">
             <span className="inline-flex items-center gap-1 text-[9px] font-medium text-muted-foreground sm:text-xs">
               <BriefcaseBusiness
                 className="size-2.5 shrink-0 sm:size-3.5"
@@ -93,7 +93,7 @@ export function ProfileHeader() {
               Role
             </span>
             <span
-              className="mt-0.5 block w-full truncate text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-foreground sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
+              className="mt-0.5 block w-full truncate text-[8.5px] font-semibold tracking-tight whitespace-nowrap text-foreground sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
               title={USER.jobTitle}
             >
               {USER.jobTitle}
@@ -101,13 +101,13 @@ export function ProfileHeader() {
           </div>
 
           {/* Location */}
-          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-0.5 text-center sm:min-h-[46px] sm:px-2">
             <span className="inline-flex items-center gap-1 text-[9px] font-medium text-muted-foreground sm:text-xs">
               <MapPin className="size-2.5 shrink-0 sm:size-3.5" aria-hidden />
               Location
             </span>
             <span
-              className="mt-0.5 block w-full truncate text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-foreground sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
+              className="mt-0.5 block w-full truncate text-[8.5px] font-semibold tracking-tight whitespace-nowrap text-foreground sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
               title={USER.address}
             >
               {USER.address}
@@ -115,7 +115,7 @@ export function ProfileHeader() {
           </div>
 
           {/* Website */}
-          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-0.5 text-center sm:min-h-[46px] sm:px-2">
             <span className="inline-flex items-center gap-1 text-[9px] font-medium text-muted-foreground sm:text-xs">
               <Globe2 className="size-2.5 shrink-0 sm:size-3.5" aria-hidden />
               Website
@@ -124,7 +124,7 @@ export function ProfileHeader() {
               href={USER.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-0.5 block w-full truncate text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-foreground transition-colors hover:text-primary sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
+              className="mt-0.5 block w-full truncate text-[8px] font-semibold tracking-tight whitespace-nowrap text-foreground transition-colors hover:text-primary sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
               title="edwinantonie.vercel.app"
             >
               edwinantonie.vercel.app

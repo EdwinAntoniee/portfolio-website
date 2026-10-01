@@ -82,7 +82,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             scroll={false}
             {...backPrefetch}
             onClick={handleBackClick}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="size-4"
+              className="size-3.5 sm:size-4"
             >
               <path d="m12 19-7-7 7-7" />
               <path d="M19 12H5" />
@@ -102,8 +102,11 @@ export function ProjectDetail({ project }: { project: Project }) {
             {t.projectDetail.backToProjects}
           </Link>
 
-          <div className="flex min-w-0 items-center gap-2.5">
-            <span className="min-w-0 truncate font-handwritten text-[1.1rem] tracking-wide text-muted-foreground">
+          <div className="flex min-w-0 items-center justify-end gap-2 text-right">
+            <span
+              className="min-w-0 truncate font-handwritten text-[11px] tracking-tight text-muted-foreground sm:text-sm sm:tracking-normal md:text-[1.1rem] md:tracking-wide"
+              title={l(project.category, project.categoryId)}
+            >
               {l(project.category, project.categoryId)}
             </span>
           </div>
