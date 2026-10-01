@@ -82,43 +82,49 @@ export function ProfileHeader() {
         </div>
 
         {/* 3-Column Stats/Metadata Section (Title on top, Content on bottom) */}
-        <div className="mt-3.5 grid grid-cols-3 divide-x divide-line overflow-hidden rounded-xl border border-line bg-muted/20 px-1 py-2 shadow-2xs sm:mt-5 sm:px-2 sm:py-3">
+        <div className="mt-3.5 grid grid-cols-3 divide-x divide-line overflow-hidden rounded-xl border border-line bg-muted/20 px-0.5 py-1.5 shadow-2xs sm:mt-5 sm:px-2 sm:py-3">
           {/* Role */}
-          <div className="flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
-            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground sm:text-xs">
+          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+            <span className="inline-flex items-center gap-1 text-[9px] font-medium text-muted-foreground sm:text-xs">
               <BriefcaseBusiness
-                className="size-3 shrink-0 sm:size-3.5"
+                className="size-2.5 shrink-0 sm:size-3.5"
                 aria-hidden
               />
               Role
             </span>
-            <span className="mt-0.5 line-clamp-2 text-[11px] leading-tight font-semibold text-foreground sm:mt-1 sm:text-[13px] md:text-sm">
+            <span
+              className="mt-0.5 block w-full truncate text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-foreground sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
+              title={USER.jobTitle}
+            >
               {USER.jobTitle}
             </span>
           </div>
 
           {/* Location */}
-          <div className="flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
-            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground sm:text-xs">
-              <MapPin className="size-3 shrink-0 sm:size-3.5" aria-hidden />
+          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+            <span className="inline-flex items-center gap-1 text-[9px] font-medium text-muted-foreground sm:text-xs">
+              <MapPin className="size-2.5 shrink-0 sm:size-3.5" aria-hidden />
               Location
             </span>
-            <span className="mt-0.5 line-clamp-2 text-[11px] leading-tight font-semibold text-foreground sm:mt-1 sm:text-[13px] md:text-sm">
+            <span
+              className="mt-0.5 block w-full truncate text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-foreground sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
+              title={USER.address}
+            >
               {USER.address}
             </span>
           </div>
 
           {/* Website */}
-          <div className="flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
-            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground sm:text-xs">
-              <Globe2 className="size-3 shrink-0 sm:size-3.5" aria-hidden />
+          <div className="flex min-h-[38px] min-w-0 flex-1 flex-col items-center justify-center px-1 text-center sm:min-h-[46px] sm:px-2">
+            <span className="inline-flex items-center gap-1 text-[9px] font-medium text-muted-foreground sm:text-xs">
+              <Globe2 className="size-2.5 shrink-0 sm:size-3.5" aria-hidden />
               Website
             </span>
             <a
               href={USER.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-0.5 block max-w-full truncate text-[11px] leading-tight font-semibold text-foreground transition-colors hover:text-primary sm:mt-1 sm:text-[13px] md:text-sm"
+              className="mt-0.5 block w-full truncate text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-foreground transition-colors hover:text-primary sm:mt-1 sm:text-[13px] sm:tracking-normal md:text-sm"
               title="edwinantonie.vercel.app"
             >
               edwinantonie.vercel.app
