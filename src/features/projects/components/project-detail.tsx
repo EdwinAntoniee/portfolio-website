@@ -103,15 +103,6 @@ export function ProjectDetail({ project }: { project: Project }) {
           </Link>
 
           <div className="flex min-w-0 items-center gap-2.5">
-            {project.status === "in-progress" && (
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-600 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
-                <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-                  <span className="relative inline-flex size-2 rounded-full bg-amber-500 dark:bg-amber-400" />
-                </span>
-                {t.projectDetail.inProgress}
-              </span>
-            )}
             <span className="min-w-0 truncate font-handwritten text-[1.1rem] tracking-wide text-muted-foreground">
               {l(project.category, project.categoryId)}
             </span>
@@ -121,21 +112,6 @@ export function ProjectDetail({ project }: { project: Project }) {
 
       {/* Hero section */}
       <header className="space-y-6 px-4 pt-6 pb-8 md:px-8">
-        {/* Status highlight banner for in-progress projects */}
-        {project.status === "in-progress" && (
-          <div className="inline-flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-700 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-300">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-amber-500 dark:bg-amber-400" />
-            </span>
-            <span>{t.projectDetail.inProgress}</span>
-            <span className="text-amber-500/60">•</span>
-            <span className="font-normal text-muted-foreground">
-              Active Development
-            </span>
-          </div>
-        )}
-
         {/* Title */}
         <h1 className="text-3xl font-semibold tracking-tight text-balance md:text-4xl">
           {project.title}
@@ -297,17 +273,16 @@ export function ProjectDetail({ project }: { project: Project }) {
             )}
           </figure>
         ) : project.layout === "phone" ? (
-          <div className="relative flex min-h-[480px] w-full items-center justify-center overflow-hidden rounded-xl border border-line bg-card/60 p-6 shadow-sm backdrop-blur-xs select-none sm:min-h-[580px] sm:p-10">
-            {/* Ambient blurred backdrop from cover */}
-            <div className="pointer-events-none absolute inset-0 -z-1 overflow-hidden opacity-25 blur-2xl dark:opacity-35">
-              <Image
-                src={project.image}
-                alt=""
-                fill
-                className="scale-125 object-cover"
-                aria-hidden
-              />
-            </div>
+          <div className="relative flex min-h-[480px] w-full items-center justify-center overflow-hidden rounded-xl border border-line bg-muted p-6 shadow-sm select-none sm:min-h-[580px] sm:p-10">
+            {/* Background: /card-bg.webp */}
+            <Image
+              src="/card-bg.webp"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 800px, 100vw"
+              className="pointer-events-none object-cover select-none"
+              priority
+            />
 
             {/* Smartphone device mockup frame */}
             <div className="relative z-10 flex aspect-[9/19.5] h-[430px] items-center justify-center overflow-hidden rounded-[2.2rem] border-[6px] border-neutral-900 bg-neutral-950 shadow-2xl ring-1 shadow-black/70 ring-white/15 sm:h-[500px] sm:rounded-[2.6rem]">

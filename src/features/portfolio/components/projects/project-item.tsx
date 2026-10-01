@@ -41,8 +41,8 @@ export function ProjectItem({
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-sm text-muted-foreground">{project.year}</span>
           {project.status === "in-progress" && (
-            <span className="py-0.2 inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 text-[10px] font-medium text-amber-600 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
-              <span className="size-1 animate-pulse rounded-full bg-amber-500" />
+            <span className="py-0.2 inline-flex items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-2 text-[10px] font-medium text-primary dark:border-primary/35 dark:bg-primary/15">
+              <span className="size-1 animate-pulse rounded-full bg-primary" />
               In Progress
             </span>
           )}

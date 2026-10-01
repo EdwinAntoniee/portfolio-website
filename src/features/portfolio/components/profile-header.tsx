@@ -201,6 +201,25 @@ export function ProfileHeader() {
               className="size-10 rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95"
             >
               <a
+                href="https://x.com/WinnieDePup"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (formerly Twitter)"
+                title="X (formerly Twitter)"
+              >
+                <span className="size-[17px] [&>svg]:size-full">
+                  <Icons.x />
+                </span>
+              </a>
+            </Button>
+
+            <Button
+              asChild
+              variant="outline"
+              size="icon"
+              className="size-10 rounded-lg border-line bg-card text-muted-foreground shadow-2xs transition-all hover:border-foreground/25 hover:bg-muted hover:text-foreground active:scale-95"
+            >
+              <a
                 href="https://github.com/EdwinAntoniee"
                 target="_blank"
                 rel="noopener noreferrer"

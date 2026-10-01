@@ -49,4 +49,11 @@ next-env.d.ts
 .qwen
 .agents
 AGENTS.md
+CLAUDE.md
+skills-lock.json
 scripts/
+# local working notes / AI prep docs
+*_GUIDE.md
+*.local.md
+# cleanup backups
+_cleanup-backup/

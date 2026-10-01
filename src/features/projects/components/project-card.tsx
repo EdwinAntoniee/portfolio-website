@@ -49,12 +49,14 @@ export function ProjectCard({
         <div className="relative flex aspect-[16/10] w-full shrink-0 items-center justify-center overflow-hidden rounded-lg border border-line bg-muted select-none">
           {/* In-progress status pill */}
           {project.status === "in-progress" && (
-            <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-card/90 px-2.5 py-0.5 text-[11px] font-medium text-amber-600 shadow-md backdrop-blur-xs dark:border-amber-400/40 dark:text-amber-400">
+            <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 rounded-full border border-primary/25 bg-card/90 px-2.5 py-0.5 text-[11px] font-medium text-primary shadow-xs backdrop-blur-md dark:border-primary/35 dark:bg-card/85">
               <span className="relative flex size-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-                <span className="relative inline-flex size-1.5 rounded-full bg-amber-500 dark:bg-amber-400" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70 opacity-75" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
               </span>
-              {language === "id" ? "Sedang Berjalan" : "In Progress"}
+              <span>
+                {language === "id" ? "Sedang Berjalan" : "In Progress"}
+              </span>
             </div>
           )}
 
@@ -131,10 +133,10 @@ export function ProjectCard({
 
           <div className="flex flex-wrap items-center gap-1.5 pt-2">
             {project.status === "in-progress" && (
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-600 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
-                <span className="size-1.5 animate-pulse rounded-full bg-amber-500" />
+              <Tag className="gap-1.5 border-primary/30 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/15 dark:text-primary">
+                <span className="size-1.5 animate-pulse rounded-full bg-primary" />
                 {language === "id" ? "Sedang Berjalan" : "In Progress"}
-              </span>
+              </Tag>
             )}
             {coverSkills.map((skill) => (
               <Tag key={skill}>{skill}</Tag>
