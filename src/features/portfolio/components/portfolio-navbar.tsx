@@ -234,6 +234,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
     setSettingsOpen(false)
     if (
       !isActive &&
+      event.detail === 0 &&
       !event.metaKey &&
       !event.ctrlKey &&
       !event.shiftKey &&
@@ -241,11 +242,6 @@ export function PortfolioNavbar({ className }: { className?: string }) {
     ) {
       playNavigation()
     }
-  }
-
-  const handleOpenChat = () => {
-    playNavigation()
-    setIsChatOpen(true)
   }
 
   const items = [
@@ -275,7 +271,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
       label: t.nav.chat,
       icon: IconChat,
       type: "action" as const,
-      onClick: handleOpenChat,
+      onClick: () => setIsChatOpen(true),
       onPointerEnter: preloadChatPanel,
     },
     {
@@ -284,7 +280,6 @@ export function PortfolioNavbar({ className }: { className?: string }) {
       icon: GearSix,
       type: "action" as const,
       onClick: () => {
-        playNavigation()
         setSettingsOpen((open) => !open)
       },
     },
@@ -352,7 +347,10 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               key={item.id}
               type="button"
               onPointerDown={pressSound}
-              onClick={item.onClick}
+              onClick={(event) => {
+                if (event.detail === 0) playNavigation()
+                item.onClick()
+              }}
               onPointerEnter={item.onPointerEnter}
               data-settings-trigger={item.id === "settings" || undefined}
               aria-expanded={item.id === "settings" ? settingsOpen : undefined}
@@ -428,8 +426,8 @@ export function PortfolioNavbar({ className }: { className?: string }) {
                 label={t.settings.english}
                 pressed={language === "en"}
                 onPointerDown={pressSound}
-                onClick={() => {
-                  playNavigation()
+                onClick={(event) => {
+                  if (event.detail === 0) playNavigation()
                   setLanguage("en")
                 }}
               >
@@ -439,8 +437,8 @@ export function PortfolioNavbar({ className }: { className?: string }) {
                 label={t.settings.indonesian}
                 pressed={language === "id"}
                 onPointerDown={pressSound}
-                onClick={() => {
-                  playNavigation()
+                onClick={(event) => {
+                  if (event.detail === 0) playNavigation()
                   setLanguage("id")
                 }}
               >
@@ -459,10 +457,10 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               <SettingsOption
                 label={t.settings.soundOn}
                 pressed={enabled}
-                onPointerDown={pressSound}
-                onClick={() => {
+                onPointerDown={() => playNavigation(true)}
+                onClick={(event) => {
                   setEnabled(true)
-                  playNavigation(true)
+                  if (event.detail === 0) playNavigation(true)
                 }}
               >
                 <SpeakerHigh size={16} weight="duotone" aria-hidden />
@@ -471,8 +469,8 @@ export function PortfolioNavbar({ className }: { className?: string }) {
                 label={t.settings.soundOff}
                 pressed={!enabled}
                 onPointerDown={pressSound}
-                onClick={() => {
-                  playNavigation()
+                onClick={(event) => {
+                  if (event.detail === 0) playNavigation()
                   setEnabled(false)
                 }}
               >
@@ -512,7 +510,7 @@ function SettingsOption({
 }: {
   label: string
   pressed: boolean
-  onClick: () => void
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
   onPointerDown?: (event: React.PointerEvent<HTMLButtonElement>) => void
   children: React.ReactNode
 }) {

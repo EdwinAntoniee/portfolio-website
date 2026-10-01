@@ -1,6 +1,69 @@
+import { clickSound } from "./click-sound"
+
+const STORAGE_KEY = "sound-enabled"
+
 let audioContext: AudioContext | null = null
-const bufferCache = new Map<string, AudioBuffer>()
-const decodingPromises = new Map<string, Promise<AudioBuffer>>()
+let clickBuffer: AudioBuffer | null = null
+let cachedCtx: AudioContext | null = null
+
+// Pre-parsed PCM data cache so base64 decoding is done only once:
+let preParsedPcm: {
+  numChannels: number
+  sampleRate: number
+  channels: Float32Array[]
+} | null = null
+
+function parseClickSoundPcm() {
+  if (preParsedPcm) return preParsedPcm
+
+  const base64 = clickSound.dataUri.split(",")[1]
+  const binaryString = atob(base64)
+  const len = binaryString.length
+  const bytes = new Uint8Array(len)
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i)
+  }
+
+  const view = new DataView(bytes.buffer)
+  const numChannels = view.getUint16(22, true)
+  const sampleRate = view.getUint32(24, true)
+  const bitsPerSample = view.getUint16(34, true)
+
+  let dataOffset = 36
+  while (dataOffset < len - 8) {
+    const chunkId = String.fromCharCode(
+      bytes[dataOffset],
+      bytes[dataOffset + 1],
+      bytes[dataOffset + 2],
+      bytes[dataOffset + 3]
+    )
+    if (chunkId === "data") {
+      dataOffset += 8
+      break
+    }
+    const chunkSize = view.getUint32(dataOffset + 4, true)
+    dataOffset += 8 + chunkSize
+  }
+
+  const bytesPerSample = bitsPerSample / 8
+  const frameCount = Math.floor(
+    (len - dataOffset) / (numChannels * bytesPerSample)
+  )
+  const channels: Float32Array[] = []
+  for (let c = 0; c < numChannels; c++) {
+    channels.push(new Float32Array(frameCount))
+  }
+
+  for (let i = 0; i < frameCount; i++) {
+    for (let c = 0; c < numChannels; c++) {
+      const sampleOffset = dataOffset + (i * numChannels + c) * bytesPerSample
+      channels[c][i] = view.getInt16(sampleOffset, true) / 32768
+    }
+  }
+
+  preParsedPcm = { numChannels, sampleRate, channels }
+  return preParsedPcm
+}
 
 export function getAudioContext(): AudioContext {
   if (typeof window === "undefined") {
@@ -16,144 +79,83 @@ export function getAudioContext(): AudioContext {
   return audioContext
 }
 
-export function getCachedAudioBuffer(dataUri: string): AudioBuffer | undefined {
-  return bufferCache.get(dataUri)
+export function getClickAudioBuffer(ctx: AudioContext): AudioBuffer {
+  if (clickBuffer && cachedCtx === ctx) {
+    return clickBuffer
+  }
+  const { numChannels, sampleRate, channels } = parseClickSoundPcm()
+  const buffer = ctx.createBuffer(numChannels, channels[0].length, sampleRate)
+  for (let c = 0; c < numChannels; c++) {
+    buffer.copyToChannel(channels[c], c)
+  }
+  clickBuffer = buffer
+  cachedCtx = ctx
+  return buffer
 }
 
-export function decodeAudioData(dataUri: string): Promise<AudioBuffer> {
-  const cached = bufferCache.get(dataUri)
-  if (cached) return Promise.resolve(cached)
+function isSoundGloballyEnabled(): boolean {
+  if (typeof window === "undefined") return true
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    return stored === null ? true : stored === "true"
+  } catch {
+    return true
+  }
+}
 
-  const existingPromise = decodingPromises.get(dataUri)
-  if (existingPromise) return existingPromise
+export function playClickSound(
+  options: { volume?: number; force?: boolean } = {}
+): void {
+  if (typeof window === "undefined") return
+  if (!options.force && !isSoundGloballyEnabled()) return
 
-  const promise = (async () => {
+  try {
     const ctx = getAudioContext()
-    const base64 = dataUri.split(",")[1]
-    const binaryString = atob(base64)
-    const bytes = new Uint8Array(binaryString.length)
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i)
+    if (ctx.state === "suspended") {
+      ctx.resume().catch(() => {})
     }
 
-    const audioBuffer = await ctx.decodeAudioData(bytes.buffer.slice(0))
-    bufferCache.set(dataUri, audioBuffer)
-    decodingPromises.delete(dataUri)
-    return audioBuffer
-  })()
+    const buffer = getClickAudioBuffer(ctx)
+    const source = ctx.createBufferSource()
+    source.buffer = buffer
 
-  decodingPromises.set(dataUri, promise)
-  return promise
-}
+    const gain = ctx.createGain()
+    gain.gain.value = options.volume ?? 0.85
 
-export interface PlaySoundOptions {
-  volume?: number
-  playbackRate?: number
-  onEnd?: () => void
-}
+    source.connect(gain)
+    gain.connect(ctx.destination)
 
-export interface SoundPlayback {
-  stop: () => void
-}
-
-export function playSoundSync(
-  dataUri: string,
-  options: PlaySoundOptions = {}
-): SoundPlayback | null {
-  const buffer = bufferCache.get(dataUri)
-  if (!buffer) return null
-
-  const ctx = getAudioContext()
-  if (ctx.state === "suspended") {
-    ctx.resume().catch(() => {})
-  }
-
-  const source = ctx.createBufferSource()
-  const gain = ctx.createGain()
-
-  source.buffer = buffer
-  source.playbackRate.value = options.playbackRate ?? 1
-  gain.gain.value = options.volume ?? 1
-
-  source.connect(gain)
-  gain.connect(ctx.destination)
-
-  source.onended = () => {
-    options.onEnd?.()
-  }
-
-  source.start(0)
-
-  return {
-    stop: () => {
-      try {
-        source.stop()
-      } catch {
-        // No-op if already stopped
-      }
-    },
+    source.start(0)
+  } catch {
+    // Audio playback blocked or unsupported
   }
 }
 
-export async function playSound(
-  dataUri: string,
-  options: PlaySoundOptions = {}
-): Promise<SoundPlayback> {
-  const syncPlayback = playSoundSync(dataUri, options)
-  if (syncPlayback) return syncPlayback
-
-  const { volume = 1, playbackRate = 1, onEnd } = options
-  const ctx = getAudioContext()
-  if (ctx.state === "suspended") {
-    await ctx.resume().catch(() => {})
-  }
-
-  const buffer = await decodeAudioData(dataUri)
-  const source = ctx.createBufferSource()
-  const gain = ctx.createGain()
-
-  source.buffer = buffer
-  source.playbackRate.value = playbackRate
-  gain.gain.value = volume
-
-  source.connect(gain)
-  gain.connect(ctx.destination)
-
-  source.onended = () => {
-    onEnd?.()
-  }
-
-  source.start(0)
-
-  return {
-    stop: () => {
-      try {
-        source.stop()
-      } catch {
-        // No-op if already stopped
-      }
-    },
-  }
-}
-
+// Global user gesture pre-warming listener
 if (typeof window !== "undefined") {
-  // Runs in the capture phase, before any React handler, so the context is
-  // already resuming (or created inside the user gesture) by the time a
-  // pointerdown/click handler schedules a sound.
   const unlockAudio = () => {
     try {
-      const ctx = getAudioContext()
-      if (ctx.state === "suspended") ctx.resume().catch(() => {})
+      if (audioContext && audioContext.state === "suspended") {
+        audioContext.resume().catch(() => {})
+      }
     } catch {
       // AudioContext unsupported
     }
   }
-  window.addEventListener("pointerdown", unlockAudio, {
-    capture: true,
-    passive: true,
-  })
-  window.addEventListener("keydown", unlockAudio, {
-    capture: true,
-    passive: true,
-  })
+
+  const events = [
+    "pointerdown",
+    "touchstart",
+    "touchend",
+    "mousedown",
+    "keydown",
+    "click",
+  ] as const
+
+  for (const eventName of events) {
+    window.addEventListener(eventName, unlockAudio, {
+      capture: true,
+      passive: true,
+    })
+  }
 }

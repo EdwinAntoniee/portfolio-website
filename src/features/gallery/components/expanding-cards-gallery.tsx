@@ -55,23 +55,21 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
   const nextSlide = useCallback(() => {
     if (status !== "idle") return
 
-    playClick()
     setStatus("animating-next")
     timeoutRef.current = setTimeout(() => {
       setItems((prev) => [...prev.slice(1), prev[0]])
       setStatus("idle")
     }, 500)
-  }, [status, playClick])
+  }, [status])
 
   // Handle step backward to previous slide
   const prevSlide = useCallback(() => {
     if (status !== "idle") return
 
-    playClick()
     // Move last slide to the front immediately
     setItems((prev) => [prev[prev.length - 1], ...prev.slice(0, -1)])
     setStatus("prepping-prev")
-  }, [status, playClick])
+  }, [status])
 
   // Run the prev animation once the prepping frame is committed
   useEffect(() => {
@@ -104,15 +102,17 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
       }
 
       if (e.key === "ArrowRight") {
+        playClick()
         nextSlide()
       } else if (e.key === "ArrowLeft") {
+        playClick()
         prevSlide()
       }
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [nextSlide, prevSlide])
+  }, [nextSlide, prevSlide, playClick])
 
   // Mobile Touch Swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -130,6 +130,7 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
 
     // Only trigger if horizontal swipe is dominant
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+      playClick()
       if (diffX > 0) {
         nextSlide()
       } else {
@@ -212,19 +213,17 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
                 onPointerDown={
                   status === "idle" && idx >= 1 ? pressSound : undefined
                 }
-                onClick={() => {
-                  if (status !== "idle") return
-                  if (idx >= 1) {
-                    nextSlide()
-                  }
+                onClick={(e) => {
+                  if (status !== "idle" || idx === 0) return
+                  if (e.detail === 0) playClick()
+                  nextSlide()
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault()
-                    if (status !== "idle") return
-                    if (idx >= 1) {
-                      nextSlide()
-                    }
+                    if (status !== "idle" || idx === 0) return
+                    playClick()
+                    nextSlide()
                   }
                 }}
                 className={cn(
@@ -305,7 +304,11 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
           <button
             type="button"
             onPointerDown={status === "idle" ? pressSound : undefined}
-            onClick={prevSlide}
+            onClick={(e) => {
+              if (status !== "idle") return
+              if (e.detail === 0) playClick()
+              prevSlide()
+            }}
             aria-label="Previous slide"
             className="flex size-8 items-center justify-center rounded-lg border border-line bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground active:scale-95"
           >
@@ -314,7 +317,11 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
           <button
             type="button"
             onPointerDown={status === "idle" ? pressSound : undefined}
-            onClick={nextSlide}
+            onClick={(e) => {
+              if (status !== "idle") return
+              if (e.detail === 0) playClick()
+              nextSlide()
+            }}
             aria-label="Next slide"
             className="flex size-8 items-center justify-center rounded-lg border border-line bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground active:scale-95"
           >

@@ -9,5 +9,3 @@ export const clickSound: SoundAsset = {
   license: "CC0",
   author: "Edwin Antonie",
 }
-
-export const metalClickSound = clickSound

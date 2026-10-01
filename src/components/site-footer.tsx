@@ -33,7 +33,7 @@ export function SiteFooter() {
   const isDark = mounted ? resolvedTheme === "dark" : false
 
   return (
-    <footer className="relative aspect-[16/11] min-h-[380px] w-full overflow-hidden border-t-0 bg-[#EFE7D8] select-none sm:aspect-[16/9] sm:min-h-0 dark:bg-[#343f49]">
+    <footer className="relative aspect-[4/5] min-h-[460px] w-full overflow-hidden border-t-0 bg-[#EFE7D8] select-none sm:aspect-[16/9] sm:min-h-0 dark:bg-[#343f49]">
       {/* 1. Day Mode Postcard Background */}
       <div
         className={cn(
@@ -45,14 +45,25 @@ export function SiteFooter() {
             : "opacity-100 dark:opacity-0"
         )}
       >
+        {/* Mobile Day Postcard (4:5 Portrait) */}
         <Image
-          src="/image/postcard-footer-day.jpg"
+          src="/image/postcard-footer-day-mobile.webp"
           alt="Vintage Postcard Footer (Day)"
           fill
           priority
-          quality={95}
-          sizes="(max-width: 768px) 100vw, 720px"
-          className="pointer-events-none object-cover object-right-top select-none sm:object-center"
+          quality={90}
+          sizes="(max-width: 640px) 100vw, 1px"
+          className="pointer-events-none object-cover object-center select-none sm:hidden"
+        />
+        {/* Desktop Day Postcard (16:9 Landscape) */}
+        <Image
+          src="/image/postcard-footer-day.webp"
+          alt="Vintage Postcard Footer (Day)"
+          fill
+          priority
+          quality={90}
+          sizes="(min-width: 640px) 100vw, 1px"
+          className="pointer-events-none hidden object-cover object-center select-none sm:block"
         />
       </div>
 
@@ -67,23 +78,34 @@ export function SiteFooter() {
             : "opacity-0 dark:opacity-100"
         )}
       >
+        {/* Mobile Night Postcard (4:5 Portrait) */}
         <Image
-          src="/image/postcard-footer-night.png"
+          src="/image/postcard-footer-night-mobile.webp"
           alt="Vintage Postcard Footer (Night)"
           fill
           priority
-          quality={95}
-          sizes="(max-width: 768px) 100vw, 720px"
-          className="pointer-events-none object-cover object-right-top select-none sm:object-center"
+          quality={90}
+          sizes="(max-width: 640px) 100vw, 1px"
+          className="pointer-events-none object-cover object-center select-none sm:hidden"
+        />
+        {/* Desktop Night Postcard (16:9 Landscape) */}
+        <Image
+          src="/image/postcard-footer-night.webp"
+          alt="Vintage Postcard Footer (Night)"
+          fill
+          priority
+          quality={90}
+          sizes="(min-width: 640px) 100vw, 1px"
+          className="pointer-events-none hidden object-cover object-center select-none sm:block"
         />
       </div>
 
       {/* Postcard Surface Content Layer */}
-      <div className="relative z-10 grid h-full grid-cols-12 px-6 py-6 sm:px-9 sm:py-8 md:px-11 md:py-9">
+      <div className="relative z-10 grid h-full grid-cols-12 px-5 py-5 sm:px-9 sm:py-8 md:px-11 md:py-9">
         {/* Left Side: Contact & Index at top, Shoutout at bottom left */}
-        <div className="col-span-7 flex flex-col justify-between pt-1 sm:pt-2">
-          {/* Top: Contact and Index Columns */}
-          <div className="flex flex-row gap-5 sm:gap-9 md:gap-12">
+        <div className="col-span-6 flex flex-col justify-between pt-1 sm:col-span-7 sm:pt-2">
+          {/* Top: Contact and Index Columns (Vertical on mobile, horizontal on desktop) */}
+          <div className="flex flex-col gap-3.5 sm:flex-row sm:gap-9 md:gap-12">
             {/* Contact Column */}
             <div className="space-y-1.5 sm:space-y-2">
               <h3 className="font-handwritten text-base font-bold tracking-[0.15em] text-black uppercase sm:text-lg md:text-[1.15rem] dark:text-[#f3ede2]">
@@ -112,7 +134,7 @@ export function SiteFooter() {
               </ul>
             </div>
 
-            {/* Index Column */}
+            {/* Index Column (Below Contact on mobile) */}
             <div className="space-y-1.5 sm:space-y-2">
               <h3 className="font-handwritten text-base font-bold tracking-[0.15em] text-black uppercase sm:text-lg md:text-[1.15rem] dark:text-[#f3ede2]">
                 Index
@@ -153,7 +175,7 @@ export function SiteFooter() {
         </div>
 
         {/* Right Corner: Name "Edwin Antonie", with single-line Time and Location underneath */}
-        <div className="col-span-5 flex flex-col items-start justify-end pb-1 pl-2 sm:pb-2 sm:pl-4">
+        <div className="col-span-6 flex flex-col items-start justify-end pb-1 pl-2 sm:col-span-5 sm:pb-2 sm:pl-4">
           {/* Signature Name: Edwin Antonie */}
           <div>
             <p className="font-handwritten text-xl leading-tight font-bold tracking-tight text-black sm:text-2xl md:text-[28px] dark:text-[#f3ede2]">
