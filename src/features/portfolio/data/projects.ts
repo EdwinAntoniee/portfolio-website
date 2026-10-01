@@ -41,7 +41,7 @@ const COLLABORATION: Record<string, ProjectCollaboration> = {
     ownership: "Academic Group Project",
     ownershipId: "Proyek Kelompok Akademik",
     label: "Team",
-    team: "Edwin Antonie, Hasan, Wesley Sumedha Deano, Maximilianus Ronald",
+    team: "Edwin Antonie, Hasan, Maximilianus Ronald, Wesley Sumedha Deano",
     role: "Frontend Architect, Pipeline Lead & QA Engineer",
     roleId: "Arsitek Frontend, Lead Pipeline & QA Engineer",
     contributions: [
@@ -59,7 +59,7 @@ const COLLABORATION: Record<string, ProjectCollaboration> = {
     ownership: "Academic Group Project",
     ownershipId: "Proyek Akademik",
     label: "Team",
-    team: "Team of 3",
+    team: "Edwin Antonie, Maximilianus Ronald, Wesley Sumedha Deano",
     role: "Team Leader & Pipeline Engineer",
     roleId: "Ketua Tim & Pipeline Engineer",
     contributions: [
@@ -77,7 +77,7 @@ const COLLABORATION: Record<string, ProjectCollaboration> = {
     ownership: "Competition Project",
     ownershipId: "Proyek Kompetisi",
     label: "Team",
-    team: "Team Prompt & Pray (Team of 3 - COMPFEST 18)",
+    team: "Team Prompt & Pray: Darren Gavriel Soentara, Edwin Antonie, Michelle Pricillia Sutanto, Rafael Nandana Sambodo, Yosuke Yung",
     role: "EDA Lead & Data Preprocessing Specialist",
     roleId: "Lead EDA & Spesialis Preprocessing Data",
     contributions: [
