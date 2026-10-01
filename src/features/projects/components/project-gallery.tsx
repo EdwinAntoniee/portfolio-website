@@ -30,17 +30,17 @@ export function ProjectGallery({
   return (
     <div className="relative">
       {layout === "phone" ? (
-        <div className="relative flex min-h-[480px] w-full items-center justify-center overflow-hidden rounded-xl border border-line bg-card/60 p-6 shadow-sm backdrop-blur-xs select-none sm:min-h-[580px] sm:p-10">
-          {/* Ambient blurred backdrop from current screenshot */}
-          <div className="pointer-events-none absolute inset-0 -z-1 overflow-hidden opacity-25 blur-2xl dark:opacity-35">
-            <Image
-              src={images[current]}
-              alt=""
-              fill
-              className="scale-125 object-cover transition-all duration-500"
-              aria-hidden
-            />
-          </div>
+        <div className="relative flex min-h-[480px] w-full items-center justify-center overflow-hidden rounded-xl border border-line bg-muted p-6 shadow-sm select-none sm:min-h-[580px] sm:p-10">
+          {/* Background: same /card-bg.webp as the project card */}
+          <Image
+            src="/card-bg.webp"
+            alt=""
+            fill
+            sizes="(min-width: 768px) 720px, 100vw"
+            className="pointer-events-none object-cover select-none"
+            priority
+            aria-hidden
+          />
 
           {/* Smartphone device mockup frame */}
           <div className="relative z-10 flex aspect-[9/19.5] h-[430px] items-center justify-center overflow-hidden rounded-[2.2rem] border-[6px] border-neutral-900 bg-neutral-950 shadow-2xl ring-1 shadow-black/70 ring-white/15 sm:h-[500px] sm:rounded-[2.6rem]">

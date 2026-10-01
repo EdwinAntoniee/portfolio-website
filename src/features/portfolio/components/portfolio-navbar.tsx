@@ -13,7 +13,7 @@ import { type MouseEvent, useEffect, useRef, useState } from "react"
 import { useChat } from "@/components/chat-provider"
 import { preloadChatPanel } from "@/components/chat-widget"
 import { ThemeSwitch } from "@/components/theme-switch"
-import { useNavigationSound } from "@/hooks/soundcn/use-navigation-sound"
+import { useNavigationSoundHandlers } from "@/hooks/soundcn/use-navigation-sound"
 import { useSoundPreference } from "@/hooks/soundcn/use-sound-preference"
 import { useLanguagePreference } from "@/hooks/use-language-preference"
 import { useTranslation } from "@/lib/i18n/use-translation"
@@ -201,7 +201,8 @@ export function PortfolioNavbar({ className }: { className?: string }) {
   const { enabled, setEnabled } = useSoundPreference()
   const { language, setLanguage } = useLanguagePreference()
   const { t } = useTranslation()
-  const playNavigation = useNavigationSound()
+  const { play: playNavigation, onPointerDown: pressSound } =
+    useNavigationSoundHandlers()
   const [settingsOpen, setSettingsOpen] = useState(false)
 
   const settingsRef = useRef<HTMLDivElement>(null)
@@ -321,6 +322,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
                 aria-label={item.label}
                 aria-current={isActive ? "page" : undefined}
                 data-active={isActive || undefined}
+                onPointerDown={isActive ? undefined : pressSound}
                 onClick={(event) => handleLinkClick(event, isActive)}
                 className={cn(
                   "group relative flex h-full min-w-0 cursor-pointer items-center justify-center gap-1.5 px-2 text-xs font-medium transition-colors duration-200 select-none focus-visible:z-1 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset sm:text-sm",
@@ -349,6 +351,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
             <button
               key={item.id}
               type="button"
+              onPointerDown={pressSound}
               onClick={item.onClick}
               onPointerEnter={item.onPointerEnter}
               data-settings-trigger={item.id === "settings" || undefined}
@@ -424,6 +427,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               <SettingsOption
                 label={t.settings.english}
                 pressed={language === "en"}
+                onPointerDown={pressSound}
                 onClick={() => {
                   playNavigation()
                   setLanguage("en")
@@ -434,6 +438,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               <SettingsOption
                 label={t.settings.indonesian}
                 pressed={language === "id"}
+                onPointerDown={pressSound}
                 onClick={() => {
                   playNavigation()
                   setLanguage("id")
@@ -454,6 +459,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               <SettingsOption
                 label={t.settings.soundOn}
                 pressed={enabled}
+                onPointerDown={pressSound}
                 onClick={() => {
                   setEnabled(true)
                   playNavigation(true)
@@ -464,6 +470,7 @@ export function PortfolioNavbar({ className }: { className?: string }) {
               <SettingsOption
                 label={t.settings.soundOff}
                 pressed={!enabled}
+                onPointerDown={pressSound}
                 onClick={() => {
                   playNavigation()
                   setEnabled(false)
@@ -500,11 +507,13 @@ function SettingsOption({
   label,
   pressed,
   onClick,
+  onPointerDown,
   children,
 }: {
   label: string
   pressed: boolean
   onClick: () => void
+  onPointerDown?: (event: React.PointerEvent<HTMLButtonElement>) => void
   children: React.ReactNode
 }) {
   return (
@@ -512,6 +521,7 @@ function SettingsOption({
       type="button"
       aria-label={label}
       aria-pressed={pressed}
+      onPointerDown={onPointerDown}
       onClick={onClick}
       className={cn(
         "grid size-8 place-items-center rounded-lg text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",

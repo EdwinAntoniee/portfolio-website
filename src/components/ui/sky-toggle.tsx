@@ -6,6 +6,7 @@ import { useCallback } from "react"
 
 import { useSoundPreference } from "@/hooks/soundcn/use-sound-preference"
 import { useMounted } from "@/hooks/use-mounted"
+import { getAudioContext } from "@/lib/soundcn/sound-engine"
 import { cn } from "@/lib/utils"
 
 interface SkyToggleProps {
@@ -30,12 +31,10 @@ const SCALE_MAP: Record<NonNullable<SkyToggleProps["size"]>, number> = {
 function playSwitchSound(toNight: boolean) {
   if (typeof window === "undefined") return
   try {
-    const AudioContextClass =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext
-    if (!AudioContextClass) return
-    const ctx = new AudioContextClass()
+    // Reuse the app-wide context: a fresh AudioContext per toggle has to open
+    // the audio device first (audible lag) and browsers cap how many can exist.
+    const ctx = getAudioContext()
+    if (ctx.state === "suspended") ctx.resume().catch(() => {})
 
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()

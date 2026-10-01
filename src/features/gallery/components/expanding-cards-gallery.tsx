@@ -5,7 +5,7 @@ import Image from "next/image"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 
 import { Tag } from "@/components/ui/tag"
-import { useNavigationSound } from "@/hooks/soundcn/use-navigation-sound"
+import { useNavigationSoundHandlers } from "@/hooks/soundcn/use-navigation-sound"
 import { cn } from "@/lib/utils"
 
 import { GALLERY_SLIDES, type GallerySlide } from "../data/gallery-slides"
@@ -35,7 +35,8 @@ function isCardOpened(idx: number, status: AnimationStatus): boolean {
 export function ExpandingCardsGallery({ className }: { className?: string }) {
   const [items, setItems] = useState<GallerySlide[]>(() => GALLERY_SLIDES)
   const [status, setStatus] = useState<AnimationStatus>("idle")
-  const playClick = useNavigationSound()
+  const { play: playClick, onPointerDown: pressSound } =
+    useNavigationSoundHandlers()
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const touchStartXRef = useRef<number | null>(null)
@@ -208,6 +209,9 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
                 tabIndex={0}
                 aria-label={`${slide.title} (${slide.category})`}
                 aria-expanded={isOpened}
+                onPointerDown={
+                  status === "idle" && idx >= 1 ? pressSound : undefined
+                }
                 onClick={() => {
                   if (status !== "idle") return
                   if (idx >= 1) {
@@ -300,6 +304,7 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
         <div className="flex items-center gap-1.5">
           <button
             type="button"
+            onPointerDown={status === "idle" ? pressSound : undefined}
             onClick={prevSlide}
             aria-label="Previous slide"
             className="flex size-8 items-center justify-center rounded-lg border border-line bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground active:scale-95"
@@ -308,6 +313,7 @@ export function ExpandingCardsGallery({ className }: { className?: string }) {
           </button>
           <button
             type="button"
+            onPointerDown={status === "idle" ? pressSound : undefined}
             onClick={nextSlide}
             aria-label="Next slide"
             className="flex size-8 items-center justify-center rounded-lg border border-line bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground active:scale-95"

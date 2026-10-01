@@ -11,7 +11,7 @@ export function getAudioContext(): AudioContext {
       window.AudioContext ||
       (window as unknown as { webkitAudioContext?: typeof AudioContext })
         .webkitAudioContext
-    audioContext = new AudioContextClass()
+    audioContext = new AudioContextClass({ latencyHint: "interactive" })
   }
   return audioContext
 }
@@ -137,9 +137,15 @@ export async function playSound(
 }
 
 if (typeof window !== "undefined") {
+  // Runs in the capture phase, before any React handler, so the context is
+  // already resuming (or created inside the user gesture) by the time a
+  // pointerdown/click handler schedules a sound.
   const unlockAudio = () => {
-    if (audioContext && audioContext.state === "suspended") {
-      audioContext.resume().catch(() => {})
+    try {
+      const ctx = getAudioContext()
+      if (ctx.state === "suspended") ctx.resume().catch(() => {})
+    } catch {
+      // AudioContext unsupported
     }
   }
   window.addEventListener("pointerdown", unlockAudio, {
