@@ -303,9 +303,9 @@ export const PROJECTS: Project[] = [
       "/projects/moofy/screenshot-2.webp",
     ],
     period: { start: "01.2026" },
-    link: "https://moofy-five.vercel.app",
+    link: "https://moofy-nlp.vercel.app",
     links: {
-      live: "https://moofy-five.vercel.app",
+      live: "https://moofy-nlp.vercel.app",
       repo: "https://github.com/EdwinAntoniee/Moofy-Emotion-Aware-Movie-Recommendation",
     },
     skills: [
