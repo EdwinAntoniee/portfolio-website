@@ -16,9 +16,8 @@ export const CERTIFICATIONS: Certification[] = [
     issuer: "Taalenta",
     issuerLogoURL: "/logos/taalenta.webp",
     issueDate: "2026-05-01",
-    credentialID: "",
-    credentialURL:
-      "https://drive.google.com/file/d/18qMdLD2lnbcB2AYF6Qr-8Y-58XJmY4eh/view",
+    credentialID: "CERT-AGT5-2026-89335+",
+    credentialURL: "https://taalenta.id/cert?q=CERT-AGT5-2026-89335+",
   },
   {
     title:
