@@ -152,7 +152,7 @@ export function ProfileHeader() {
               className="h-10 w-full min-w-0 rounded-lg px-3 text-xs font-semibold shadow-xs transition-all active:scale-[0.98] sm:flex-1 sm:px-5 sm:text-sm"
             >
               <a
-                href="https://drive.google.com/file/d/10aZdCQvhw1_KWDKIamThMpxvR5nYRCua/view"
+                href="https://drive.google.com/file/d/10aZdCQvhw1_KWDKIamThMpxvR5nYRCua/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="justify-center"
