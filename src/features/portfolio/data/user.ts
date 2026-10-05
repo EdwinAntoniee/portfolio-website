@@ -41,7 +41,7 @@ export const USER: User = {
 
   avatar: "/image/profile-day.webp",
   avatarNight: "/image/profile-night.webp",
-  ogImage: "/image/og.png",
+  ogImage: "/image/og-preview.png",
   sameAs: [
     "https://edwinantonie.vercel.app",
     "https://github.com/EdwinAntoniee",
