@@ -167,7 +167,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
       {isOdd && (
         <div className="relative hidden min-h-[300px] flex-col items-center justify-center border-b border-line bg-card p-6 select-none sm:flex sm:border-l sm:border-line">
           <span className="font-handwritten text-3xl font-medium tracking-wider text-muted-foreground">
-            Still cooking
+            Coming Soon!!
           </span>
         </div>
       )}

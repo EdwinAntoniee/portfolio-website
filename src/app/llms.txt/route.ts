@@ -21,6 +21,7 @@ function buildLlmsTxt(): string {
 - [Repeat Order Prediction](${baseUrl}/projects/repeat-order-prediction): Cost-sensitive automotive retention machine learning pipeline on 319K+ records (SPARC 2026 National Finalist).
 - [En Garde](${baseUrl}/projects/en-garde): Unsupervised public procurement fraud detection with Isolation Forest and SHAP explanations (Find IT! 2026 UGM 11th Place).
 - [Robust FAS](${baseUrl}/projects/robust-fas): Two-stage biometric verification coupling MobileNetV2 presentation attack detection with ArcFace on OULU-NPU datasets.
+- [Air-Writing Hangul Recognition](${baseUrl}/projects/air-writing-hangul-recognition): End-to-end computer vision gesture recognition system classifying 64 Korean Hangul characters via MediaPipe hand tracking and HOG-SVM.
 
 ## Professional & Campus Experience
 - [Bina Nusantara University](${baseUrl}/#experience): Promotion and Event Part Time (Campus tours, presentations, event planning).
@@ -36,7 +37,7 @@ function buildLlmsTxt(): string {
 - **COMPFEST 18 AI Innovation Challenge**: Top 50 🌟 (Universitas Indonesia).
 
 ## Core Technical Stack
-- **AI & Machine Learning**: Python, PyTorch, Scikit-Learn, LightGBM, XGBoost, DistilBERT, Sentence-Transformers, ChromaDB, OpenCV, ArcFace, Ollama, SHAP.
+- **AI & Machine Learning**: Python, PyTorch, Scikit-Learn, LightGBM, XGBoost, DistilBERT, Sentence-Transformers, ChromaDB, OpenCV, MediaPipe, ArcFace, Ollama, SHAP.
 - **Web & Full-Stack**: TypeScript, React, Next.js, FastAPI, Tailwind CSS, Vite, Streamlit.
 - **Tools & DevOps**: Git, GitHub, Docker, Docker Compose, Microsoft Azure, n8n, Claude Code, Antigravity.
 

@@ -147,6 +147,26 @@ const COLLABORATION: Record<string, ProjectCollaboration> = {
       "Menyusun naskah riset akademis yang mengevaluasi performa metrik ACER pada berbagai kondisi pencahayaan ekstrem.",
     ],
   },
+  "air-writing-hangul-recognition": {
+    ownership: "Academic Group Project",
+    ownershipId: "Proyek Kelompok Akademik",
+    label: "Team",
+    team: "David Golden, Edwin Antonie, Hasan, Maximilianus Ronald, Reyhan Ricardo, Wesley Sumedha",
+    role: "Model Training, Ideation & Pipeline Supervisor",
+    roleId: "Pelatihan Model, Inisiator & Supervisor Pipeline",
+    contributions: [
+      "Originated the core idea and problem formulation for contactless air-written Hangul recognition across 64 character classes.",
+      "Led the machine learning training pipeline across SVM, KNN, and LightGBM; tuned RBF kernel parameters (C=10, gamma='scale') to achieve peak 97.40% validation accuracy.",
+      "Defined the dual-interface paradigm combining real-time spatial webcam tracking with an accessible web-based canvas fallback, and integrated production model artifacts.",
+      "Supervised teammates across data preprocessing, HOG feature extraction (1,764 dimensions), and code quality reviews.",
+    ],
+    contributionsId: [
+      "Menggagas ide utama dan formulasi masalah untuk pengenalan gestur tulisan udara Hangul pada 64 kelas karakter.",
+      "Memimpin pipeline pelatihan machine learning untuk model SVM, KNN, dan LightGBM; menala parameter kernel RBF (C=10, gamma='scale') hingga meraih akurasi validasi puncak 97.40%.",
+      "Merancang paradigma antarmuka ganda yang memadukan pelacakan webcam spasial real-time dengan fallback kanvas web interaktif, serta mengekspor artefak model produksi.",
+      "Mensupervisi alur kerja tim dalam pra-pemrosesan data, ekstraksi fitur HOG (1.764 dimensi), dan tinjauan kualitas kode.",
+    ],
+  },
 }
 
 export const PROJECTS: Project[] = [
@@ -544,6 +564,75 @@ export const PROJECTS: Project[] = [
     collaboration: COLLABORATION["robust-fas"],
     badge: "University Research",
     badgeId: "Riset Universitas",
+  },
+  {
+    id: "air-writing-hangul-recognition",
+    title:
+      "Air-Writing Hangul Recognition: Computer Vision & ML Gesture System",
+    category: "Computer Vision / Gesture Recognition",
+    categoryId: "Computer Vision / Pengenalan Gestur",
+    tagline:
+      "A contactless computer vision and machine learning system that recognizes Korean Hangul characters drawn in mid-air via fingertip tracking or sketched on a digital canvas.",
+    taglineId:
+      "Sistem computer vision dan machine learning nirsentuh yang mengenali karakter Hangul Korea yang digambar di udara via pelacakan ujung jari atau sketsa kanvas digital.",
+    seoDescription:
+      "End-to-end computer vision air-writing recognition system classifying 64 Korean Hangul characters via MediaPipe hand tracking and HOG-SVM.",
+    year: "2026",
+    image: "/projects/air-writing-hangul-recognition/cover.webp",
+    gallery: [
+      "/projects/air-writing-hangul-recognition/cover.webp",
+      "/projects/air-writing-hangul-recognition/screenshot-1.webp",
+      "/projects/air-writing-hangul-recognition/screenshot-2.webp",
+      "/projects/air-writing-hangul-recognition/screenshot-3.webp",
+    ],
+    videoEmbed: {
+      src: "https://www.youtube.com/embed/TJLkCo_UKDU",
+      title: "Air-Writing Hangul Recognition Presentation & Demo",
+    },
+    period: { start: "05.2026", end: "06.2026" },
+    link: "https://github.com/EdwinAntoniee/Air-Writing-Hangul-Recognition",
+    links: {
+      repo: "https://github.com/EdwinAntoniee/Air-Writing-Hangul-Recognition",
+    },
+    skills: [
+      "Python",
+      "OpenCV",
+      "MediaPipe",
+      "Scikit-Learn",
+      "Support Vector Machine (SVM)",
+      "LightGBM",
+      "NumPy",
+    ],
+    coverSkills: ["MediaPipe", "OpenCV", "Scikit-Learn", "SVM"],
+    features: [
+      "Real-time index fingertip writing trajectory tracking in 3D space using MediaPipe hand landmark detection at 30 FPS.",
+      "Gesture-controlled state machine: index finger writes, peace sign triggers character classification, and fist concatenates syllables.",
+      "Dual inference modes supporting live desktop OpenCV webcam air-canvas (`run.py`) and interactive browser canvas (`app.py`).",
+      "Robust stroke orientation vector extraction using 1,764-dimensional Histogram of Oriented Gradients (HOG) with Otsu thresholding.",
+      "Benchmarked three classification architectures: Support Vector Machine (97.40% acc), KNN (94.28%), and LightGBM (89.91%).",
+      "Real-time Hangul character prediction with phonetic romanization and English meaning translation.",
+    ],
+    featuresId: [
+      "Pelacakan trajektori tulisan ujung jari telunjuk secara real-time dalam ruang 3D menggunakan deteksi landmark tangan MediaPipe pada 30 FPS.",
+      "State machine terkontrol gestur: telunjuk untuk menulis, pose peace untuk inferensi karakter, dan kepalan tangan untuk merangkai suku kata.",
+      "Mode inferensi ganda: aplikasi desktop OpenCV air-canvas (`run.py`) dan kanvas peramban web interaktif (`app.py`).",
+      "Ekstraksi vektor orientasi goresan yang tangguh menggunakan Histogram of Oriented Gradients (HOG 1.764 dimensi) dengan ambang batas Otsu.",
+      "Benchmark tiga arsitektur klasifikasi: Support Vector Machine (akurasi 97.40%), KNN (94.28%), dan LightGBM (89.91%).",
+      "Prediksi karakter Hangul disertai romanisasi fonetik dan arti bahasa Inggris secara real-time.",
+    ],
+    impact: [
+      "Achieved 97.40% peak validation accuracy across 64 Korean Hangul character classes using tuned RBF Support Vector Machine.",
+      "Delivered responsive, low-latency 30 FPS contactless air-writing tracking on standard commodity laptop webcams without dedicated GPUs.",
+      "Presented live demonstration and published open-source codebase for accessible, natural language interaction.",
+    ],
+    impactId: [
+      "Meraih akurasi validasi puncak 97.40% pada 64 kelas karakter Hangul Korea menggunakan model RBF Support Vector Machine tertala.",
+      "Menghasilkan pelacakan tulisan nirsentuh yang responsif pada 30 FPS dengan webcam laptop standar tanpa GPU diskrit.",
+      "Mempresentasikan demonstrasi video langsung dan mempublikasikan repositori open-source untuk interaksi bahasa interaktif.",
+    ],
+    collaboration: COLLABORATION["air-writing-hangul-recognition"],
+    badge: "Academic Final Project",
+    badgeId: "Proyek Akhir Akademik",
   },
   {
     id: "repeat-order-prediction",
