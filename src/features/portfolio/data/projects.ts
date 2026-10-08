@@ -257,7 +257,11 @@ export const PROJECTS: Project[] = [
       "Dual-AI predictive maintenance platform powered by LightGBM telemetry triage and an on-premise Qwen2.5-7B QLoRA SOP assistant.",
     year: "2026",
     image: "/projects/maintain/cover.webp",
-    gallery: ["/projects/maintain/cover.webp", "/projects/maintain/eda.webp"],
+    gallery: [
+      "/projects/maintain/cover.webp",
+      "/projects/maintain/eda.webp",
+      "/projects/maintain/certificate.webp",
+    ],
     period: { start: "07.2026", end: "09.2026" },
     link: "https://github.com/EdwinAntoniee/Maintain-Dual-AI-Prescriptive-Maintenance",
     links: {
